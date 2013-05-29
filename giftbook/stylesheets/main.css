@@ -1,0 +1,33 @@
+/* For the top bar */
+.top-container {
+    height: 100px;
+    position: relative;
+}
+
+/* For the logo */
+.logo {
+    height:100px;
+}
+
+/* For the sign-in on the right of the top bar */
+.signin-align {
+    position: absolute;
+    bottom: 0;
+    text-align: right;
+    padding-right: 40px;
+}
+
+/* For the picture of the gift */
+.giftpic {
+    height: 350px;
+}
+
+/* Shift the text down 1cm */
+.top-pad-one {
+    margin-top: 1cm;
+}
+
+/* For image of item */
+.itemimage {
+    height: 100px
+}
