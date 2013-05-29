@@ -1,0 +1,70 @@
+<!-- Front page for logged in Giftbook user -->
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title> Giftbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
+  </head>
+  <body>
+    <div class="container-fluid"> 
+
+      <!-- Top bar --> 
+      <div class="row-fluid top-container">  
+	<div class="span5">
+	  <img class="logo" src="../images/logo.png">
+	</div>
+	<div class="span4 offset8 signin-align">
+	  <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+	</div>
+      </div>
+      <!-- End of top bar -->
+
+      <!-- Main navigation -->
+      
+
+     <div class = "navbar">
+	<div class = "navbar-inner">
+	  <ul class = "nav">
+	    <li> <a href="/">Home</a> </li>
+	  	<li> <a href="/Profile">Profile</a> </li>
+	    <li> <a href="/Search">Search Mod</a> </li>
+	    <li> <a href="/AddR">+ Review</a> </li>
+	    <li> <a href="/AddM">+ Mod</a> </li>
+	   	<li> <a href="/FAQ">FAQ</a> </li>	   
+	    <li> <a href="/AddM">Contact Us</a> </li>
+	  
+	  </ul>
+	</div> 
+      </div>  
+
+    <div class="span6">
+	  <div class="top-pad-one">
+	  	<p> Hello <strong>{{user_mail}}</strong></p>
+	    <p style="background-color:yellow;font-size:20px"><em> Welcome to the NUS Module Review Home Page</em></p>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+
+
+      <div class="row-fluid">
+	<div class="span6">
+	  	<h1 style="color:Red;background-color:Pink">Recent Activities</h1>
+	  	
+	  		<ol>
+	  			<li> You have added an review one day ago to module code NM1101E </li>
+	  			<li> You have added searched for the top 10 most viewed module two days ago</li>
+	  		</ol>
+	  	
+	  		<ul>
+	  			<li>just trying out</li>
+	  			<li>....</li>
+	  		</ul>
+	
+	</div>
+  </body>
+</html>

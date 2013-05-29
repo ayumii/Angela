@@ -1,0 +1,56 @@
+<!-- Wish list -->
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title> Giftbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
+  </head>
+  <body>
+    <div class="container-fluid"> 
+
+      <!-- Top bar --> 
+      <div class="row-fluid top-container">  
+	<div class="span5">
+	  <img class="logo" src="../images/logo.png">
+	</div>
+	<div class="span4 offset8 signin-align">
+	  <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+	</div>
+      </div>
+      <!-- End of top bar -->
+
+      <!-- Main navigation -->
+      <div class = "navbar">
+	<div class = "navbar-inner">
+	  <ul class = "nav">
+	    <li> <a href="/giftbook">Home</a> </li>
+	    <li> <a href="/wishlist">Wish List</a> </li>
+	    <li> <a href="/search">Search</a> </li>
+	  </ul>
+	</div> 
+      </div>
+
+      <h4> Wish List of {{ target_mail }} </h4>
+      <table class="table table-bordered table-striped" >
+	<thead>
+	  <tr><th width="70%">Item</th><th>Link</th><th>Date</th></tr>
+	</thead>
+	<tbody>
+	  {% for item in items %}
+	  <tr><td>{{ item.description }} </td>
+	    <td>
+	      {% if item.image_link != "" %}
+	      <a href="{{ item.item_link }}" target="_blank"><img class = "itemimage" src="{{ item.image_link }}"></a>
+	      {% endif %}
+	    </td>
+	    <td>{{ item.date.strftime('%Y-%m-%d')  }} </td>
+	  </tr>
+	  {% endfor %}
+	</tbody>
+      </table>
+    </div>
+  </body>
+</html>
