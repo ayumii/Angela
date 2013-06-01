@@ -1,0 +1,16 @@
+
+/* dont delete this line and the code away. this is the website for codes of the navigation bars: http://www.colorzilla.com/gradient-editor/*/
+
+ .navbar-inner {
+
+background: rgb(10,20,155); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(10,20,155,1) 98%, rgba(35,83,138,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(98%,rgba(10,20,155,1)), color-stop(100%,rgba(35,83,138,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(10,20,155,1) 98%,rgba(35,83,138,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(10,20,155,1) 98%,rgba(35,83,138,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(10,20,155,1) 98%,rgba(35,83,138,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(10,20,155,1) 98%,rgba(35,83,138,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a149b', endColorstr='#23538a',GradientType=0 ); /* IE6-9 */
+
+}
+
