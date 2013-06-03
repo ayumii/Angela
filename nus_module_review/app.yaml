@@ -4,6 +4,12 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
+
+# handlers:
+#- url: /.*
+#  script: helloworld.py
+# Every request to a URL whose path matches the regular expression /.* (all URLs) should be handled by the helloworld.py script.
+
 handlers:
 
 - url: /stylesheets
@@ -19,7 +25,7 @@ handlers:
 - url: /bootstrap
   static_dir: bootstrap
 
-# Handler for front page
+# Handler for front page(front.py)
 - url: /
   script: front.app
 
@@ -27,7 +33,7 @@ handlers:
 - url: /_ah/login_required
   script: login.app
 
-# All other pages require login
+# All other pages require login (giftbook.py)
 - url: /.*
   script: giftbook.app
   login: required

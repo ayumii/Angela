@@ -23,7 +23,7 @@ class MainPage(webapp2.RequestHandler):
         'logout': users.create_logout_url(self.request.host_url),
         } 
       template = jinja_environment.get_template('frontuser.html')
-      self.response.out.write(template.render(template_values))
+      self.response.out.write('Hello, '+ template.render(template_values))
     else:
       self.redirect('/')
 
@@ -37,7 +37,7 @@ class Login(webapp2.RequestHandler):
         'logout': users.create_logout_url(self.request.host_url),
         }
       template = jinja_environment.get_template('frontuser.html')
-      self.response.out.write(template.render(template_values))
+      self.response.out.write('Hello, '+template.render(template_values))
     else:
       self.redirect(users.create_login_url( federated_identity='https://openid.nus.edu.sg/'))
 
@@ -95,7 +95,7 @@ class WishList(webapp2.RequestHandler):
         } 
 
       template = jinja_environment.get_template('wishlist.html')
-      self.response.out.write(template.render(template_values))
+      self.response.out.write('Hello, '+template.render(template_values))
     else:
       self.redirect(self.request.host_url)
 
@@ -143,3 +143,4 @@ app = webapp2.WSGIApplication([('/giftbook', MainPage),
                                ('/search', Search),
                                ('/display', Display)],
                               debug=True)
+#class Mainpage is mapped to the root URL (/) 
