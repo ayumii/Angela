@@ -1,4 +1,4 @@
-<!-- Front page for Giftbook -->
+<!-- Front page for NUS Module Review -->
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
   	<style>
   	body {color:#000099;}
-  	h1 {color:#FF6600;} {font-weight: bold}
+    h3  {font-size:20px;}
+  	h2 {color:#FF6600;} {font-weight: bold}
  	</style>
   </head>
   <body>
@@ -23,7 +25,15 @@
 	  <!--change logo here later-->
 	</div>
 	<div class="span3 offset9 signin-align">
-	  <span> Login with <a href="/main"><img src="../images/google.png"></a></span>
+	  <span><form class="form-inline">
+  <input type="text" class="input-small" placeholder="Email">
+  <input type="password" class="input-small" placeholder="Password"><br>
+  <label class="checkbox">
+    <input type="checkbox"> Remember me
+  </label>
+  <button type="submit" class="btn">Sign in</button>
+</form></span>
+    <!-- Login with <a href="/main"><img src="../images/google.png"></a> -->
 		<!--change img src here-->
 	</div>
       </div>
@@ -33,7 +43,7 @@
       <div class = "navbar">
 	<div class = "navbar-inner">
 	  <ul class = "nav">
-	    <li> <a href="/">Home</a> </li>
+      <li> <a href="/"><i class="icon-home icon-white"></i> Home</a></li>
 	  </ul>
 	</div> 
       </div>
@@ -41,26 +51,68 @@
 
 	<div class="span6">
 	  <div class="top-pad-one">
-	    <h1> Need help choosing your NUS modules?</h1>
-	    	If you haven&rsquo;t, please sign up <a href="/signup">here</a><br>
+	    <h2> Need help choosing your NUS modules?</h2>
+	    	
+        <h3><i class="icon-search"></i> See reviews from other NUS students!</h3>  
+
+        <h3><i class="icon-plus-sign"></i> Share a review of your own!</h3>
+
+
+
+        <!-- If you haven&rsquo;t, please sign up <a href="/signup">here</a><br>
 	      If you have, please click on <a href="/login"> log in</a></p>
 
-	      <p>Enjoy your day! ~ </p>
+	      <p>Enjoy your day! ~ </p> -->
 	  </div>
 	</div>
 
-
+   <form>
+  <fieldset>
+    <h3>Sign Up Now!</h3>
+    <!--<label>Label name</label>-->
+    <div class="controls controls-row">
+  <input class="span2" type="text" placeholder="First Name">
+  <input class="span2" type="text" placeholder="Last Name">
+  </div>
+  <input type="text" placeholder="Email"><br>
+  <input type="text" placeholder="Password"><br>
+  <input type="text" placeholder="Re-type Password"><br>
+  <span class="help-block">This username will be shown to public</span>
+  <div class="control-group error">
+  <div class="controls">
+    <input type="text" id="inputError" placeholder="Username">
+    <span class="help-inline">This username is taken</span>
+  </div>
+</div>
+    <span class="help-block">Select Your Faculty</span>
+    <select>
+  <option>Engineering</option>
+  <option>Computing</option>
+  <option>Design and Environment</option>
+  <option>Science</option>
+  <option>Business</option>
+</select><br>
+<input type="text" placeholder="Year"><br>
+    <label class="checkbox">
+      <input type="radio" name="sex" value="Male"> Male<br>
+      <input type="radio" name="sex" value="Female"> Female<br>
+    </label>
+    <span class="help-block">By clicking Sign Up, you agree to our <a href="/signup">Terms and Condtions</a></span>
+    <button type="submit" class="btn btn-warning">Sign Up!</button><br>
+  </fieldset>
+</form>
 	
-      <FORM action="http://somesite.com/prog/adduser" method="post">
+     
+     <!-- <FORM action="http://somesite.com/prog/adduser" method="post">
     <P>
     First name: <INPUT type="text" name="firstname"><BR>
     Last name: <INPUT type="text" name="lastname"><BR>
-    email: <INPUT type="text" name="email"><BR>
+    Email: <INPUT type="text" name="email"><BR>
     <INPUT type="radio" name="sex" value="Male"> Male<BR>
     <INPUT type="radio" name="sex" value="Female"> Female<BR>
     <INPUT type="submit"> 
     </P>
- </FORM>
+ </FORM> -->
       </div>
     </div>
   </body>
