@@ -41,6 +41,7 @@ class Login(webapp2.RequestHandler):
     else:
       self.redirect(users.create_login_url( federated_identity='https://openid.nus.edu.sg/'))
 
+
 # Datastore definitions
 class Persons(db.Model):
   """Models a person identified by email"""
@@ -191,6 +192,7 @@ class Display(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([('/giftbook', MainPage),
+                               ('/Login', Login),
                                ('/profile', WishList),
                                ('/changeprofile', WishListtwo),
                                ('/createfirstprofile', WishListthree),
