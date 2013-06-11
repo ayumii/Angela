@@ -94,10 +94,37 @@ class WishList(webapp2.RequestHandler):
         'items': query,
         } 
 
-      template = jinja_environment.get_template('wishlist.html')
+      template = jinja_environment.get_template('profile.html')
       self.response.out.write('Hello, '+template.render(template_values))
     else:
       self.redirect(self.request.host_url)
+
+class WishListtwo(webapp2.RequestHandler):
+  """ Form for getting and displaying wishlist items. """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+
+      # Retrieve person
+      parent_key = db.Key.from_path('Persons', users.get_current_user().email())
+
+      query = db.GqlQuery("SELECT * "
+                          "FROM Items "
+                          "WHERE ANCESTOR IS :1 "
+                          "ORDER BY date DESC",
+                          parent_key)
+
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'items': query,
+        } 
+
+      template = jinja_environment.get_template('changeprofile.html')
+      self.response.out.write('Hello, '+template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
 
 class Search(webapp2.RequestHandler):
   """ Display search page """
@@ -126,7 +153,7 @@ class Display(webapp2.RequestHandler):
                         "WHERE ANCESTOR IS :1 "
                         "ORDER BY date DESC",
                         parent_key)
-
+      #yellow words used in html files
     template_values = {
       'user_mail': users.get_current_user().email(),
       'target_mail': target,
@@ -138,8 +165,9 @@ class Display(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([('/giftbook', MainPage),
-                               ('/wishlist', WishList),
-                               ('/addlist', AddList),
+                               ('/profile', WishList),
+                               ('/changeprofile', WishListtwo),
+                               ('/addR ', AddList),
                                ('/search', Search),
                                ('/display', Display)],
                               debug=True)

@@ -52,11 +52,39 @@
 
      <div class="row-fluid">
 	<div class="span5">
-		<form action="/changeprofile">
+		<form action="/">
 		<h1 style="text-align:left;color:#333333">Profile <button type="submit" class="btn btn-warning">Edit</button><br></h1>
 		</form>
 
-		
+		<form>
+  <fieldset>
+   
+    <div class="controls controls-row">
+ 
+  <span class="help-block">This username will be shown to public</span>
+  <div class="control-group error">
+  <div class="controls">
+    <input type="text" id="inputError" placeholder="Username">
+    <span class="help-inline">This username is taken</span>
+  </div>
+</div>
+    <span class="help-block">Select Your Faculty</span>
+    <select>
+  <option>Engineering</option>
+  <option>Computing</option>
+  <option>Design and Environment</option>
+  <option>Science</option>
+  <option>Business</option>
+</select><br>
+<input type="text" placeholder="Year"><br>
+    <label class="checkbox">
+      <input type="radio" name="sex" value="Male"> Male<br>
+      <input type="radio" name="sex" value="Female"> Female<br>
+    </label>
+    <span class="help-block">By clicking Confirm, you agree to our <a href="/signup">Terms and Condtions</a></span>
+    <button type="submit" class="btn btn-warning">Confirm</button><br>
+  </fieldset>
+</form>
 	
 
 
