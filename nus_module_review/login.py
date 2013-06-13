@@ -11,6 +11,6 @@ class LoginHandler(webapp2.RequestHandler):
       self.redirect(users.create_login_url(continue_url, None, openid_url))
     else:    
       self.redirect(users.create_login_url(continue_url, None, federated_identity='https://openid.nus.edu.sg/'))
-      
-      app = webapp2.WSGIApplication([('/_ah/login_required', LoginHandler)],
-        debug=True)
+
+app = webapp2.WSGIApplication([('/_ah/login_required', LoginHandler)],
+  debug=True)
