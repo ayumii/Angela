@@ -1,7 +1,7 @@
 <!-- Front page for logged in Giftbook user -->
 <!DOCTYPE HTML>
 <html>
-  <head>
+<head>
     <title> NUS Module Review - The Official NUS Module Review Site</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -9,140 +9,140 @@
     <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
 
-  </head>
-  <body>
+</head>
+<body>
 
     <div class="container-fluid"> 
 
       <!-- Top bar --> 
       <div class="row-fluid top-container">  
-	<div class="span5">
-	  <img class="logo" src="../images/nus.gif">
-	  <!--change logo here later-->
-	</div>
+       <div class="span5">
+         <img class="logo" src="../images/nus.gif">
+         <!--change logo here later-->
+     </div>
 
-	  <div class="span4 offset6 signin-align">
-		<span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
-	  </div>
+     <div class="span4 offset6 signin-align">
+      <span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
+  </div>
 
-	<div class="span4 offset8 signin-align">
-	  <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
-	</div>
+  <div class="span4 offset8 signin-align">
+     <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+ </div>
 
-      </div>
-      <!-- End of top bar -->
+</div>
+<!-- End of top bar -->
 
-      <!-- Main navigation -->
-     
+<!-- Main navigation -->
 
-     <div class = "navbar">
+
+<div class = "navbar">
 	<div class = "navbar-inner">
-	  <ul class = "nav">
-	    <li> <a href="/"><i class="icon-home icon-white"></i> Home</a></li>
-	  	<li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
-	    <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
-	    <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
+     <ul class = "nav">
+       <li> <a href="/"><i class="icon-home icon-white"></i> Home</a></li>
+       <li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
+       <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
+       <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
 	<!--    <li> <a href="/AddM">+ Mod</a> </li>
 	   	<li> <a href="/FAQ">FAQ</a> </li>	   
 	    <li> <a href="/AddM">Contact Us</a> </li>
-	  -->
-	  </ul>
-	</div> 
-      </div>  
+ -->
+</ul>
+</div> 
+</div>  
 
-      <div class="row-fluid">
+<div class="row-fluid">
 	<div class="span5">
 		<h1 style="text-align:center;color:#333333">Welcome Back<br><br><br><br>
 
-		{{ user_mail }}     !</h1>
+          {{ user_mail }}     !</h1>
 
-	</div>
-	  </div>
+      </div>
+  </div>
 
 
 
- 			
-	<div align="right">
-		<h4 style="color: #FF0066">Calendar of the DAY</h4>
-<table class="table-condensed table-bordered table-striped">
-    <thead>
-        <tr>
-          <th colspan="7">
-            <span class="btn-group">
-            	<a class="btn"><i class="icon-chevron-left"></i></a>
-            	<a class="btn active">February 2012</a>
-            	<a class="btn"><i class="icon-chevron-right"></i></a>
-            </span>
-          </th>
-        </tr>
-        <tr>
-            <th>Su</th>
-            <th>Mo</th>
-            <th>Tu</th>
-            <th>We</th>
-            <th>Th</th>
-            <th>Fr</th>
-            <th>Sa</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="muted">29</td>
-            <td class="muted">30</td>
-            <td class="muted">31</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>17</td>
-            <td>18</td>
-        </tr>
-        <tr>
-            <td>19</td>
-            <td class="btn-primary"><strong>20</strong></td>
-            <td>21</td>
-            <td>22</td>
-            <td>23</td>
-            <td>24</td>
-            <td>25</td>
-        </tr>
-        <tr>
-            <td>26</td>
-            <td>27</td>
-            <td>28</td>
-            <td>29</td>
-            <td class="muted">1</td>
-            <td class="muted">2</td>
-            <td class="muted">3</td>
-        </tr>
-    </tbody>
+  
+  <div align="right">
+      <h4 style="color: #FF0066">Calendar of the DAY</h4>
+      <table class="table-condensed table-bordered table-striped">
+        <thead>
+            <tr>
+              <th colspan="7">
+                <span class="btn-group">
+                   <a class="btn"><i class="icon-chevron-left"></i></a>
+                   <a class="btn active">February 2012</a>
+                   <a class="btn"><i class="icon-chevron-right"></i></a>
+               </span>
+           </th>
+       </tr>
+       <tr>
+        <th>Su</th>
+        <th>Mo</th>
+        <th>Tu</th>
+        <th>We</th>
+        <th>Th</th>
+        <th>Fr</th>
+        <th>Sa</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td class="muted">29</td>
+        <td class="muted">30</td>
+        <td class="muted">31</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td class="btn-primary"><strong>20</strong></td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+    </tr>
+    <tr>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td class="muted">1</td>
+        <td class="muted">2</td>
+        <td class="muted">3</td>
+    </tr>
+</tbody>
 </table>
 
-	</div>
-		
+</div>
 
 
 
 
 
 
-       </body>
+
+</body>
 </html>
 
 <!--    <div class="span6">
@@ -173,6 +173,6 @@
 	</div>
 -->
 
- 
+
 
 

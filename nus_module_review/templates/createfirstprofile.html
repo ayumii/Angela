@@ -1,94 +1,94 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <title> NUS Module Review - The Official NUS Module Review Site</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="../bootstrap/css/self.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
+<head>
+  <title> NUS Module Review - The Official NUS Module Review Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="../bootstrap/css/self.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
 
-  </head>
-  <body>
+</head>
+<body>
 
-    <div class="container-fluid"> 
+  <div class="container-fluid"> 
 
-      <!-- Top bar --> 
-      <div class="row-fluid top-container">  
-	<div class="span5">
-	  <img class="logo" src="../images/nus.gif">
-	  <!--change logo here later-->
-	</div>
+    <!-- Top bar --> 
+    <div class="row-fluid top-container">  
+     <div class="span5">
+       <img class="logo" src="../images/nus.gif">
+       <!--change logo here later-->
+     </div>
 
-	  <div class="span4 offset6 signin-align">
-		<span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
-	  </div>
+     <div class="span4 offset6 signin-align">
+      <span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
+    </div>
 
-	<div class="span4 offset8 signin-align">
-	  <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
-	</div>
+    <div class="span4 offset8 signin-align">
+     <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+   </div>
 
-      </div>
-      <!-- End of top bar -->
+ </div>
+ <!-- End of top bar -->
 
-      <!-- Main navigation -->
-     
+ <!-- Main navigation -->
+ 
 
-     <div class = "navbar">
-	<div class = "navbar-inner">
-	  <ul class = "nav">
-	    <li> <a href="/"><i class="icon-home icon-white"></i> Home</a></li>
-	  	<li> <a href="/Profile"><i class="icon-user icon-white"></i>Profile</a> </li>
-	    <li> <a href="/Search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
-	    <li> <a href="/AddR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
+ <div class = "navbar">
+   <div class = "navbar-inner">
+     <ul class = "nav">
+       <li> <a href="/"><i class="icon-home icon-white"></i> Home</a></li>
+       <li> <a href="/Profile"><i class="icon-user icon-white"></i>Profile</a> </li>
+       <li> <a href="/Search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
+       <li> <a href="/AddR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
 	<!--    <li> <a href="/AddM">+ Mod</a> </li>
 	   	<li> <a href="/FAQ">FAQ</a> </li>	   
 	    <li> <a href="/AddM">Contact Us</a> </li>
 	  -->
-	  </ul>
-	</div> 
-      </div>  
+ </ul>
+</div> 
+</div>  
 
 
-     <div class="row-fluid">
+<div class="row-fluid">
 	<div class="span5">
 		<form action="/">
-		<h1 style="text-align:left;color:#333333">Profile <button type="submit" class="btn btn-warning">Edit</button><br></h1>
-		</form>
+      <h1 style="text-align:left;color:#333333">Profile <button type="submit" class="btn btn-warning">Edit</button><br></h1>
+    </form>
 
-		<form>
-  <fieldset>
-   
-    <div class="controls controls-row">
- 
-  <span class="help-block">Please use your NUSnet ID</span>
-  <div class="control-group error">
-  <div class="controls">
-    <input type="text" id="inputError" placeholder="Username">
-    <span class="help-inline">This NUSnet ID will only be viewed in your profile</span>
+    <form>
+      <fieldset>
+       
+        <div class="controls controls-row">
+         
+          <span class="help-block">Please use your NUSnet ID</span>
+          <div class="control-group error">
+            <div class="controls">
+              <input type="text" id="inputError" placeholder="Username">
+              <span class="help-inline">This NUSnet ID will only be viewed in your profile</span>
+            </div>
+          </div>
+          <span class="help-block">Select Your Faculty</span>
+          <select>
+            <option>Engineering</option>
+            <option>Computing</option>
+            <option>Design and Environment</option>
+            <option>Science</option>
+            <option>Business</option>
+          </select><br>
+          <input type="text" placeholder="Year"><br>
+          <label class="checkbox">
+            <input type="radio" name="sex" value="Male"> Male<br>
+            <input type="radio" name="sex" value="Female"> Female<br>
+          </label>
+          <span class="help-block">By clicking Confirm, you agree to our <a href="/signup">Terms and Condtions</a></span>
+          <button type="submit" class="btn btn-warning">Confirm</button><br>
+        </fieldset>
+      </form>
+      
+
+    </div>
   </div>
-</div>
-    <span class="help-block">Select Your Faculty</span>
-    <select>
-  <option>Engineering</option>
-  <option>Computing</option>
-  <option>Design and Environment</option>
-  <option>Science</option>
-  <option>Business</option>
-</select><br>
-<input type="text" placeholder="Year"><br>
-    <label class="checkbox">
-      <input type="radio" name="sex" value="Male"> Male<br>
-      <input type="radio" name="sex" value="Female"> Female<br>
-    </label>
-    <span class="help-block">By clicking Confirm, you agree to our <a href="/signup">Terms and Condtions</a></span>
-    <button type="submit" class="btn btn-warning">Confirm</button><br>
-  </fieldset>
-</form>
-	
 
-	</div>
-	  </div>
-
-             </body>
+</body>
 </html>

@@ -13,31 +13,31 @@ threadsafe: true
 handlers:
 
 - url: /stylesheets
-  static_dir: stylesheets
+static_dir: stylesheets
 
 - url: /images
-  static_dir: images
+static_dir: images
 
 - url: /scripts
-  static_dir: scripts
+static_dir: scripts
 
 # Twitter Bootstrap
 - url: /bootstrap
-  static_dir: bootstrap
+static_dir: bootstrap
 
 # Handler for front page(front.py)
 - url: /
-  script: front.app
+script: front.app
 
 # Handler for login and redirection
 - url: /_ah/login_required
-  script: login.app
+script: login.app
 
 # All other pages require login (giftbook.py)
 - url: /.*
-  script: giftbook.app
-  login: required
+script: giftbook.app
+login: required
 
 libraries:
 - name: jinja2
-  version: latest
+version: latest
