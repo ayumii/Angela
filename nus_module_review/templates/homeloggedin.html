@@ -1,0 +1,136 @@
+<!-- Front page for NUS Module Review -->
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title> NUS Module Review - The Official NUS Module Review Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="../bootstrap/css/self.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
+  <style>
+  body {color:#000099;}
+  h3  {font-size:20px;}
+  h2 {color:#FF6600;} {font-weight: bold}
+  </style>
+</head>
+
+<body>
+
+
+      <div class="container-fluid"> 
+
+      <!-- Top bar --> 
+      <div class="row-fluid top-container">  
+       <div class="span5">
+         <img class="logo" src="../images/nus.gif">
+         <!--change logo here later-->
+     </div>
+
+     <div class="span4 offset6 signin-align">
+      <span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
+  </div>
+
+  <div class="span4 offset8 signin-align">
+     <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+ </div>
+
+</div>
+<!-- End of top bar -->
+
+
+<!-- <div class="container-fluid"> 
+
+    #Top Bar
+    <div class="row-fluid top-container">  
+     <div class="span5">
+       <img class="logo" src="../images/nus.gif">
+   #change logo here
+     </div>
+     <div class="span3 offset9 signin-align">
+	  <span><form class="form-inline">
+  <input type="text" class="input-small" placeholder="Email">
+  <input type="password" class="input-small" placeholder="Password"><br>
+  <label class="checkbox">
+    <input type="checkbox"> Remember me
+  </label>
+  <button type="submit" class="btn">Sign in</button>
+</form></span>
+ Login with <a href="/giftbook"><img src="../images/google.png"></a> 
+  #change img src here
+</div>
+</div>
+ 
+End of top bar -->  
+
+
+
+<!-- Main navigation -->
+<div class = "navbar">
+	<div class = "navbar-inner">
+   <ul class = "nav">
+    <li> <a href="/"><i class="icon-home icon-white"></i> Home</a></li>
+  </ul>
+</div> 
+</div>
+
+
+<div class="span6">
+ <div class="top-pad-one">
+   <h2> Need help choosing your NUS modules?</h2>
+   
+   <h3><i class="icon-search"></i> See reviews from other NUS students!</h3>  
+
+   <h3><i class="icon-plus-sign"></i> Share a review of your own!</h3>
+
+
+
+        <!-- If you haven&rsquo;t, please sign up <a href="/signup">here</a><br>
+	      If you have, please click on <a href="/login"> log in</a></p>
+
+	      <p>Enjoy your day! ~ </p> -->
+     </div>
+   </div>
+
+  <!--<div class="span6">
+    <div class="top-pad-one">
+      <h3> For first time user </h3>
+        <h4>click <a href="/createfirstprofile">here</a></h4>
+    </div>
+  </div>    
+-->
+
+<div class="span6">
+  <div class="top-pad-one">
+    <h2>For NUS Students</h2>
+    <h3><a href="/Login"><strong><u>log in</u></strong></a> with your NUSNET ID</h3>
+  </div>
+</div>
+<!-- directed to Login in the giftbook.py-->
+
+
+ <!--<form method='get' action='/_ah/login_required'>
+      Login with <br />
+      <select name='openid'>
+        <option value="NUS">NUS OpendID</option>
+        <option value="Facebook">Facebook</option>
+        <option value="Google">Google</option>
+      </select>
+      <input type='hidden' name='continue' value='/index'>
+      <input type="submit" class="btn btn-success">
+    </form> -->
+    <!--<label>Label name</label>-->  
+     <!-- <FORM action="http://somesite.com/prog/adduser" method="post">
+    <P>
+    First name: <INPUT type="text" name="firstname"><BR>
+    Last name: <INPUT type="text" name="lastname"><BR>
+    Email: <INPUT type="text" name="email"><BR>
+    <INPUT type="radio" name="sex" value="Male"> Male<BR>
+    <INPUT type="radio" name="sex" value="Female"> Female<BR>
+    <INPUT type="submit"> 
+    </P>
+  </FORM> -->
+</div>
+</div>
+</body>
+</html>
