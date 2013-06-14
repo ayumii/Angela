@@ -72,7 +72,11 @@ class Homeloggedin(webapp2.RequestHandler):
 class Persons(db.Model):
   """Models a person identified by email"""
   email = db.StringProperty()
-  
+  username = db.StringProperty()
+  faculty = db.StringProperty()
+  gender = db.StringProperty()
+  year = db.StringProperty()
+
 class Items(db.Model):
   """Models an item with item_link, image_link, description, and date."""
   item_link = db.StringProperty()
