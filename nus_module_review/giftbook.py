@@ -57,9 +57,52 @@ class Items(db.Model):
   description = db.StringProperty(multiline=True) # pressing enter will not affect the result, descrip. allows /n  
   date = db.DateTimeProperty(auto_now_add=True) # add automatically upon calling the constructor for the entity. and the date is in GMT+0
 
-      
+
+class Wishlist(webapp2.RequestHandler):
+  """ Form for getting and displaying wishlist items. """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+
+      # Retrieve person
+      parent_key = db.Key.from_path('Persons', users.get_current_user().email())
+
+      query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'items': query,
+        } 
+
+      template = jinja_environment.get_template('wishlist.html')
+      self.response.out.write(template.render(template_values))
+    
+    else:
+      self.redirect(self.request.host_url)
+
+
 class AddR(webapp2.RequestHandler):
   """ Add an item to the datastore """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+
+      # Retrieve person
+      parent_key = db.Key.from_path('Persons', users.get_current_user().email())
+
+      query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
+        'items': query,
+        } 
+
+      template = jinja_environment.get_template('addR.html')
+      self.response.out.write(template.render(template_values))
+    
+
   def post(self): #similar to pushing data
   # Retrieve person
     parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
@@ -102,6 +145,7 @@ class Cors(webapp2.RequestHandler):
     
     else:
       self.redirect(self.request.host_url)
+
       
 class Profile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
@@ -210,10 +254,11 @@ class Display(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/giftbook', MainPage),
   ('/Login', Login),
   ('/cors', Cors),
+  ('/wishlist', Wishlist),
   ('/profile', Profile),
   ('/changeprofile', ChangeProfile),
   ('/createfirstprofile', CreateFirstProfile),
-  ('/addR ', AddR),
+  ('/addR', AddR),
   ('/search', Search),
   ('/display', Display)],
   debug=True)
