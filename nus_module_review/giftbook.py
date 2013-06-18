@@ -56,8 +56,9 @@ class Items(db.Model):
   image_link = db.StringProperty()
   description = db.StringProperty(multiline=True) # pressing enter will not affect the result, descrip. allows /n  
   date = db.DateTimeProperty(auto_now_add=True) # add automatically upon calling the constructor for the entity. and the date is in GMT+0
-    
-class AddList(webapp2.RequestHandler):
+
+      
+class AddR(webapp2.RequestHandler):
   """ Add an item to the datastore """
   def post(self): #similar to pushing data
   # Retrieve person
@@ -76,9 +77,11 @@ class AddList(webapp2.RequestHandler):
     if item.image_link.rstrip() != '':
       item.put()
     self.redirect('/wishlist')
+    #note redirect to wishlist 
+
 
 class Cors(webapp2.RequestHandler):
-  """ Form for getting and displaying wishlist items. """
+  """ display cors website. """
   def get(self):
     user = users.get_current_user()
     if user:  # signed in already
@@ -100,7 +103,7 @@ class Cors(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)
       
-class WishList(webapp2.RequestHandler):
+class Profile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
   def get(self):
     user = users.get_current_user()
@@ -123,7 +126,7 @@ class WishList(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)
 
-class WishListtwo(webapp2.RequestHandler):
+class ChangeProfile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
   def get(self):
     user = users.get_current_user()
@@ -147,7 +150,7 @@ class WishListtwo(webapp2.RequestHandler):
       self.redirect(self.request.host_url)
 
 
-class WishListthree(webapp2.RequestHandler):
+class CreateFirstProfile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
   def get(self):
     user = users.get_current_user()
@@ -207,10 +210,10 @@ class Display(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/giftbook', MainPage),
   ('/Login', Login),
   ('/cors', Cors),
-  ('/profile', WishList),
-  ('/changeprofile', WishListtwo),
-  ('/createfirstprofile', WishListthree),
-  ('/addR ', AddList),
+  ('/profile', Profile),
+  ('/changeprofile', ChangeProfile),
+  ('/createfirstprofile', CreateFirstProfile),
+  ('/addR ', AddR),
   ('/search', Search),
   ('/display', Display)],
   debug=True)
