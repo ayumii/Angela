@@ -84,6 +84,27 @@ class Wishlist(webapp2.RequestHandler):
 
 class AddR(webapp2.RequestHandler):
   """ Add an item to the datastore """
+  
+
+  def post(self): #similar to pushing data
+   #Retrieve person
+    parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
+    person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
+    if person == None:
+      newPerson = Persons(key_name=users.get_current_user().email())
+      newPerson.put() #push object to store it in the database similar to vector.push_back()
+
+    item = Items(parent=parent_key) #items=constructor, parent=parent_key, item=child
+    item.item_link = self.request.get('item_url')  #note only under POST method then we can use self.request.get to retrieve info from user
+    item.image_link = self.request.get('image_url')
+    item.description = self.request.get('desc')
+
+    # Only store an item if there is an image
+    if item.image_link.rstrip() != '':
+      item.put()
+    self.redirect('/wishlist')
+    #note redirect to wishlist 
+
   def get(self):
     user = users.get_current_user()
     if user:  # signed in already
@@ -101,26 +122,7 @@ class AddR(webapp2.RequestHandler):
 
       template = jinja_environment.get_template('addR.html')
       self.response.out.write(template.render(template_values))
-    
-
-  def post(self): #similar to pushing data
-  # Retrieve person
-    parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
-    person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
-    if person == None:
-      newPerson = Persons(key_name=users.get_current_user().email())
-      newPerson.put() #push object to store it in the database similar to vector.push_back()
-
-    item = Items(parent=parent_key) #items=constructor, parent=parent_key, item=child
-    item.item_link = self.request.get('item_url')  #note only under POST method then we can use self.request.get to retrieve info from user
-    item.image_link = self.request.get('image_url')
-    item.description = self.request.get('desc')
-
-    # Only store an item if there is an image
-    if item.image_link.rstrip() != '':
-      item.put()
-    self.redirect('/wishlist')
-    #note redirect to wishlist 
+  
 
 
 class Cors(webapp2.RequestHandler):
@@ -235,7 +237,9 @@ class Display(webapp2.RequestHandler):
   """ Displays search result """
   def post(self):
 
-    target = self.request.get('email').rstrip()
+
+
+    target = users.get_current_user().email().rstrip()
     # Retrieve person
     parent_key = db.Key.from_path('Persons', target)
 

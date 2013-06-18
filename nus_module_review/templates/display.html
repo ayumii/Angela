@@ -1,39 +1,57 @@
 <!-- Wish list -->
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <title> Giftbook</title>
+<head>
+    <title> NUS Module Review - The Official NUS Module Review Site</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
-  </head>
-  <body>
+
+</head>
+<body>
+
     <div class="container-fluid"> 
 
       <!-- Top bar --> 
       <div class="row-fluid top-container">  
-	<div class="span5">
-	  <img class="logo" src="../images/logo.png">
-	</div>
-	<div class="span4 offset8 signin-align">
-	  <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
-	</div>
-      </div>
-      <!-- End of top bar -->
+       <div class="span5">
+         <img class="logo" src="../images/nus.gif">
+         <!--change logo here later-->
+     </div>
 
-      <!-- Main navigation -->
-      <div class = "navbar">
+     <div class="span4 offset6 signin-align">
+      <span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
+  </div>
+
+  <div class="span4 offset8 signin-align">
+     <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+ </div>
+
+</div>
+<!-- End of top bar -->
+
+<!-- Main navigation -->
+
+
+<div class = "navbar">
 	<div class = "navbar-inner">
-	  <ul class = "nav">
-	    <li> <a href="/giftbook">Home</a> </li>
-	    <li> <a href="/wishlist">Wish List</a> </li>
-	    <li> <a href="/search">Search</a> </li>
-	  </ul>
-	</div> 
-      </div>
+     <ul class = "nav">
+        <!--supposed to be a href=" " for home. just trying out to test for cors website. rmb to delete from giftbook.py the class called cors,and also frm its app. & delete the cors.html-->
+       <li> <a href=""><i class="icon-home icon-white"></i> Home</a></li>
+       <li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
+       <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
+       <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
+	<!--    <li> <a href="/AddM">+ Mod</a> </li>
+	   	<li> <a href="/FAQ">FAQ</a> </li>	   
+	    <li> <a href="/AddM">Contact Us</a> </li>
+ -->
+</ul>
+</div> 
+</div>  
 
-      <h4> Wish List of {{ target_mail }} </h4>
+      <h4> Reviews of {{ target_mail }} </h4>
       <table class="table table-bordered table-striped" >
 	<thead>
 	  <tr><th width="70%">Item</th><th>Link</th><th>Date</th></tr>
