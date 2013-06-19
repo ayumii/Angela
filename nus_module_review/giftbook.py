@@ -195,6 +195,28 @@ class ChangeProfile(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)
 
+  def post(self):
+    if self.request.get('user_mail') != "" :
+      person = Persons(email="self.request.get('user_mail')",
+             username="self.request.get('person_name')",
+             year="self.request.get('person_year')",
+             gender="self.request.get('person_sex')",
+             faculty="self.request.get('person_fac')")
+
+      person.put()
+      
+      #person = Persons(key_name=self.request.get('user_mail'))
+      #person.email = self.request.get('user_mail')
+      #person.username = self.request.get('person_name')
+      #person.faculty = self.request.get('person_fac')
+      #person.year = self.request.get('person_year')
+      #person.gender = self.request.get('person_sex')
+     # person.date = persons.date.replace(hour=(persons.date.hour+8)%24)
+    #if self.request.get('persons_photo') != "":
+     #stall.photo = db.Blob(open(self.request.get('stall_photo'),"rb").read())
+     # stall.photo =db.Blob(str(self.request.get('persons_photo')))    # bypass here. cannot use str.
+    #stall.put()
+    self.redirect('/giftbook')
 
 class CreateFirstProfile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """

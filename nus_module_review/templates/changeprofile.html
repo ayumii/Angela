@@ -56,7 +56,7 @@
 		<h1 style="text-align:left;color:#333333">Profile</h1>
 		</form>
 
-		<form>
+		<form action="/changeprofile" method="post">
   <fieldset>
    
     <div class="controls controls-row">
@@ -64,12 +64,12 @@
   <span class="help-block">This username will be shown to public</span>
   <div class="control-group error">
   <div class="controls">
-    <input type="text" id="inputError" placeholder="Username">
+    <input name="person_name" type="text" id="inputError" placeholder="Username">
     <span class="help-inline">This username is taken</span>
   </div>
 </div>
    
- <select name="fac_c" onchange="facultySubmit ();">
+ <select name="person_fac" onchange="facultySubmit ();">
               <option value="" selected="">Select a Faculty</option>                   
               <option value="31">ARTS &amp; SOCIAL SCIENCES</option>
               <option value="34">DENTISTRY</option>          
@@ -87,10 +87,10 @@
               <option value="3D">YONG SIEW TOH CONSERVATORY OF MUSIC</option>
             </select><br>
 
-<input type="text" placeholder="Year"><br>
+<input name="person_year" type="text" placeholder="Year"><br>
     <label class="checkbox">
-      <input type="radio" name="sex" value="Male"> Male<br>
-      <input type="radio" name="sex" value="Female"> Female<br>
+      <input type="radio" name="person_sex" value="Male"> Male<br>
+      <input type="radio" name="person_sex" value="Female"> Female<br>
     </label>
     <span class="help-block">By clicking Confirm, you agree to our <a href="/signup">Terms and Condtions</a></span>
     <button type="submit" class="btn btn-warning">Confirm</button><br>
