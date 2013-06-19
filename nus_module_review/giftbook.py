@@ -157,13 +157,18 @@ class Profile(webapp2.RequestHandler):
 
       # Retrieve person
       parent_key = db.Key.from_path('Persons', users.get_current_user().email())
-
-      query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
-
+      query2= db.get(parent_key)
+      #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+      #query = db.GqlQuery("SELECT * FROM Persons WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
       template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
-        'items': query,
+        'query2' : query2,
+        #'items': query,
+        #'person_name': query2.username,
+        #'person_year' : query2.year,
+        #'person_sex' : query2.gender,
+        #'person_fac' : query2.faculty
         } 
 
       template = jinja_environment.get_template('profile.html')
@@ -175,18 +180,20 @@ class Profile(webapp2.RequestHandler):
 class ChangeProfile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
   def get(self):
+    #everytime we launch a webpage, we need a get function
     user = users.get_current_user()
     if user:  # signed in already
 
       # Retrieve person
-      parent_key = db.Key.from_path('Persons', users.get_current_user().email())
+      #parent_key = db.Key.from_path('Persons', users.get_current_user().email())
 
-      query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
-      #ancestor is :1 means the first parameter passed is parent_key
+      #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+      #it holds a list of items whose parent 
+      #ancestor is :1 means the first parameter passed is parent_key- key to find the object
       template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url),
-        'items': query,
+        #'items': query,
         } 
 
       template = jinja_environment.get_template('changeprofile.html')
@@ -195,15 +202,48 @@ class ChangeProfile(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)
 
-  def post(self):
-    if self.request.get('user_mail') != "" :
-      person = Persons(email="self.request.get('user_mail')",
-             username="self.request.get('person_name')",
-             year="self.request.get('person_year')",
-             gender="self.request.get('person_sex')",
-             faculty="self.request.get('person_fac')")
+  def post(self): #similar to pushing data
+   #Retrieve person
+    user = users.get_current_user()
+    if user:  # signed in already
 
-      person.put()
+      # Retrieve person
+      #parent_key = db.Key.from_path('Persons', users.get_current_user().email())
+
+      #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+      #it holds a list of items whose parent 
+      #ancestor is :1 means the first parameter passed is parent_key- key to find the object
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        #'items': query,
+        } 
+    parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
+    person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
+
+    if person == None:
+      person = Persons(key_name=users.get_current_user().email())
+      person.put()  #push object to store it in the database similar to vector.push_back()
+
+    person = Persons(parent=parent_key) #items=constructor, parent=parent_key, item=child
+    person.username = self.request.get('person_name')  #note only under POST method then we can use self.request.get to retrieve info from user
+    person.year = self.request.get('person_year')
+    person.gender = self.request.get('person_sex')
+    person.faculty= self.request.get('person_fac')
+    person.put()
+
+    self.redirect('/profile')
+        
+
+  #def post(self): #similar to pushing data
+    #if self.request.get('user_mail') != "" :
+      #person = Persons(email="self.request.get('user_mail')",
+        #username="self.request.get('person_name')",
+        #year="self.request.get('person_year')",
+        #gender="self.request.get('person_sex')",
+        #faculty="self.request.get('person_fac')")
+    #-angela I space the indentation from line 201 to line 204 3 spacebar forward(DELETE THIS LINE)
+    #person.put()
       
       #person = Persons(key_name=self.request.get('user_mail'))
       #person.email = self.request.get('user_mail')
@@ -216,7 +256,7 @@ class ChangeProfile(webapp2.RequestHandler):
      #stall.photo = db.Blob(open(self.request.get('stall_photo'),"rb").read())
      # stall.photo =db.Blob(str(self.request.get('persons_photo')))    # bypass here. cannot use str.
     #stall.put()
-    self.redirect('/giftbook')
+    #self.redirect('/giftbook')
 
 class CreateFirstProfile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
