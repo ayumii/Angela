@@ -221,11 +221,12 @@ class ChangeProfile(webapp2.RequestHandler):
     parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
     person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
 
-    if person == None:
-      person = Persons(key_name=users.get_current_user().email())
-      person.put()  #push object to store it in the database similar to vector.push_back()
+    #if person == None:
+      #person = Persons(key_name=users.get_current_user().email())
+      #person.put()  #push object to store it in the database similar to vector.push_back()
 
-    person = Persons(parent=parent_key) #items=constructor, parent=parent_key, item=child
+    #person = Persons(parent=parent_key) #items=constructor, parent=parent_key, item=child
+    person = Persons(key_name=users.get_current_user().email())
     person.username = self.request.get('person_name')  #note only under POST method then we can use self.request.get to retrieve info from user
     person.year = self.request.get('person_year')
     person.gender = self.request.get('person_sex')
