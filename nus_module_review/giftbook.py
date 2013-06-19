@@ -50,6 +50,10 @@ class Persons(db.Model):
   gender = db.StringProperty()
   year = db.StringProperty()
 
+class Modules(db.Model):
+   """Models a module with its review"""
+   facname = db.StringProperty()
+
 class Items(db.Model):
   """Models an item with item_link, image_link, description, and date."""
   item_link = db.StringProperty()
@@ -294,7 +298,7 @@ class Search(webapp2.RequestHandler):
       template = jinja_environment.get_template('search.html')
       self.response.out.write(template.render(template_values))
     else:
-      self.redirect(self.request.host_url)
+      self.redirect(self.request.host_url)          
 
 class Display(webapp2.RequestHandler):
   """ Displays search result """
