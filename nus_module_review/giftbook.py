@@ -43,7 +43,13 @@ class Login(webapp2.RequestHandler):
       self.redirect(users.create_login_url(federated_identity='https://openid.nus.edu.sg/'))
 
 # Datastore definitions
-class Persons(db.Model):
+class Modules(polymodel.PolyModel):
+  """Models a module with its review"""
+  facname = db.StringProperty()
+  code = db.StringProperty()
+  text = db.TextProperty() #allows text of more than 500 characters
+
+class Persons(Modules):
   """Models a person identified by email"""
   email = db.StringProperty()
   username = db.StringProperty()
@@ -51,9 +57,7 @@ class Persons(db.Model):
   gender = db.StringProperty()
   year = db.StringProperty()
 
-class Modules(db.Model):
-   """Models a module with its review"""
-   facname = db.StringProperty()
+
 
 class Items(db.Model):
   """Models an item with item_link, image_link, description, and date."""
@@ -62,11 +66,8 @@ class Items(db.Model):
   description = db.StringProperty(multiline=True) # pressing enter will not affect the result, descrip. allows /n  
   date = db.DateTimeProperty(auto_now_add=True) # add automatically upon calling the constructor for the entity. and the date is in GMT+0
 
-#yx - testing
-class Review(polymodel.PolyModel):
-  """Models a review"""
-  text = db.TextProperty() #allows text of more than 500 characters
 
+  
 class Wishlist(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
   def get(self):
@@ -309,22 +310,35 @@ class Display(webapp2.RequestHandler):
   """ Displays search result """
   def post(self):
 
-
-
-    target = users.get_current_user().email().rstrip()
+   # target = users.get_current_user().email().rstrip()
     # Retrieve person
-    parent_key = db.Key.from_path('Persons', target)
+    #parent_key = db.Key.from_path('Persons', target)
 
-    query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+    #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
       #yellow words used in html files
     template_values = {
       'user_mail': users.get_current_user().email(),
-      'target_mail': target,
+      #'target_mail': target,
       'logout': users.create_logout_url(self.request.host_url),
-      'items': query,
+      #'items': query,
       } 
+    
+    module = Modules(key_name=self.request.get("code"))
+    module.text =  self.request.get("review")
+    module.code = self.request.get("code")
+    module.put()
+
+    parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
+    person = db.get(parent_key)
+    #person = db.GqlQuery("SELECT * FROM Persons WHERE key =:parent_key", parent_key=parent_key)
+    #person = Persons(key_name=users.get_current_user().email())
+    person.text = self.request.get("review")
+    person.code = self.request.get("code")
+    person.put()    
+
     template = jinja_environment.get_template('display.html')
     self.response.out.write(template.render(template_values))
+
 
 
 app = webapp2.WSGIApplication([('/giftbook', MainPage),
