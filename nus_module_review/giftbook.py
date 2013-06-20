@@ -43,7 +43,7 @@ class Login(webapp2.RequestHandler):
       self.redirect(users.create_login_url(federated_identity='https://openid.nus.edu.sg/'))
 
 # Datastore definitions
-class Modules(polymodel.PolyModel):
+class Modules(polymodel.PolyModel): #Subclass of Persons 
   """Models a module with its review"""
   facname = db.StringProperty()
   code = db.StringProperty()
@@ -323,18 +323,19 @@ class Display(webapp2.RequestHandler):
       #'items': query,
       } 
     
-    module = Modules(key_name=self.request.get("code"))
+    module = Modules(key_name=self.request.get("code")) #stores module in database
     module.text =  self.request.get("review")
     module.code = self.request.get("code")
     module.put()
 
     parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
-    person = db.get(parent_key)
-    #person = db.GqlQuery("SELECT * FROM Persons WHERE key =:parent_key", parent_key=parent_key)
-    #person = Persons(key_name=users.get_current_user().email())
-    person.text = self.request.get("review")
-    person.code = self.request.get("code")
+    #person = db.get(parent_key)
+    person = db.GqlQuery("SELECT * FROM Items WHERE key =:parent_key", parent_key=parent_key)
+    person = Persons(key_name=users.get_current_user().email())
+    person.text = self.request.get("review") #stores module info into Person entity 
+    person.code = self.request.get("code") 
     person.put()    
+
 
     template = jinja_environment.get_template('display.html')
     self.response.out.write(template.render(template_values))
