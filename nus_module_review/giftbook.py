@@ -43,21 +43,20 @@ class Login(webapp2.RequestHandler):
       self.redirect(users.create_login_url(federated_identity='https://openid.nus.edu.sg/'))
 
 # Datastore definitions
-class Modules(polymodel.PolyModel): #Subclass of Persons 
+class Modules(db.Model):  
   """Models a module with its review"""
   facname = db.StringProperty()
   code = db.StringProperty()
   text = db.TextProperty() #allows text of more than 500 characters
+  email = db.TextProperty()#identify user that wrote review
 
-class Persons(Modules):
+class Persons(db.Model):
   """Models a person identified by email"""
   email = db.StringProperty()
   username = db.StringProperty()
   faculty = db.StringProperty()
   gender = db.StringProperty()
   year = db.StringProperty()
-
-
 
 class Items(db.Model):
   """Models an item with item_link, image_link, description, and date."""
@@ -166,6 +165,7 @@ class Profile(webapp2.RequestHandler):
     if user:  # signed in already
 
       # Retrieve person
+
       parent_key = db.Key.from_path('Persons', users.get_current_user().email())
       query2= db.get(parent_key)
       #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
@@ -323,18 +323,19 @@ class Display(webapp2.RequestHandler):
       #'items': query,
       } 
     
-    module = Modules(key_name=self.request.get("code")) #stores module in database
+    module = Modules(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
     module.text =  self.request.get("review")
     module.code = self.request.get("code")
+    module.email = users.get_current_user().email()
     module.put()
 
-    parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
+    #parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
     #person = db.get(parent_key)
-    person = db.GqlQuery("SELECT * FROM Items WHERE key =:parent_key", parent_key=parent_key)
-    person = Persons(key_name=users.get_current_user().email())
-    person.text = self.request.get("review") #stores module info into Person entity 
-    person.code = self.request.get("code") 
-    person.put()    
+    #person = db.GqlQuery("SELECT * FROM Items WHERE key =:parent_key", parent_key=parent_key)
+    #person = Persons(key_name=users.get_current_user().email())
+    #person.text = self.request.get("review") #stores module info into Person entity 
+    #person.code = self.request.get("code") 
+    #person.put()    
 
 
     template = jinja_environment.get_template('display.html')
