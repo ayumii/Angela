@@ -61,6 +61,10 @@ class Items(db.Model):
   description = db.StringProperty(multiline=True) # pressing enter will not affect the result, descrip. allows /n  
   date = db.DateTimeProperty(auto_now_add=True) # add automatically upon calling the constructor for the entity. and the date is in GMT+0
 
+#yx - testing
+class Review(polymodel.PolyModel):
+  """Models a review"""
+  text = db.TextProperty() #allows text of more than 500 characters
 
 class Wishlist(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
