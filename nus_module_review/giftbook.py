@@ -7,6 +7,7 @@ import datetime
 
 from google.appengine.ext import db
 from google.appengine.api import users
+from google.appengine.ext.db import polymodel
 
 jinja_environment = jinja2.Environment(
   loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"))
