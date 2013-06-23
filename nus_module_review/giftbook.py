@@ -146,8 +146,8 @@ class Profile(webapp2.RequestHandler):
 
       parent_key = db.Key.from_path('Persons', users.get_current_user().email())
       query2= db.get(parent_key)
-      #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
-      #query = db.GqlQuery("SELECT * FROM Persons WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+      #query2 = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+      #query2 = db.GqlQuery("SELECT * FROM Persons WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
       template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
@@ -267,15 +267,17 @@ class Display(webapp2.RequestHandler):
 
    # target = users.get_current_user().email().rstrip()
     # Retrieve person
-    #parent_key = db.Key.from_path('Persons', target)
-
-    #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+    mail = users.get_current_user().email()
+    #parent_key = db.Key.from_path('Modules', users.get_current_user().email())
+    #query = db.get(parent_key)
+    query = db.GqlQuery("SELECT email FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
+    #query = db.GqlQuery("SELECT * FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
       #yellow words used in html files
     template_values = {
       'user_mail': users.get_current_user().email(),
       #'target_mail': target,
       'logout': users.create_logout_url(self.request.host_url),
-      #'items': query,
+      'module': query,
       } 
       
     module = Modules(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
@@ -289,7 +291,14 @@ class Display(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 
 
-   
+   #parent_key = db.Key.from_path('Persons', users.get_current_user().email())
+      #query2= db.get(parent_key)
+      #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+      #query = db.GqlQuery("SELECT * FROM Persons WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+      #template_values = {
+       # 'user_mail': users.get_current_user().email(),
+       # 'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
+       # 'query2' : query2,
 
     #parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
     #person = db.get(parent_key)

@@ -52,18 +52,30 @@
 </div>  
 
       <h4> Reviews of {{ user_mail }} </h4>
-      <table class="table table-bordered table-striped" >
+      <!--<table class="table table-bordered table-striped" >
 	<thead>
 	  <tr><th width="70%">Module Code</th><th>Review</th><th>Date</th></tr>
 	</thead>
-	<tbody>
-	  {% for module in modules %}
-	  <tr><td>{{ module.code }} </td>
+	<tbody>-->
+	 <!-- {% for module in Modules %}-->
+	  <!--<tr><td>{{ module.code }} </td>
       <td>{{module.text}}  </td>
 	    <td>{{ module.date.strftime('%Y-%m-%d')  }} </td>
-	  </tr>
-	  {% endfor %}
-	</tbody>
+	  </tr>-->
+	 <!-- {% endfor %}-->
+	<!--</tbody>
+      </table>-->
+      <table class="table table-bordered table-striped" >
+  <thead>
+    <tr><th width="70%">Module Code</th><th>Review</th><th>Date</th></tr>
+  </thead>
+  <tbody>
+    
+    <tr><td>{{ module.code }} </td>
+      <td>{{ module.text }} </td>
+      <td>{{ module.date }} </td>
+  
+  </tbody>
       </table>
     </div>
   </body>
