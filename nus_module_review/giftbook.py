@@ -48,7 +48,7 @@ class Modules(db.Model):
   facname = db.StringProperty()
   code = db.StringProperty()
   text = db.TextProperty() #allows text of more than 500 characters
-  email = db.TextProperty()#identify user that wrote review
+  email = db.StringProperty()#identify user that wrote review
   
 
 class Persons(db.Model):
@@ -259,7 +259,37 @@ class Search(webapp2.RequestHandler):
       template = jinja_environment.get_template('search.html')
       self.response.out.write(template.render(template_values))
     else:
-      self.redirect(self.request.host_url)          
+      self.redirect(self.request.host_url)     
+
+class SearchFaculty(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        } 
+      template = jinja_environment.get_template('searchfaculty.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyFass(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        } 
+      template = jinja_environment.get_template('fass.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)       
+
+
 
 class Display(webapp2.RequestHandler):
   """ Displays search result """
@@ -273,6 +303,7 @@ class Display(webapp2.RequestHandler):
     query = db.GqlQuery("SELECT email FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
     #query = db.GqlQuery("SELECT * FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
       #yellow words used in html files
+<<<<<<< HEAD
     template_values = {
       'user_mail': users.get_current_user().email(),
       #'target_mail': target,
@@ -280,12 +311,38 @@ class Display(webapp2.RequestHandler):
       'module': query,
       } 
       
+=======
+    #useremail = users.get_current_user().email() 
+    #query = db.GqlQuery(SELECT * from Modules where email in useremail)
+    #query = db.GqlQuery("SELECT * FROM Modules WHERE EMAIL IN :1", users.get_current_user().email() )
+
+>>>>>>> aee5dd6e7e126aad8ad3e87d83861f3c9c2fe253
     module = Modules(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
     module.text =  self.request.get("review")
     module.code = self.request.get("code")
     module.email = users.get_current_user().email()
     module.put()
+    #ADDR
 
+    #display html , filter out searchresult
+    query = db.GqlQuery("SELECT * FROM Modules")
+    searchstring = users.get_current_user().email()
+    searchresult = []
+    for x in query:
+      if ( searchstring is x.email ):
+        module = Modules()
+        #changes the time to GMT+8
+        module.code = x.code
+        module.text = x.text
+        searchresult.append(module)
+
+    template_values = {
+      'user_mail': users.get_current_user().email(),
+      #'target_mail': target,
+      'logout': users.create_logout_url(self.request.host_url),
+      'query': searchresult,
+    }
+    
 
     template = jinja_environment.get_template('display.html')
     self.response.out.write(template.render(template_values))
@@ -317,6 +374,8 @@ app = webapp2.WSGIApplication([('/giftbook', MainPage),
   ('/changeprofile', ChangeProfile),
   ('/addR', AddR),
   ('/search', Search),
+  ('/searchfaculty', SearchFaculty),
+  ('/fass',SearchFacultyFass),
   ('/display', Display)],
   debug=True)
 #class Mainpage is mapped to the root URL (/) 
