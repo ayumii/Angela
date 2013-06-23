@@ -59,8 +59,9 @@
 	<tbody>
 	  {% for module in query %}
 	  <tr><td>{{ module.code }} </td>
-      <td>{{module.text}}  </td>
-	    <td>{{ module.date.strftime('%Y-%m-%d')  }} </td>
+      <td>{{ module.text }}  </td>
+	    <td>{{ module.date.strftime('%Y-%m-%d') }} </td>
+      <td> </td>
 	  </tr>
 	  {% endfor %}
 	</tbody>

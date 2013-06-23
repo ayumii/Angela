@@ -48,7 +48,7 @@ class Modules(db.Model):
   facname = db.StringProperty()
   code = db.StringProperty()
   text = db.TextProperty() #allows text of more than 500 characters
-  email = db.TextProperty()#identify user that wrote review
+  email = db.StringProperty()#identify user that wrote review
   
 
 class Persons(db.Model):
@@ -301,24 +301,36 @@ class Display(webapp2.RequestHandler):
 
     #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
       #yellow words used in html files
-    #useremail = users.get_current_user.email() 
-    #query = db.GqlQuery(SELECT * FROM Modules WHERE email in useremail)
-
-    template_values = {
-      'user_mail': users.get_current_user().email(),
-      #'target_mail': target,
-      'logout': users.create_logout_url(self.request.host_url),
-      #'module' :query,
-      #'items': query,
-      } 
-
+    #useremail = users.get_current_user().email() 
+    #query = db.GqlQuery(SELECT * from Modules where email in useremail)
+    #query = db.GqlQuery("SELECT * FROM Modules WHERE EMAIL IN :1", users.get_current_user().email() )
 
     module = Modules(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
     module.text =  self.request.get("review")
     module.code = self.request.get("code")
     module.email = users.get_current_user().email()
     module.put()
+    #ADDR
 
+    #display html , filter out searchresult
+    query = db.GqlQuery("SELECT * FROM Modules")
+    searchstring = users.get_current_user().email()
+    searchresult = []
+    for x in query:
+      if ( searchstring is x.email ):
+        module = Modules()
+        #changes the time to GMT+8
+        module.code = x.code
+        module.text = x.text
+        searchresult.append(module)
+
+    template_values = {
+      'user_mail': users.get_current_user().email(),
+      #'target_mail': target,
+      'logout': users.create_logout_url(self.request.host_url),
+      'query': searchresult,
+    }
+    
 
     template = jinja_environment.get_template('display.html')
     self.response.out.write(template.render(template_values))
