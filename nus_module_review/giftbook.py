@@ -49,6 +49,7 @@ class Modules(db.Model):
   code = db.StringProperty()
   text = db.TextProperty() #allows text of more than 500 characters
   email = db.TextProperty()#identify user that wrote review
+  
 
 class Persons(db.Model):
   """Models a person identified by email"""
@@ -65,53 +66,27 @@ class Items(db.Model):
   description = db.StringProperty(multiline=True) # pressing enter will not affect the result, descrip. allows /n  
   date = db.DateTimeProperty(auto_now_add=True) # add automatically upon calling the constructor for the entity. and the date is in GMT+0
 
-
-  
-class Wishlist(webapp2.RequestHandler):
-  """ Form for getting and displaying wishlist items. """
-  def get(self):
-    user = users.get_current_user()
-    if user:  # signed in already
-
-      # Retrieve person
-      parent_key = db.Key.from_path('Persons', users.get_current_user().email())
-
-      query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
-
-      template_values = {
-        'user_mail': users.get_current_user().email(),
-        'logout': users.create_logout_url(self.request.host_url),
-        'items': query,
-        } 
-
-      template = jinja_environment.get_template('wishlist.html')
-      self.response.out.write(template.render(template_values))
-    
-    else:
-      self.redirect(self.request.host_url)
-
-
 class AddR(webapp2.RequestHandler):
   """ Add an item to the datastore """
   
 
-  def post(self): #similar to pushing data
+  #def post(self): #similar to pushing data
    #Retrieve person
-    parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
-    person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
-    if person == None:
-      newPerson = Persons(key_name=users.get_current_user().email())
-      newPerson.put() #push object to store it in the database similar to vector.push_back()
+    #parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
+    #person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
+    #if person == None:
+      #newPerson = Persons(key_name=users.get_current_user().email())
+      #newPerson.put() #push object to store it in the database similar to vector.push_back()
 
-    item = Items(parent=parent_key) #items=constructor, parent=parent_key, item=child
-    item.item_link = self.request.get('item_url')  #note only under POST method then we can use self.request.get to retrieve info from user
-    item.image_link = self.request.get('image_url')
-    item.description = self.request.get('desc')
+    #item = Items(parent=parent_key) #items=constructor, parent=parent_key, item=child
+    #item.item_link = self.request.get('item_url')  #note only under POST method then we can use self.request.get to retrieve info from user
+    #item.image_link = self.request.get('image_url')
+    #item.description = self.request.get('desc')
 
     # Only store an item if there is an image
-    if item.image_link.rstrip() != '':
-      item.put()
-    self.redirect('/wishlist')
+    #if item.image_link.rstrip() != '':
+      #item.put()
+    #self.redirect('/wishlist')
     #note redirect to wishlist 
 
   def get(self):
@@ -132,6 +107,9 @@ class AddR(webapp2.RequestHandler):
       template = jinja_environment.get_template('addR.html')
       self.response.out.write(template.render(template_values))
   
+
+
+
 
 
 class Cors(webapp2.RequestHandler):
@@ -269,29 +247,6 @@ class ChangeProfile(webapp2.RequestHandler):
     #stall.put()
     #self.redirect('/giftbook')
 
-class CreateFirstProfile(webapp2.RequestHandler):
-  """ Form for getting and displaying wishlist items. """
-  def get(self):
-    user = users.get_current_user()
-    if user:  # signed in already
-
-      # Retrieve person
-      parent_key = db.Key.from_path('Persons', users.get_current_user().email())
-
-      query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
-
-      template_values = {
-        'user_mail': users.get_current_user().email(),
-        'logout': users.create_logout_url(self.request.host_url),
-        'items': query,
-        } 
-
-      template = jinja_environment.get_template('createfirstprofile.html')
-      self.response.out.write(template.render(template_values))
-    
-    else:
-      self.redirect(self.request.host_url)
-
 class Search(webapp2.RequestHandler):
   """ Display search page """
   def get(self):
@@ -322,12 +277,19 @@ class Display(webapp2.RequestHandler):
       'logout': users.create_logout_url(self.request.host_url),
       #'items': query,
       } 
-    
+      
     module = Modules(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
     module.text =  self.request.get("review")
     module.code = self.request.get("code")
     module.email = users.get_current_user().email()
     module.put()
+
+
+    template = jinja_environment.get_template('display.html')
+    self.response.out.write(template.render(template_values))
+
+
+   
 
     #parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
     #person = db.get(parent_key)
@@ -338,18 +300,12 @@ class Display(webapp2.RequestHandler):
     #person.put()    
 
 
-    template = jinja_environment.get_template('display.html')
-    self.response.out.write(template.render(template_values))
-
-
 
 app = webapp2.WSGIApplication([('/giftbook', MainPage),
   ('/Login', Login),
   ('/cors', Cors),
-  ('/wishlist', Wishlist),
   ('/profile', Profile),
   ('/changeprofile', ChangeProfile),
-  ('/createfirstprofile', CreateFirstProfile),
   ('/addR', AddR),
   ('/search', Search),
   ('/display', Display)],
