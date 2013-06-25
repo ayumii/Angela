@@ -73,14 +73,14 @@ class AddR(webapp2.RequestHandler):
     if user:  # signed in already
 
       # Retrieve person
-      parent_key = db.Key.from_path('Persons', users.get_current_user().email())
+     #parent_key = db.Key.from_path('Persons', users.get_current_user().email())
 
-      query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
+      #query = db.GqlQuery("SELECT * FROM Items WHERE ANCESTOR IS :1 ORDER BY date DESC", parent_key)
 
       template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
-        'items': query,
+        #'items': query,
         } 
 
       template = jinja_environment.get_template('addR.html')
@@ -111,8 +111,8 @@ class viewR(webapp2.RequestHandler):
     user = users.get_current_user()
     if user:  # signed in already
 
-      useremail = users.get_current_user().email() 
-      query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
+      usercode = ModuleReviews().code
+      query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",usercode)
 
       template_values = {
         'user_mail': users.get_current_user().email(),
