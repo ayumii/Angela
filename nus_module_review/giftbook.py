@@ -104,7 +104,7 @@ class AddR(webapp2.RequestHandler):
     
     self.redirect('/display')
 
-
+#view review
 class viewR(webapp2.RequestHandler):
   """ Add an item to the datastore """
   def get(self):
