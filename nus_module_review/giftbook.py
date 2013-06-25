@@ -43,13 +43,13 @@ class Login(webapp2.RequestHandler):
       self.redirect(users.create_login_url(federated_identity='https://openid.nus.edu.sg/'))
 
 # Datastore definitions
-class Modules(db.Model):  
+class ModuleReviews(db.Model):  
   """Models a module with its review"""
   facname = db.StringProperty()
   code = db.StringProperty()
   text = db.TextProperty() #allows text of more than 500 characters
   email = db.StringProperty()#identify user that wrote review
-  
+  date = db.DateTimeProperty(auto_now_add=True)
 
 class Persons(db.Model):
   """Models a person identified by email"""
@@ -106,7 +106,27 @@ class AddR(webapp2.RequestHandler):
 
       template = jinja_environment.get_template('addR.html')
       self.response.out.write(template.render(template_values))
-  
+
+  def post(self):
+
+   # target = users.get_current_user().email().rstrip()
+    # Retrieve person
+    #mail = users.get_current_user().email()
+    #parent_key = db.Key.from_path('Modules', users.get_current_user().email())
+    #query = db.get(parent_key)
+    
+    #query = db.GqlQuery("SELECT * FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
+      #yellow words used in html files
+
+
+
+    module = ModuleReviews(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
+    module.text =  self.request.get("review")
+    module.code = self.request.get("code")
+    module.email = users.get_current_user().email()
+    module.put()
+    
+    self.redirect('/display')
 
 
 
@@ -293,59 +313,71 @@ class SearchFacultyFass(webapp2.RequestHandler):
 
 class Display(webapp2.RequestHandler):
   """ Displays search result """
-  def post(self):
+  def get(self):
 
-   # target = users.get_current_user().email().rstrip()
-    # Retrieve person
-    mail = users.get_current_user().email()
-    #parent_key = db.Key.from_path('Modules', users.get_current_user().email())
-    #query = db.get(parent_key)
-    query = db.GqlQuery("SELECT email FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
-    #query = db.GqlQuery("SELECT * FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
-      #yellow words used in html files
-<<<<<<< HEAD
-    template_values = {
-      'user_mail': users.get_current_user().email(),
-      #'target_mail': target,
-      'logout': users.create_logout_url(self.request.host_url),
-      'module': query,
-      } 
-      
-=======
-    #useremail = users.get_current_user().email() 
-    #query = db.GqlQuery(SELECT * from Modules where email in useremail)
-    #query = db.GqlQuery("SELECT * FROM Modules WHERE EMAIL IN :1", users.get_current_user().email() )
+    
 
->>>>>>> aee5dd6e7e126aad8ad3e87d83861f3c9c2fe253
-    module = Modules(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
-    module.text =  self.request.get("review")
-    module.code = self.request.get("code")
-    module.email = users.get_current_user().email()
-    module.put()
-    #ADDR
-
-    #display html , filter out searchresult
-    query = db.GqlQuery("SELECT * FROM Modules")
-    searchstring = users.get_current_user().email()
-    searchresult = []
-    for x in query:
-      if ( searchstring is x.email ):
-        module = Modules()
-        #changes the time to GMT+8
-        module.code = x.code
-        module.text = x.text
-        searchresult.append(module)
+    useremail = users.get_current_user().email() 
+    query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
+    
 
     template_values = {
       'user_mail': users.get_current_user().email(),
       #'target_mail': target,
       'logout': users.create_logout_url(self.request.host_url),
-      'query': searchresult,
+      'query': query
     }
     
 
     template = jinja_environment.get_template('display.html')
     self.response.out.write(template.render(template_values))
+
+  #def post(self):
+
+   # target = users.get_current_user().email().rstrip()
+    # Retrieve person
+    #mail = users.get_current_user().email()
+    #parent_key = db.Key.from_path('Modules', users.get_current_user().email())
+    #query = db.get(parent_key)
+    
+    #query = db.GqlQuery("SELECT * FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
+      #yellow words used in html files
+
+
+
+    #module = Modules(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
+    #module.text =  self.request.get("review")
+    #module.code = self.request.get("code")
+    #module.email = users.get_current_user().email()
+    #module.put()
+    #ADDR
+
+    #useremail = users.get_current_user().email() 
+    #query = db.GqlQuery("SELECT * from Modules where email = :1", useremail )
+    #query = db.GqlQuery("SELECT * FROM Modules WHERE EMAIL IN :1", users.get_current_user().email() )
+
+    #display html , filter out searchresult
+    #query = db.GqlQuery("SELECT * FROM Modules")
+    #searchstring = users.get_current_user().email()
+    #searchresult = []
+    #for x in query:
+      #if ( x.email is searchstring ):
+        #module = Modules()
+        #changes the time to GMT+8
+        #module.code = x.code
+        #module.text = x.text
+        #searchresult.append(module)
+
+    #template_values = {
+      #'user_mail': users.get_current_user().email(),
+      #'target_mail': target,
+      #'logout': users.create_logout_url(self.request.host_url),
+      #'query': query
+    #}
+    
+
+    #template = jinja_environment.get_template('display.html')
+    #self.response.out.write(template.render(template_values))
 
 
    #parent_key = db.Key.from_path('Persons', users.get_current_user().email())
