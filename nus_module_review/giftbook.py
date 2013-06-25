@@ -111,17 +111,26 @@ class viewR(webapp2.RequestHandler):
     user = users.get_current_user()
     if user:  # signed in already
 
-      usercode = ModuleReviews().code
-      query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",usercode)
+      
+      #query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",usercode)
 
       template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
-        'items': query,
         } 
 
       template = jinja_environment.get_template('viewR.html')
       self.response.out.write(template.render(template_values))
+
+  def post(self):
+
+    module = ModuleReviews()
+    module.text =  self.request.get("review")
+    module.code = self.request.get("code")
+    module.email = users.get_current_user().email()
+   
+
+    self.redirect('/displayReview')
 
 
 class Cors(webapp2.RequestHandler):
@@ -301,7 +310,26 @@ class SearchFacultyFass(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)       
 
+class DisplayReview(webapp2.RequestHandler):
+  """ Displays reviews of a particular module"""
+  def get(self):
 
+    query = db.GqlQuery("SELECT * from ModuleReviews")
+  
+    searchcode= db.GqlQuery("SELECT * from ModuleReviews where code = :1")
+
+    template_values = {
+      'user_mail': users.get_current_user().email(),
+      #'target_mail': target,
+      'logout': users.create_logout_url(self.request.host_url),
+
+      'query': query,
+      'searchcode': searchcode
+    }
+    
+
+    template = jinja_environment.get_template('displayReview.html')
+    self.response.out.write(template.render(template_values))
 
 class Display(webapp2.RequestHandler):
   """ Displays search result """
@@ -401,6 +429,7 @@ app = webapp2.WSGIApplication([('/giftbook', MainPage),
   ('/search', Search),
   ('/searchfaculty', SearchFaculty),
   ('/fass',SearchFacultyFass),
+  ('/displayReview' , DisplayReview),
   ('/display', Display)],
   debug=True)
 #class Mainpage is mapped to the root URL (/) 
