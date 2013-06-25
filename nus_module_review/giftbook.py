@@ -68,27 +68,6 @@ class Items(db.Model):
 
 class AddR(webapp2.RequestHandler):
   """ Add an item to the datastore """
-  
-
-  #def post(self): #similar to pushing data
-   #Retrieve person
-    #parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
-    #person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
-    #if person == None:
-      #newPerson = Persons(key_name=users.get_current_user().email())
-      #newPerson.put() #push object to store it in the database similar to vector.push_back()
-
-    #item = Items(parent=parent_key) #items=constructor, parent=parent_key, item=child
-    #item.item_link = self.request.get('item_url')  #note only under POST method then we can use self.request.get to retrieve info from user
-    #item.image_link = self.request.get('image_url')
-    #item.description = self.request.get('desc')
-
-    # Only store an item if there is an image
-    #if item.image_link.rstrip() != '':
-      #item.put()
-    #self.redirect('/wishlist')
-    #note redirect to wishlist 
-
   def get(self):
     user = users.get_current_user()
     if user:  # signed in already
@@ -117,9 +96,6 @@ class AddR(webapp2.RequestHandler):
     
     #query = db.GqlQuery("SELECT * FROM Modules WHERE email =:mail ORDER BY date DESC", mail=mail)
       #yellow words used in html files
-
-
-
     module = ModuleReviews(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
     module.text =  self.request.get("review")
     module.code = self.request.get("code")
@@ -129,7 +105,23 @@ class AddR(webapp2.RequestHandler):
     self.redirect('/display')
 
 
+class viewR(webapp2.RequestHandler):
+  """ Add an item to the datastore """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
 
+      useremail = users.get_current_user().email() 
+      query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
+
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
+        'items': query,
+        } 
+
+      template = jinja_environment.get_template('viewR.html')
+      self.response.out.write(template.render(template_values))
 
 
 class Cors(webapp2.RequestHandler):
@@ -405,6 +397,7 @@ app = webapp2.WSGIApplication([('/giftbook', MainPage),
   ('/profile', Profile),
   ('/changeprofile', ChangeProfile),
   ('/addR', AddR),
+  ('/viewR',viewR),
   ('/search', Search),
   ('/searchfaculty', SearchFaculty),
   ('/fass',SearchFacultyFass),
