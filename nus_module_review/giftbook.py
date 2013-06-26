@@ -58,7 +58,6 @@ class Persons(db.Model):
   faculty = db.StringProperty()
   gender = db.StringProperty()
   year = db.StringProperty()
-  search = db.StringProperty()
 
 class Items(db.Model):
   """Models an item with item_link, image_link, description, and date."""
@@ -108,14 +107,11 @@ class AddR(webapp2.RequestHandler):
 #view review
 class viewR(webapp2.RequestHandler):
   """ Add an item to the datastore """
-  def get(self):
+  def post(self):
     user = users.get_current_user()
     if user:  # signed in already
- 
-       parent_key = db.Key.from_path('Persons', users.get_current_user().email()) 
-       person = db.get(parent_key) 
-       person = Persons(key_name=users.get_current_user().email())
-       searchcode = person.search
+
+       searchcode = self.request.get('code')
        query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",searchcode)
 
     template_values = {
@@ -123,7 +119,7 @@ class viewR(webapp2.RequestHandler):
         'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
         'query': query     
         } 
-
+    
     template = jinja_environment.get_template('viewR.html')
     self.response.out.write(template.render(template_values))
 
@@ -300,26 +296,6 @@ class SearchFacultyFass(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
     else:
       self.redirect(self.request.host_url)
-
-  def post(self):
-    
-    parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
-    person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
-
-    person = Persons(key_name=users.get_current_user().email())
-    person.search = self.request.get("code")
-    person.put() 
-    #query = db.GqlQuery("SELECT * FROM Persons WHERE Key =:1", parent_key)
-
-    #useremail = users.get_current_user().email() 
-    #query = db.GqlQuery("SELECT * from Persons where email = :1", useremail )
-     
-    #query.search = self.request.get("code")
-    #query.put()
-    
-    #template = jinja_environment.get_template('viewR.html')
-    #self.response.out.write(template.render(template_values))
-    self.redirect('/viewR')
 
 class DisplayReview(webapp2.RequestHandler):
   """ Displays reviews of a particular module"""
