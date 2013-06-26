@@ -58,6 +58,7 @@ class Persons(db.Model):
   faculty = db.StringProperty()
   gender = db.StringProperty()
   year = db.StringProperty()
+  image = db.StringProperty()
 
 class Items(db.Model):
   """Models an item with item_link, image_link, description, and date."""
@@ -229,7 +230,8 @@ class ChangeProfile(webapp2.RequestHandler):
     person.username = self.request.get('person_name')  #note only under POST method then we can use self.request.get to retrieve info from user
     person.year = self.request.get('person_year')
     person.gender = self.request.get('person_sex')
-    person.faculty= self.request.get('person_fac')
+    person.faculty = self.request.get('person_fac')
+    person.image = self.request.get('person_image')
     person.put()
 
     self.redirect('/profile')
