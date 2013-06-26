@@ -104,34 +104,24 @@ class AddR(webapp2.RequestHandler):
     
     self.redirect('/display')
 
-#view review
+
 class viewR(webapp2.RequestHandler):
-  """ Add an item to the datastore """
-  def get(self):
+  """ View reviews of module that user search for """
+  def post(self):
     user = users.get_current_user()
     if user:  # signed in already
 
-      
-      #query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",usercode)
+       searchcode = self.request.get('code')
+       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",searchcode)
 
-      template_values = {
+    template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
+        'query': query     
         } 
-
-      #template = jinja_environment.get_template('viewR.html')
-      #self.response.out.write(template.render(template_values))
-
-  def post(self):
-
-    module = ModuleReviews(code=self.request.get("code"))
-    module.text =  self.request.get("review")
-    module.code = self.request.get("code")
-    module.email = users.get_current_user().email()
-   
-
-    self.redirect('/displayReview')
-
+    
+    template = jinja_environment.get_template('viewR.html')
+    self.response.out.write(template.render(template_values))
 
 class Cors(webapp2.RequestHandler):
   """ display cors website. """
@@ -255,12 +245,7 @@ class ChangeProfile(webapp2.RequestHandler):
     #-angela I space the indentation from line 201 to line 204 3 spacebar forward(DELETE THIS LINE)
     #person.put()
       
-      #person = Persons(key_name=self.request.get('user_mail'))
-      #person.email = self.request.get('user_mail')
-      #person.username = self.request.get('person_name')
-      #person.faculty = self.request.get('person_fac')
-      #person.year = self.request.get('person_year')
-      #person.gender = self.request.get('person_sex')
+
      # person.date = persons.date.replace(hour=(persons.date.hour+8)%24)
     #if self.request.get('persons_photo') != "":
      #stall.photo = db.Blob(open(self.request.get('stall_photo'),"rb").read())
@@ -281,6 +266,8 @@ class Search(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
     else:
       self.redirect(self.request.host_url)     
+
+
 
 class SearchFaculty(webapp2.RequestHandler):
   """ Display search page """
@@ -308,33 +295,11 @@ class SearchFacultyFass(webapp2.RequestHandler):
       template = jinja_environment.get_template('fass.html')
       self.response.out.write(template.render(template_values))
     else:
-      self.redirect(self.request.host_url)       
-
-class DisplayReview(webapp2.RequestHandler):
-  """ Displays reviews of a particular module"""
-  def get(self):
-
-    query = db.GqlQuery("SELECT * from ModuleReviews")
-    #usercode =  ModuleReviews(code=self.request.get("code"))
-    #searchcode= db.GqlQuery("SELECT * from ModuleReviews where code = :1" , usercode)
-
-    template_values = {
-      'user_mail': users.get_current_user().email(),
-      #'target_mail': target,
-      'logout': users.create_logout_url(self.request.host_url),
-
-      'query': query,
-     # 'searchcode': searchcode
-    }
-   
-    template = jinja_environment.get_template('displayReview.html')
-    self.response.out.write(template.render(template_values))
+      self.redirect(self.request.host_url)
 
 class Display(webapp2.RequestHandler):
-  """ Displays search result """
+  """ Displays reviews user has written """
   def get(self):
-
-    
 
     useremail = users.get_current_user().email() 
     query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
@@ -428,7 +393,6 @@ app = webapp2.WSGIApplication([('/giftbook', MainPage),
   ('/search', Search),
   ('/searchfaculty', SearchFaculty),
   ('/fass',SearchFacultyFass),
-  ('/displayReview' , DisplayReview),
   ('/display', Display)],
   debug=True)
 #class Mainpage is mapped to the root URL (/) 
