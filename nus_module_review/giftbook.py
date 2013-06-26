@@ -58,6 +58,7 @@ class Persons(db.Model):
   faculty = db.StringProperty()
   gender = db.StringProperty()
   year = db.StringProperty()
+  search = db.StringProperty()
 
 class Items(db.Model):
   """Models an item with item_link, image_link, description, and date."""
@@ -110,28 +111,21 @@ class viewR(webapp2.RequestHandler):
   def get(self):
     user = users.get_current_user()
     if user:  # signed in already
+ 
+       parent_key = db.Key.from_path('Persons', users.get_current_user().email()) 
+       person = db.get(parent_key) 
+       person = Persons(key_name=users.get_current_user().email())
+       searchcode = person.search
+       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",searchcode)
 
-      
-      #query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",usercode)
-
-      template_values = {
+    template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
+        'query': query     
         } 
 
-      template = jinja_environment.get_template('viewR.html')
-      self.response.out.write(template.render(template_values))
-
-  def post(self):
-
-    module = ModuleReviews()
-    module.text =  self.request.get("review")
-    module.code = self.request.get("code")
-    module.email = users.get_current_user().email()
-   
-
-    self.redirect('/displayReview')
-
+    template = jinja_environment.get_template('viewR.html')
+    self.response.out.write(template.render(template_values))
 
 class Cors(webapp2.RequestHandler):
   """ display cors website. """
@@ -255,12 +249,7 @@ class ChangeProfile(webapp2.RequestHandler):
     #-angela I space the indentation from line 201 to line 204 3 spacebar forward(DELETE THIS LINE)
     #person.put()
       
-      #person = Persons(key_name=self.request.get('user_mail'))
-      #person.email = self.request.get('user_mail')
-      #person.username = self.request.get('person_name')
-      #person.faculty = self.request.get('person_fac')
-      #person.year = self.request.get('person_year')
-      #person.gender = self.request.get('person_sex')
+
      # person.date = persons.date.replace(hour=(persons.date.hour+8)%24)
     #if self.request.get('persons_photo') != "":
      #stall.photo = db.Blob(open(self.request.get('stall_photo'),"rb").read())
@@ -281,6 +270,8 @@ class Search(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
     else:
       self.redirect(self.request.host_url)     
+
+
 
 class SearchFaculty(webapp2.RequestHandler):
   """ Display search page """
@@ -308,23 +299,42 @@ class SearchFacultyFass(webapp2.RequestHandler):
       template = jinja_environment.get_template('fass.html')
       self.response.out.write(template.render(template_values))
     else:
-      self.redirect(self.request.host_url)       
+      self.redirect(self.request.host_url)
+
+  def post(self):
+    
+    parent_key = db.Key.from_path('Persons', users.get_current_user().email()) #person -class represented as a string
+    person = db.get(parent_key) #it will return the person object that is associated with the key called parent_key
+
+    person = Persons(key_name=users.get_current_user().email())
+    person.search = self.request.get("code")
+    person.put() 
+    #query = db.GqlQuery("SELECT * FROM Persons WHERE Key =:1", parent_key)
+
+    #useremail = users.get_current_user().email() 
+    #query = db.GqlQuery("SELECT * from Persons where email = :1", useremail )
+     
+    #query.search = self.request.get("code")
+    #query.put()
+    
+    #template = jinja_environment.get_template('viewR.html')
+    #self.response.out.write(template.render(template_values))
+    self.redirect('/viewR')
 
 class DisplayReview(webapp2.RequestHandler):
   """ Displays reviews of a particular module"""
-  def get(self):
 
-    query = db.GqlQuery("SELECT * from ModuleReviews")
-  
-    searchcode= db.GqlQuery("SELECT * from ModuleReviews where code = :1")
+  def get(self):
+    
+    #searchcode= db.GqlQuery("SELECT * from ModuleReviews where code = :1",)
 
     template_values = {
       'user_mail': users.get_current_user().email(),
       #'target_mail': target,
       'logout': users.create_logout_url(self.request.host_url),
 
-      'query': query,
-      'searchcode': searchcode
+      'module': query,
+      #'searchcode': searchcode
     }
     
 
@@ -332,10 +342,8 @@ class DisplayReview(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 
 class Display(webapp2.RequestHandler):
-  """ Displays search result """
+  """ Displays reviews user has written """
   def get(self):
-
-    
 
     useremail = users.get_current_user().email() 
     query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )

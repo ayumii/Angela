@@ -48,11 +48,21 @@
 	  </ul>
 	</div> 
       </div>  
-
-
-
-
-
-
-             </body>
+         <table class="table table-bordered table-striped" >
+  <thead>
+    <tr><th width="70%">Module Code</th><th>Review</th><th>Date&amp;Time</th></tr>
+  </thead>
+   <tbody>
+    {% for module in query %}
+    <tr>
+      <td>{{ module.code }} </td>
+      <td>{{ module.text }}  </td>
+      <td>{{ module.date.strftime('%Y-%m-%d %H:%M:%S') }} </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+    
+     </table>
+    <div>
+  </body>
 </html>
