@@ -119,12 +119,12 @@ class viewR(webapp2.RequestHandler):
         'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
         } 
 
-      template = jinja_environment.get_template('viewR.html')
-      self.response.out.write(template.render(template_values))
+      #template = jinja_environment.get_template('viewR.html')
+      #self.response.out.write(template.render(template_values))
 
   def post(self):
 
-    module = ModuleReviews()
+    module = ModuleReviews(code=self.request.get("code"))
     module.text =  self.request.get("review")
     module.code = self.request.get("code")
     module.email = users.get_current_user().email()
@@ -315,8 +315,8 @@ class DisplayReview(webapp2.RequestHandler):
   def get(self):
 
     query = db.GqlQuery("SELECT * from ModuleReviews")
-  
-    searchcode= db.GqlQuery("SELECT * from ModuleReviews where code = :1")
+    #usercode =  ModuleReviews(code=self.request.get("code"))
+    #searchcode= db.GqlQuery("SELECT * from ModuleReviews where code = :1" , usercode)
 
     template_values = {
       'user_mail': users.get_current_user().email(),
@@ -324,10 +324,9 @@ class DisplayReview(webapp2.RequestHandler):
       'logout': users.create_logout_url(self.request.host_url),
 
       'query': query,
-      'searchcode': searchcode
+     # 'searchcode': searchcode
     }
-    
-
+   
     template = jinja_environment.get_template('displayReview.html')
     self.response.out.write(template.render(template_values))
 
