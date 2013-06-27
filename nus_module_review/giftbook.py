@@ -50,6 +50,10 @@ class ModuleReviews(db.Model):
   text = db.TextProperty() #allows text of more than 500 characters
   email = db.StringProperty()#identify user that wrote review
   date = db.DateTimeProperty(auto_now_add=True)
+  
+class CountReviews(db.Model):
+  code = db.StringProperty()
+  count = db.IntegerProperty()
 
 class Persons(db.Model):
   """Models a person identified by email"""
@@ -103,6 +107,12 @@ class AddR(webapp2.RequestHandler):
     module.email = users.get_current_user().email()
     module.put()
     
+    #searchcode = self.request.get("code")
+    #count = CountReviews(key_name=self.request.get("code"))
+    #query = db.GqlQuery("SELECT * FROM ModuleReviews WHERE code =:1 ",searchcode)
+    #count.code = searchcode
+    #count.count = query.count() 
+    #count.put()
     self.redirect('/display')
 
 
@@ -114,11 +124,17 @@ class viewR(webapp2.RequestHandler):
 
        searchcode = self.request.get('code')
        query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",searchcode)
+       count = CountReviews(key_name=self.request.get("code"))
+       count.code = searchcode
+       count.count = query.count() 
+       count.put()
+       query2 = db.GqlQuery("SELECT * FROM CountReviews WHERE code =:1 ",searchcode)
 
     template_values = {
-        'user_mail': users.get_current_user().email(),
-        'logout': users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
-        'query': query     
+        'user_mail' : users.get_current_user().email(),
+        'logout' : users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
+        'query' : query  
+        #'aquery' : query2
         } 
     
     template = jinja_environment.get_template('viewR.html')
@@ -305,7 +321,6 @@ class Display(webapp2.RequestHandler):
 
     useremail = users.get_current_user().email() 
     query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
-    
 
     template_values = {
       'user_mail': users.get_current_user().email(),

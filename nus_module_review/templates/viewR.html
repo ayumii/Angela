@@ -50,20 +50,23 @@
       </div>  
          <table class="table table-bordered table-striped" >
   <thead>
-    <tr><th width="70%">User</th><th>Module Code</th><th>Review</th><th>Date&amp;Time</th></tr>
+    <tr><th width="70%">User</th><th>Module Code</th><th>Review</th><th>Date&amp;Time</th><th>No of Reviews</th></tr>
   </thead>
    <tbody>
+   
     {% for module in query %}
     <tr>
       <td>{{ module.email }} </td>
       <td>{{ module.code }} </td>
       <td>{{ module.text }}  </td>
       <td>{{ module.date.strftime('%Y-%m-%d %H:%M:%S') }} </td>
-    </tr>
     {% endfor %}
+     </tr>
+  
   </tbody>
     
      </table>
     <div>
   </body>
 </html>
+        
