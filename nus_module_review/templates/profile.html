@@ -3,6 +3,7 @@
 <head>
 	<title> NUS Module Review - The Official NUS Module Review Site</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="../images/favicon.ico">
 	<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
 	<link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="../bootstrap/css/self.css" rel="stylesheet">
@@ -61,19 +62,16 @@
 	  <tr><th width="70%">Name</th><th>Year</th><th>Gender</th><th>Faculty</th></tr>
 	</thead>
 	<tbody>
-	  
-	  <tr><td>{{ query2.username }} {{ query2.image }}</td>
+	   
+	  <tr><td>{{ query2.username }} </td>
 	    <td>{{ query2.year}} </td>
 	    <td>{{ query2.gender}} </td>
 	    <td>{{ query2.faculty}}	</td>
+       <!-- <td><img class = "itemimage" img src="/http://localhost:8000/datastore?kind=Persons/{{ query2.image }}"></td>-->
+		<!-- <img class= "itemimage"> -->	
 
-	</tbody>  <!-- photo upload<img class = "itemimage">-->
+	</tbody>
       </table>
-		
-	
-
-
-
 
 
 	</div>
