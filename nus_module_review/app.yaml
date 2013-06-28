@@ -33,9 +33,9 @@ handlers:
 - url: /_ah/login_required
   script: login.app
 
-# All other pages require login (giftbook.py)
+# All other pages require login (main.py)
 - url: /.*
-  script: giftbook.app
+  script: main.app
   login: required
 
 
