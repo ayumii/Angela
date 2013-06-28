@@ -1,4 +1,4 @@
-<!-- Wish list -->
+<!-- Front page for logged in NUS Module Review User -->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -18,6 +18,7 @@
       <div class="row-fluid top-container">  
        <div class="span5">
          <img class="logo" src="../images/nus.gif">
+        
      </div>
 
      <div class="span4 offset6 signin-align">
@@ -38,7 +39,7 @@
 	<div class = "navbar-inner">
      <ul class = "nav">
         <!--supposed to be a href=" " for home. just trying out to test for cors website. rmb to delete from giftbook.py the class called cors,and also frm its app. & delete the cors.html-->
-       <li> <a href=""><i class="icon-home icon-white"></i> Home</a></li>
+       <li> <a href="/Login"><i class="icon-home icon-white"></i> Home</a></li>
        <li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
        <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
        <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
@@ -50,23 +51,14 @@
 </div> 
 </div>  
 
-      <h4> Reviews of {{ user_mail }} </h4>
- 
-      <table class="table table-bordered table-striped" >
-  <thead>
-    <tr><th width="70%">Module Code</th><th>Review</th><th>Date&amp;Time</th></tr>
-  </thead>
-	 <tbody>
-	  {% for module in query %}
-	  <tr>
-      <td>{{ module.code }} </td>
-      <td>{{ module.text }}  </td>
-	    <td>{{ module.date.strftime('%Y-%m-%d %H:%M:%S') }} </td>
-	  </tr>
-	  {% endfor %}
-	</tbody>
+<div class="row-fluid">
+	<div class="span5">
+		<h1 style="text-align:center;color:#990000"> <br><br>Sorry We are under construction right now! It will be done by the next sprint!</h1>
 
-      </table>
-    </div>
-  </body>
-</html>
+      </div>
+  </div>
+
+
+
+  
+  
