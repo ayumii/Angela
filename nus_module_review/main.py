@@ -47,6 +47,9 @@ class ModuleReviews(db.Model):
   """Models a module with all its attributes including its reviews"""
   facname = db.StringProperty()
   code = db.StringProperty()
+  ratings = db.StringProperty()
+  workload = db.StringProperty()
+  diff = db.StringProperty()
   text = db.TextProperty() #allows text of more than 500 characters
   email = db.StringProperty()#identify user that wrote review
   date = db.DateTimeProperty(auto_now_add=True)
@@ -83,6 +86,9 @@ class AddR(webapp2.RequestHandler):
     module = ModuleReviews(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
     module.text =  self.request.get("review")
     module.code = self.request.get("code")
+    module.ratings = self.request.get("ratings")
+    module.workload = self.request.get("workload")
+    module.diff = self.request.get("diff")
     module.email = users.get_current_user().email()
     module.put()
     
@@ -104,6 +110,9 @@ class viewR(webapp2.RequestHandler):
        searchcode = self.request.get('code')
        query = db.GqlQuery("SELECT * from ModuleReviews where code =:1", searchcode).get()
        query2 = db.GqlQuery("SELECT * from Persons where email =:1", query.email)
+       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",searchcode)
+       
+       
        #count = CountReviews(key_name=self.request.get("code"))
        #count.code = searchcode
        #count.count = query.count() 
