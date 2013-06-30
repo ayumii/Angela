@@ -55,12 +55,15 @@
  
       <table class="table table-bordered table-striped" >
   <thead>
-    <tr><th width="70%">Module Code</th><th>Review</th><th>Date&amp;Time</th></tr>
+    <tr><th width="70%">Module Code</th><th>Ratings (Out of 5)</th><th>Workload</th><th>Level of Difficulty</th><th>Review</th><th>Date&amp;Time</th></tr>
   </thead>
 	 <tbody>
 	  {% for module in query %}
 	  <tr>
       <td>{{ module.code }} </td>
+      <td>{{ module.ratings }} </td>
+      <td>{{ module.workload }} </td>
+      <td>{{ module.diff }} </td>
       <td>{{ module.text }}  </td>
 	    <td>{{ module.date.strftime('%Y-%m-%d %H:%M:%S') }} </td>
 	  </tr>
