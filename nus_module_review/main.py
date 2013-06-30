@@ -102,7 +102,8 @@ class viewR(webapp2.RequestHandler):
     if user:  # signed in already
 
        searchcode = self.request.get('code')
-       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1",searchcode)
+       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1", searchcode).get()
+       query2 = db.GqlQuery("SELECT * from Persons where email =:1", query.email)
        #count = CountReviews(key_name=self.request.get("code"))
        #count.code = searchcode
        #count.count = query.count() 
@@ -112,8 +113,8 @@ class viewR(webapp2.RequestHandler):
     template_values = {
         'user_mail' : users.get_current_user().email(),
         'logout' : users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
-        'query' : query  
-        #'aquery' : query2
+       # 'query' : query  
+        'query2' : query2
         } 
     
     template = jinja_environment.get_template('viewR.html')
@@ -189,6 +190,7 @@ class ChangeProfile(webapp2.RequestHandler):
     person.gender = self.request.get('person_sex')
     person.faculty = self.request.get('person_fac')
     person.image = self.request.get('person_image')
+    person.email = users.get_current_user().email()
     person.put()
 
     self.redirect('/profile')
