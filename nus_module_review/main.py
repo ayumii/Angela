@@ -106,10 +106,20 @@ class viewR(webapp2.RequestHandler):
   def post(self):
     user = users.get_current_user()
     if user:  # signed in already
+        
 
        searchcode = self.request.get('code')
-       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1", searchcode).get()
-       query2 = db.GqlQuery("SELECT * from Persons where email =:1", query.email)  
+       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1", searchcode)
+       alist = []
+       blist = []
+       i = 0
+       for module in query:
+        alist.append( query[i] )
+        query2 = db.GqlQuery("SELECT * from Persons where email =:1", alist[i].email).get()  
+        blist.append( query2 )
+        i+=1
+
+       #query2 = db.GqlQuery("SELECT * from Persons where email =:1", query[i].email)  
        #count = CountReviews(key_name=self.request.get("code"))
        #count.code = searchcode
        #count.count = query.count() 
@@ -119,8 +129,8 @@ class viewR(webapp2.RequestHandler):
     template_values = {
         'user_mail' : users.get_current_user().email(),
         'logout' : users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
-        'query2' : query2,  
-        'query' : query,
+        'query2' : blist,  
+        'query' : alist,
         } 
     
     template = jinja_environment.get_template('viewR.html')

@@ -49,15 +49,16 @@
 	  </ul>
 	</div> 
       </div>  
-      {% for module in query %}
-      {% for person in query2 %}
+      {% for (module in query and person in query2) %} 
+      {# for person in query2 #}
+     
         <h4 style="color: #FF6600; font-size:25px;">Reviews for {{ module.code }}</h4> </span>
          <table class="table table-bordered table-striped" >
   <thead>
     <tr><th width="20%">{{person.email}}</th><th>Review</th></tr>
     <!--<tr><th width="70%">User</th><th>Module Code</th><th>Review</th><th>Date&amp;Time</th></tr>-->
     <!--<tr><th width="60%">User</th><th width="10%">Module Code</th><th width="10%">Ratings<br>(out of 5)</th><th>Workload</th><th>Level of Difficulty</th><th>Review</th>-->
-      <th>Date&amp;Time</th></tr>
+      <!--<th>Date&amp;Time</th></tr>-->
   </thead>
    <tbody>
     <tr>
@@ -71,16 +72,18 @@
       <td>{#module.code#} </td>
       <td>{#module.text#}  </td>
       <td>{#module.date.strftime('%Y-%m-%d %H:%M:%S')#} </td>-->
-      <td>{#module.email#} </td>
-      <td>{#module.code#} </td>
+      <td>
+      {{module.email}} <br>
+      <!--<td>{#module.code#} </td>
       <td>{#module.ratings#} </td>
       <td>{#module.workload#} </td>
-      <td>{#module.diff#} </td>
-      <td>{{ module.text }}  </td>
+      <td>{#module.diff#} </td>-->
+      {{ module.text }} <br>
+     </td>
 
-      <td>{#module.date.strftime('%Y-%m-%d %H:%M:%S')#} </td>
+     <!--<td>{#module.date.strftime('%Y-%m-%d %H:%M:%S')#} </td>-->
     {% endfor %}
-    {% endfor %}
+    {# endfor #}
      </tr>
   
   </tbody>
