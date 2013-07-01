@@ -131,6 +131,7 @@ class viewR(webapp2.RequestHandler):
         'logout' : users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
         'query2' : blist,  
         'query' : alist,
+        'code':searchcode,
         } 
     
     template = jinja_environment.get_template('viewR.html')
