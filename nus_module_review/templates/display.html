@@ -43,6 +43,7 @@
        <li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
        <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
        <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
+       <li> <a href="/display"><i class=" icon-play-circle icon-white"></i>My Review</a></li>
 	<!--    <li> <a href="/AddM">+ Mod</a> </li>
 	   	<li> <a href="/FAQ">FAQ</a> </li>	   
 	    <li> <a href="/AddM">Contact Us</a> </li>
@@ -52,11 +53,12 @@
 </div>  
 
       <h4> Reviews of {{ user_mail }} </h4>
- 
+
       <table class="table table-bordered table-striped" >
   <thead>
-    <tr><th width="70%">Module Code</th><th>Ratings (Out of 5)</th><th>Workload</th><th>Level of Difficulty</th><th>Review</th><th>Date&amp;Time</th></tr>
+    <tr><th width="20%">Module Code</th><th>Ratings (Out of 5)</th><th>Workload</th><th>Level of Difficulty</th><th>Review</th><th>Date&amp;Time</th><th width="5%"> </th></tr>
   </thead>
+
 	 <tbody>
 	  {% for module in query %}
 	  <tr>
@@ -66,7 +68,11 @@
       <td>{{ module.diff }} </td>
       <td>{{ module.text }}  </td>
 	    <td>{{ module.date.strftime('%Y-%m-%d %H:%M:%S') }} </td>
-	  </tr>
+
+      <td><button action="/display" method="post" name="button" value="{{loop.index0}}" type="submit" class="btn btn-warning">
+      </button></td>
+	  
+    </tr>
 	  {% endfor %}
 	</tbody>
 
