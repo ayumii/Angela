@@ -88,7 +88,15 @@
               <option value="YONG SIEW TOH CONSERVATORY OF MUSIC">YONG SIEW TOH CONSERVATORY OF MUSIC</option>
             </select><br>
 
-<input name="person_year" type="text" placeholder="Year"><br>
+<!--<input name="person_year" type="text" placeholder="Year"><br>-->
+  <select name="person_year" onchange="personSubmit ();">
+              <option value="" selected="">Select a Year</option>                   
+              <option value="1">1</option>          
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select><br>
+
     <label class="checkbox">
       <input type="radio" name="person_sex" value="Male"> Male<br>
       <input type="radio" name="person_sex" value="Female"> Female<br>
