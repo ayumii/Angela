@@ -49,11 +49,11 @@
 	  </ul>
 	</div> 
       </div>  
-        <h4 style="color: #FF6600; font-size:25px;">Reviews for {{ code }}</h4> </span>
+        <h4 style="color: #FF6600; font-size:25px;">{{count.count}} Reviews for {{ code }}</h4> </span>
          <table class="table table-bordered table-striped" >
   <thead>
     {% for person in query2 %}
-    <tr><th width="20%">{{person.email}}</th><th>Review</th></tr>
+    <tr><th width="20%">Profile</th><th>Review</th></tr>
     <!--<tr><th width="70%">User</th><th>Module Code</th><th>Review</th><th>Date&amp;Time</th></tr>-->
     <!--<tr><th width="60%">User</th><th width="10%">Module Code</th><th width="10%">Ratings<br>(out of 5)</th><th>Workload</th><th>Level of Difficulty</th><th>Review</th>-->
       <!--<th>Date&amp;Time</th></tr>-->
@@ -61,6 +61,7 @@
    <tbody>
     <tr>
       <td>
+        {{ person.email }}<br>
         {{ person.faculty }}<br> 
         Year {{ person.year }}<br>
         {{ person.gender }}<br>

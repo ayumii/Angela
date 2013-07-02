@@ -55,10 +55,10 @@ class ModuleReviews(db.Model):
   date = db.DateTimeProperty(auto_now_add=True)
 
 #to count the number of reviews for future use  
-#class CountReviews(db.Model):
-  #"""Models the number of reviews written for each module"""
-  #code = db.StringProperty()
-  #count = db.IntegerProperty()
+class CountReviews(db.Model):
+  """Models the number of reviews written for each module"""
+  code = db.StringProperty()
+  count = db.IntegerProperty()
 
 class Persons(db.Model):
   """Models a person identified by email"""
@@ -92,12 +92,12 @@ class AddR(webapp2.RequestHandler):
     module.email = users.get_current_user().email()
     module.put()
     
-    #searchcode = self.request.get("code")
-    #count = CountReviews(key_name=self.request.get("code"))
-    #query = db.GqlQuery("SELECT * FROM ModuleReviews WHERE code =:1 ",searchcode)
-    #count.code = searchcode
-    #count.count = query.count() 
-    #count.put()
+    searchcode = self.request.get("code")
+    count = CountReviews(key_name=self.request.get("code"))
+    query = db.GqlQuery("SELECT * FROM ModuleReviews WHERE code =:1 ",searchcode)
+    count.code = searchcode
+    count.count = query.count() 
+    count.put()
     self.redirect('/display')
 
 
@@ -118,20 +118,20 @@ class viewR(webapp2.RequestHandler):
         query2 = db.GqlQuery("SELECT * from Persons where email =:1", alist[i].email).get()  
         blist.append( query2 )
         i+=1
-
-       #query2 = db.GqlQuery("SELECT * from Persons where email =:1", query[i].email)  
-       #count = CountReviews(key_name=self.request.get("code"))
-       #count.code = searchcode
-       #count.count = query.count() 
-       #count.put()
-       #query2 = db.GqlQuery("SELECT * FROM CountReviews WHERE code =:1 ",searchcode)
+ 
+       count = CountReviews(key_name=self.request.get("code"))
+       count.code = searchcode
+       count.count = query.count() 
+       count.put()
+       count = db.GqlQuery("SELECT * from CountReviews where code =:1", searchcode).get()
 
     template_values = {
         'user_mail' : users.get_current_user().email(),
         'logout' : users.create_logout_url(self.request.host_url), #host_url : default/main page of the webpage
         'query2' : blist,  
         'query' : alist,
-        'code':searchcode,
+        'code': searchcode,
+        'count': count,
         } 
     
     template = jinja_environment.get_template('viewR.html')
@@ -246,10 +246,12 @@ class SearchFacultyFass(webapp2.RequestHandler):
   """ Display search page """
   def get(self):
     user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
     if user:  # signed in already
       template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
         } 
       template = jinja_environment.get_template('fass.html')
       self.response.out.write(template.render(template_values))
