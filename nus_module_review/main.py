@@ -3,6 +3,7 @@ import webapp2
 import jinja2
 import os
 import datetime
+import time
 
 
 from google.appengine.ext import db
@@ -279,6 +280,7 @@ class Display(webapp2.RequestHandler):
     query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
     #self.response.write(query[index].ratings) 
     query[index].delete() 
+    time.sleep(2)
 
     self.redirect("/display")
     #template_values = {
