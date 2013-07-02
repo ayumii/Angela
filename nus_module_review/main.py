@@ -264,7 +264,6 @@ class Display(webapp2.RequestHandler):
 
     useremail = users.get_current_user().email() 
     query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
-
     template_values = {
       'user_mail': users.get_current_user().email(),
       #'target_mail': target,
@@ -276,7 +275,25 @@ class Display(webapp2.RequestHandler):
     template = jinja_environment.get_template('display.html')
     self.response.out.write(template.render(template_values))
 
+  def post(self):
+
+    index = self.request.get("button")
+    query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
+    query[index].delete() 
+
+    self.redirect("/display")
+    #template_values = {
+     # 'user_mail': users.get_current_user().email(),
+      #'logout': users.create_logout_url(self.request.host_url),
+      #'query': query
+    #}
     
+   # template = jinja_environment.get_template('display.html')
+    #self.response.out.write(template.render(template_values))
+
+
+
+
 class Construction(webapp2.RequestHandler):
   """ webpage under construction """
   def get(self):
@@ -285,6 +302,7 @@ class Construction(webapp2.RequestHandler):
       template_values = {
         'user_mail': users.get_current_user().email(),
         'logout': users.create_logout_url(self.request.host_url),
+        
         } 
 
       template = jinja_environment.get_template('construction.html')
