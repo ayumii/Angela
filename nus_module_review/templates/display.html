@@ -69,8 +69,10 @@
       <td>{{ module.text }}  </td>
 	    <td>{{ module.date.strftime('%Y-%m-%d %H:%M:%S') }} </td>
 
-      <td><button action="/display" method="post" name="button" value="{{loop.index0}}" type="submit" class="btn btn-warning">
-      </button></td>
+      <td><form action="/display" method="post">
+        <input type="hidden" name= "button" value= "{{ loop.index0 }}"> 
+        <button type="submit" class="btn btn-warning"> 
+      </button> </form></td>
 	  
     </tr>
 	  {% endfor %}
