@@ -4,11 +4,13 @@ import jinja2
 import os
 import datetime
 import time
+import cgi
 
 
 from google.appengine.ext import db
 from google.appengine.api import users
 from google.appengine.ext.db import polymodel
+from google.appengine.api import images
 
 jinja_environment = jinja2.Environment(
   loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"))
@@ -69,6 +71,9 @@ class Persons(db.Model):
   gender = db.StringProperty()
   year = db.StringProperty()
   image = db.StringProperty()
+  #image = db.BlobProperty()
+  #image =('images',Field('picture', 'upload', uploadfield='picture_file') Field('picture_file', 'blob'))
+  
 
 class AddR(webapp2.RequestHandler):
   """ Add an item to the datastore """
@@ -141,6 +146,10 @@ class viewR(webapp2.RequestHandler):
 
 class Profile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
+  
+  def download():
+    return response.download(request, db)
+  
   def get(self):
     user = users.get_current_user()
     if user:  # signed in already
@@ -168,6 +177,7 @@ class Profile(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)
 
+
 class ChangeProfile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
   def get(self):
@@ -181,9 +191,10 @@ class ChangeProfile(webapp2.RequestHandler):
 
       template = jinja_environment.get_template('changeprofile.html')
       self.response.out.write(template.render(template_values))
-    
+
     else:
       self.redirect(self.request.host_url)
+
 
   def post(self): 
    
@@ -207,13 +218,22 @@ class ChangeProfile(webapp2.RequestHandler):
     person.year = self.request.get('person_year')
     person.gender = self.request.get('person_sex')
     person.faculty = self.request.get('person_fac')
+
+    #image = images.resize(self.request.get('person_image'), 32, 32)
+    #person.image = db.Blob(image)
     person.image = self.request.get('person_image')
     person.email = users.get_current_user().email()
     person.put()
 
+  
+    #if person.image:
+      #self.response.headers['Content-Type'] = 'image/png'
+      #self.response.out.write(person.image)
+    #else:
+      #self.response.out.write('No image')
+
     self.redirect('/profile')
         
-
 class Search(webapp2.RequestHandler):
   """ Display search page """
   def get(self):
@@ -314,6 +334,24 @@ class Construction(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)
 
+class Trypeeps(webapp2.RequestHandler):
+  """testing"""
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        
+        } 
+      template = jinja_environment.get_template('trypeeps.html')
+      self.response.out.write(template.render(template_values))
+    
+    else:
+      self.redirect(self.request.host_url)
+
+
+
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
@@ -326,6 +364,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
   ('/searchfaculty', SearchFaculty),
   ('/fass',SearchFacultyFass),
   ('/display', Display),
+  ('/trypeeps',Trypeeps),
   ('/construction', Construction)],
   debug=True)
 #class Mainpage is mapped to the root URL (/) 

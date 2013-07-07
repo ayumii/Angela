@@ -21,6 +21,9 @@ handlers:
 - url: /scripts
   static_dir: scripts
 
+- url: /json
+  static_dir: json
+
 # Twitter Bootstrap
 - url: /bootstrap
   static_dir: bootstrap
@@ -42,3 +45,12 @@ handlers:
 libraries:
 - name: jinja2
   version: latest
+
+
+ # $.getJSON('people.json', function(data) {
+
+
+#When you specify "people.json", you're referring to the file "people.json" in the same directory as the script. This is a relative path. What you want is 
+
+#"/json/people.json".
+#FYI: other usual notations are: "./people.json" - explicitly state that we should look in the same folder. "../people.json" - look one folder above. "json/people.json" - note the missing leading slash. This refers to the folder json in the current folder, and then the file people.json

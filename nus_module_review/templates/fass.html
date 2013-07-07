@@ -9,6 +9,28 @@
     <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
 
+   
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+        <script>
+
+    $(function() {
+
+
+   var people = [];
+
+   $.getJSON('/json/nusmod.json', function(data) {
+       $.each(data.moduleInformation, function(i, f) {
+          var tblRow = "<tr>" + "<td>" + f.label + "</td>" +
+           "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + "</td>" + "</tr>"
+           $(tblRow).appendTo("#userdata tbody");
+        });
+
+      });
+
+    });
+        </script>
+
   </head>
   <body>
 
@@ -60,8 +82,29 @@
         <input type="text" name="code" class="search-query" placeholder="Enter module code(eg CH1101E)">
         <button type="submit" class="btn"><i class="icon-search"></i></button>
     </div>
-</form>  
+</form> 
 
+
+    
+    <div class="wrapper">
+        <div class="profile">
+            <table id= "userdata" border="2">
+                <thead>
+                    <th>Module Code</th>
+                    <th>Module Title</th>
+                    <th>Module Description</th>
+                    <th>Number of Reviews</th>
+                </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        </div>
+    </div>
+
+
+     <!-- <script>window.alert("Please key in valid inputs")</script>
 
       <table border="3px">
             <thead>
@@ -1939,34 +1982,7 @@
                     <td>266</td>
                     <td>LAR4202</td>
                     <td>Arabic 6</td>
-                </tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                </tr> -->
 
 
 
