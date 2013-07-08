@@ -4,13 +4,13 @@ import jinja2
 import os
 import datetime
 import time
-import cgi
+#import cgi
 
 
 from google.appengine.ext import db
 from google.appengine.api import users
 from google.appengine.ext.db import polymodel
-from google.appengine.api import images
+#from google.appengine.api import images
 
 jinja_environment = jinja2.Environment(
   loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"))
