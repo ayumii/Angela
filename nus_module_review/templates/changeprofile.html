@@ -8,7 +8,8 @@
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
-
+  <!--  <script src="image.js" type="text/javascript"></script>-->
+    
   </head>
   <body>
 
@@ -38,7 +39,7 @@
      <div class = "navbar">
 	<div class = "navbar-inner">
 	  <ul class = "nav">
-	    <li> <a href="/frontuser"><i class="icon-home icon-white"></i> Home</a></li>
+	    <li> <a href="/Login"><i class="icon-home icon-white"></i> Home</a></li>
 	  	<li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
 	    <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
 	    <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
@@ -59,8 +60,10 @@
 		</form>
 
 		<form action="/changeprofile" method="post">
+  
+  
   <fieldset>
-   
+  
     <div class="controls controls-row">
  
   <span class="help-block">This username will be shown to public</span>
@@ -101,12 +104,28 @@
     <label class="checkbox">
       <input type="radio" name="person_sex" value="Male"> Male<br>
       <input type="radio" name="person_sex" value="Female"> Female<br>
-    </label>
+    </label> <br>
 
     <!-- for photo upload <label for="file">Filename:</label>
     <input type="file" name="person_image" id="file"><br> -->
 
-    <span class="help-block">By clicking Confirm, you agree to our <a href="/signup">Terms and Condtions</a></span>
+
+   <form name="myWebForm" action="mailto:youremail@email.com" method="post">
+<input type="hidden" name="MAX_FILE_SIZE" value="500" />
+<input type="file" name="person_image" accept="image/gif, image/jpeg, image/png" />
+<span class="help-block">Upload Your Image</span>
+</form>-->
+   
+   <!-- <form id="form1" runat="server">
+    <input type='file' name="person_image" id="imgInp" />
+    <img id="blah" src="#" alt="your image" />
+</form>
+-->
+
+   <div><input type="file" name="person_image"/></div>
+  
+    <br>
+    <span class="help-block">By clicking Confirm, you agree to our Terms and Condtions! </span>
     <button type="submit" class="btn btn-warning">Confirm</button><br>
   </fieldset>
 </form>

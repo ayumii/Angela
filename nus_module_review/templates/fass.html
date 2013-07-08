@@ -9,6 +9,33 @@
     <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
 
+   
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+  <script>
+
+    $(function() {
+
+   var people = [];
+   var tblRow;
+
+   $.getJSON('/json/nusmod.json', function(data) {
+
+       $.each(data.moduleInformation, function(i, f) {
+          if(f.department == 'CENTRE FOR LANGUAGE STUDIES' || f.department == 'CHINESE STUDIES' || f.department == 'COMMUNICATIONS AND NEW MEDIA' || f.department == "DEAN'S OFFICE (ARTS & SOCIAL SC.)" || f.department == 'ECONOMICS' || f.department == 'ENGLISH LANGUAGE & LITERATURE' || f.department == 'GEOGRAPHY' || f.department == 'HISTORY' || f.department == 'JAPANESE STUDIES' ||f.department ==  'MALAY STUDIES' ||f.department ==  'PHILOSOPHY' ||f.department ==  'POLITICAL SCIENCE' ||f.department ==  'PSYCHOLOGY' || f.department == 'SOCIAL WORK' ||f.department ==  'SOCIOLOGY' ||f.department ==  'SOUTH ASIAN STUDIES PROGRAMME' ||f.department ==  'SOUTHEAST ASIAN STUDIES') {
+
+            tblRow = "<tr>" + "<td>" + f.label + "</td>" +
+           "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
+           $(tblRow).appendTo("#userdata tbody");
+
+          }
+        });
+
+      });
+
+    });
+        </script>
+
   </head>
   <body>
 
@@ -60,8 +87,29 @@
         <input type="text" name="code" class="search-query" placeholder="Enter module code(eg CH1101E)">
         <button type="submit" class="btn"><i class="icon-search"></i></button>
     </div>
-</form>  
+</form> 
 
+
+    
+    <div class="wrapper">
+        <div class="profile">
+            <table id= "userdata" border="2">
+                <thead>
+                    <th>Module Code</th>
+                    <th>Module Title</th>
+                    <th>Module Description</th>
+                    <th>Department</th>
+                </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        </div>
+    </div>
+
+
+     <!-- <script>window.alert("Please key in valid inputs")</script>
 
       <table border="3px">
             <thead>
@@ -1943,39 +1991,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </tbody>
         </table>
         
     </body>
 
-</html>
+</html> -->
 
 
 
