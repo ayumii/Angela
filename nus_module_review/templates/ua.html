@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title> NUS Module Review - The Official NUS Module Review Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../bootstrap/css/self.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
+
+   
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+  <script>
+
+    $(function() {
+
+   var people = [];
+   var tblRow;
+
+   $.getJSON('/json/nusmod.json', function(data) {
+
+       $.each(data.moduleInformation, function(i, f) {
+          if(f.department == "OFFICE OF STUDENT AFFAIRS" ) {
+
+            tblRow = "<tr>" + "<td>" + f.label + "</td>" +
+           "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
+           $(tblRow).appendTo("#userdata tbody");
+
+          }
+        });
+
+      });
+
+    });
+        </script>
+
+  </head>
+  <body>
+
+    <div class="container-fluid"> 
+
+      <!-- Top bar --> 
+      <div class="row-fluid top-container">  
+  <div class="span5">
+    <img class="logo" src="../images/nus.gif">
+   
+  </div>
+
+    <div class="span4 offset6 signin-align">
+    <span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
+    </div>
+
+  <div class="span4 offset8 signin-align">
+    <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+  </div>
+
+      </div>
+      <!-- End of top bar -->
+
+      <!-- Main navigation -->
+     
+
+     <div class = "navbar">
+  <div class = "navbar-inner">
+    <ul class = "nav">
+      <li> <a href="/Login"><i class="icon-home icon-white"></i> Home</a></li>
+      <li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
+      <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
+      <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
+        <li> <a href="/display"><i class=" icon-play-circle icon-white"></i>My Review</a></li>
+  <!--    <li> <a href="/AddM">+ Mod</a> </li>
+      <li> <a href="/FAQ">FAQ</a> </li>    
+      <li> <a href="/AddM">Contact Us</a> </li>
+    -->
+    </ul>
+  </div> 
+      </div>  
+
+      <h1>  UNIVERSITY ADMINISTRATION </h1>
+
+    <h5 style ="color: red">For more information, pls visit <a href="http://www.nus.edu.sg/cors/"> NUS CORS </a></h5><br>
+        
+        <form action="/viewR" method="post" id="custom-search-form" class="form-search form-horizontal pull-right">
+   <div class="input-append span12">
+        <input type="text" name="code" class="search-query" placeholder="Enter module code(eg CH1101E)">
+        <button type="submit" class="btn"><i class="icon-search"></i></button>
+    </div>
+</form> 
+
+
+    
+    <div class="wrapper">
+        <div class="profile">
+            <table id= "userdata" border="2">
+                <thead>
+                    <th>Module Code</th>
+                    <th>Module Title</th>
+                    <th>Module Description</th>
+                    <th>Department</th>
+                </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        </div>
+    </div>
+
+
+     </div>
+  </body>
+</html>

@@ -12,18 +12,23 @@
    
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
 
-        <script>
+  <script>
 
     $(function() {
 
-
    var people = [];
+   var tblRow;
 
    $.getJSON('/json/nusmod.json', function(data) {
+
        $.each(data.moduleInformation, function(i, f) {
-          var tblRow = "<tr>" + "<td>" + f.label + "</td>" +
-           "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + "</td>" + "</tr>"
+          if(f.department == 'CENTRE FOR LANGUAGE STUDIES' || f.department == 'CHINESE STUDIES' || f.department == 'COMMUNICATIONS AND NEW MEDIA' || f.department == "DEAN'S OFFICE (ARTS & SOCIAL SC.)" || f.department == 'ECONOMICS' || f.department == 'ENGLISH LANGUAGE & LITERATURE' || f.department == 'GEOGRAPHY' || f.department == 'HISTORY' || f.department == 'JAPANESE STUDIES' ||f.department ==  'MALAY STUDIES' ||f.department ==  'PHILOSOPHY' ||f.department ==  'POLITICAL SCIENCE' ||f.department ==  'PSYCHOLOGY' || f.department == 'SOCIAL WORK' ||f.department ==  'SOCIOLOGY' ||f.department ==  'SOUTH ASIAN STUDIES PROGRAMME' ||f.department ==  'SOUTHEAST ASIAN STUDIES') {
+
+            tblRow = "<tr>" + "<td>" + f.label + "</td>" +
+           "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
            $(tblRow).appendTo("#userdata tbody");
+
+          }
         });
 
       });
@@ -93,7 +98,7 @@
                     <th>Module Code</th>
                     <th>Module Title</th>
                     <th>Module Description</th>
-                    <th>Number of Reviews</th>
+                    <th>Department</th>
                 </thead>
             <tbody>
 
@@ -1982,7 +1987,7 @@
                     <td>266</td>
                     <td>LAR4202</td>
                     <td>Arabic 6</td>
-                </tr> -->
+                </tr>
 
 
 
@@ -1991,7 +1996,7 @@
         
     </body>
 
-</html>
+</html> -->
 
 
 

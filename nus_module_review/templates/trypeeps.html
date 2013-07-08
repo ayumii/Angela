@@ -17,23 +17,25 @@
 
     $(function() {
 
-
    var people = [];
+   var tblRow;
 
    $.getJSON('/json/nusmod.json', function(data) {
+
        $.each(data.moduleInformation, function(i, f) {
-        
-          if (f.department == "ACCOUNTING") {
-              var tblRow = "<tr>" + "<td>" + f.label + "</td>" +
-              "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + "</td>" + "</tr>"
-              $(tblRow).appendTo("#userdata tbody");
-          });
+          if(f.department == 'CENTRE FOR LANGUAGE STUDIES' || f.department == 'CHINESE STUDIES' || f.department == 'COMMUNICATIONS AND NEW MEDIA' || f.department == "DEAN'S OFFICE (ARTS & SOCIAL SC.)" || f.department == 'ECONOMICS' || f.department == 'ENGLISH LANGUAGE & LITERATURE' || f.department == 'GEOGRAPHY' || f.department == 'HISTORY' || f.department == 'JAPANESE STUDIES' ||f.department ==  'MALAY STUDIES' ||f.department ==  'PHILOSOPHY' ||f.department ==  'POLITICAL SCIENCE' ||f.department ==  'PSYCHOLOGY' || f.department == 'SOCIAL WORK' ||f.department ==  'SOCIOLOGY' ||f.department ==  'SOUTH ASIAN STUDIES PROGRAMME' ||f.department ==  'SOUTHEAST ASIAN STUDIES') {
+
+            tblRow = "<tr>" + "<td>" + f.label + "</td>" +
+           "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
+           $(tblRow).appendTo("#userdata tbody");
+
+          }
         });
 
       });
 
     });
-  </script>
+        </script>
 </head>
 
 <body>
@@ -79,21 +81,21 @@
 
 
 <div class="wrapper">
-<div class="profile">
-   <table id= "userdata" border="2">
-  <thead>
-            <th>Module Code</th>
-            <th>Module Title</th>
-            <th>Module Description</th>
-            <th>Number of Reviews</th>
-        </thead>
-      <tbody>
+        <div class="profile">
+            <table id= "userdata" border="2">
+                <thead>
+                    <th>Module Code</th>
+                    <th>Module Title</th>
+                    <th>Module Description</th>
+                    <th>Departments</th>
+                </thead>
+            <tbody>
 
-       </tbody>
-   </table>
+            </tbody>
+        </table>
 
-</div>
-</div>
+        </div>
+    </div>
 
 </body>
 </html>

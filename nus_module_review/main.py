@@ -279,6 +279,219 @@ class SearchFacultyFass(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)
 
+class SearchFacultyDentistry(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('dentistry.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyEngineering(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('engineering.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyJmdp(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('jmdp.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyLaw(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('law.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+
+class SearchFacultyNfbd(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('nfbd.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyBusiness(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('business.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyComputing(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('computing.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+
+class SearchFacultySde(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('sde.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyScience(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('science.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyUa(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('ua.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyUsp(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('usp.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyMedicine(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('medicine.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+
+class SearchFacultyMusic(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    query = db.GqlQuery("SELECT * from CountReviews") 
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        'query': query,
+        } 
+      template = jinja_environment.get_template('music.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)
+    
+    
+
+
 class Display(webapp2.RequestHandler):
   """ Displays reviews user has written """
   def get(self):
@@ -363,6 +576,19 @@ app = webapp2.WSGIApplication([('/', MainPage),
   ('/search', Search),
   ('/searchfaculty', SearchFaculty),
   ('/fass',SearchFacultyFass),
+  ('/dentistry', SearchFacultyDentistry),
+  ('/engineering', SearchFacultyEngineering),
+  ('/jmdp', SearchFacultyJmdp),
+  ('/law', SearchFacultyLaw),
+  ('/nfbd', SearchFacultyNfbd),
+  ('/business', SearchFacultyBusiness),
+  ('/computing', SearchFacultyComputing),
+  ('/sde', SearchFacultySde),
+  ('/science', SearchFacultyScience),
+  ('/ua', SearchFacultyUa),
+  ('/usp', SearchFacultyUsp),
+  ('/medicine', SearchFacultyMedicine),
+  ('/music', SearchFacultyMusic),
   ('/display', Display),
   ('/trypeeps',Trypeeps),
   ('/construction', Construction)],
