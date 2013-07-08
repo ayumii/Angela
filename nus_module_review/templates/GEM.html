@@ -50,22 +50,27 @@
 	  </ul>
 	</div> 
       </div>  
+ 		</form>  
 
 
-       <div class="row-fluid">
-	<div class="span5">
-		<form action="/">
-		<h1 style="text-align:left;color:#333333">Search a Module By:</h1>
-		</form>
+      <table border="3px">
+            <thead>
+              <tr>
+                <th style= "font-size: 16px">Module Code </th>
+                <th style= "font-size: 16px">Module Title </th> 
+              </tr>  
+            </thead>
+           
+            <tbody>
+                <tr>
+                	
+                    <td> {{ js.keys()[0]["label"] }}</td>
+                    <td> {{ js.keys()[0]["title"] }}</td>                        
+                </tr>
+ 					
+     		</tbody>
+        </table>
 
-			<h3><a href="/searchfaculty">1.Faculty</a></h3>
-			<h3><a href="/GEM">2.GEM modules</a></h3>
-			<h3><a href="/construction">3.Singapore Studies</a></h3>
-			<h3><a href="/construction">4.Breadth / Unrestricted Elective Modules outside Student's Faculty</a></h3>
-			<h3><a href="/construction">5.Cross Faculty</a></h3>
-	  			
-	</div>
-	  </div>
 
    </div>
   </body>

@@ -4,6 +4,8 @@ import jinja2
 import os
 import datetime
 import time
+import json
+import urllib2
 
 
 from google.appengine.ext import db
@@ -314,6 +316,28 @@ class Construction(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)
 
+class GEM(webapp2.RequestHandler):
+  """ test """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+      #mod_info = urllib2.urlopen('http://nusmods.com/json/mod_info.json')
+      #js = json.load(mod_info)
+      #mod = js['cors']
+      json_data=open("mod_info")
+      data = json.load(json_data)
+      template_values = {
+        'js': data,
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        
+        } 
+      
+      template = jinja_environment.get_template('GEM.html')
+      self.response.out.write(template.render(template_values))
+    
+    else:
+      self.redirect(self.request.host_url)
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
@@ -326,6 +350,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
   ('/searchfaculty', SearchFaculty),
   ('/fass',SearchFacultyFass),
   ('/display', Display),
+  ('/GEM', GEM),
   ('/construction', Construction)],
   debug=True)
 #class Mainpage is mapped to the root URL (/) 
