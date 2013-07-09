@@ -4,7 +4,10 @@ import jinja2
 import os
 import datetime
 import time
+import json
+import urllib2
 #import cgi
+
 
 
 from google.appengine.ext import db
@@ -569,6 +572,49 @@ class Display(webapp2.RequestHandler):
     #template = jinja_environment.get_template('display.html')
     #self.response.out.write(template.render(template_values))
 
+<<<<<<< HEAD
+=======
+
+
+
+class Construction(webapp2.RequestHandler):
+  """ webpage under construction """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        
+        } 
+
+      template = jinja_environment.get_template('construction.html')
+      self.response.out.write(template.render(template_values))
+    
+    else:
+      self.redirect(self.request.host_url)
+
+#class GEM(webapp2.RequestHandler):
+#  """ test """
+#  def get(self):
+#    user = users.get_current_user()
+#    if user:  # signed in already
+      #mod_info = urllib2.urlopen('http://nusmods.com/json/mod_info.json')
+      #js = json.load(mod_info)
+      #mod = js['cors']
+#      json_data=open("mod_info")
+#      data = json.load(json_data)
+#      template_values = {
+#        'js': data,
+#        }
+#        template = jinja_environment.get_template('GEM.html')
+#        self.response.out.write(template.render(template_values))
+    
+#    else:
+#      self.redirect(self.request.host_url)
+
+        
+>>>>>>> 01a986f27fa3bb3ff372dc9b6a3256110ae21c0a
 class Trypeeps(webapp2.RequestHandler):
   """testing"""
   def get(self):
@@ -581,13 +627,8 @@ class Trypeeps(webapp2.RequestHandler):
         } 
       template = jinja_environment.get_template('trypeeps.html')
       self.response.out.write(template.render(template_values))
-    
-    else:
+      else:
       self.redirect(self.request.host_url)
-
-
-
-
 
 app = webapp2.WSGIApplication([('/', MainPage),
   ('/Login', Login),
@@ -615,6 +656,12 @@ app = webapp2.WSGIApplication([('/', MainPage),
   ('/medicine', SearchFacultyMedicine),
   ('/music', SearchFacultyMusic),
   ('/display', Display),
+<<<<<<< HEAD
   ('/trypeeps',Trypeeps)],
+=======
+  #('/GEM', GEM),
+  ('/trypeeps',Trypeeps),
+  ('/construction', Construction)],
+>>>>>>> 01a986f27fa3bb3ff372dc9b6a3256110ae21c0a
   debug=True)
 #class Mainpage is mapped to the root URL (/) 
