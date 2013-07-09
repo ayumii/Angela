@@ -248,6 +248,48 @@ class Search(webapp2.RequestHandler):
     else:
       self.redirect(self.request.host_url)     
 
+class SearchGem(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        } 
+      template = jinja_environment.get_template('gem.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)  
+
+class SearchSS(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        } 
+      template = jinja_environment.get_template('ss.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)  
+
+class SearchBreadthandUE(webapp2.RequestHandler):
+  """ Display search page """
+  def get(self):
+    user = users.get_current_user()
+    if user:  # signed in already
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        'logout': users.create_logout_url(self.request.host_url),
+        } 
+      template = jinja_environment.get_template('breadthandue.html')
+      self.response.out.write(template.render(template_values))
+    else:
+      self.redirect(self.request.host_url)   
+
 
 class SearchFaculty(webapp2.RequestHandler):
   """ Display search page """
@@ -527,26 +569,6 @@ class Display(webapp2.RequestHandler):
     #template = jinja_environment.get_template('display.html')
     #self.response.out.write(template.render(template_values))
 
-
-
-
-class Construction(webapp2.RequestHandler):
-  """ webpage under construction """
-  def get(self):
-    user = users.get_current_user()
-    if user:  # signed in already
-      template_values = {
-        'user_mail': users.get_current_user().email(),
-        'logout': users.create_logout_url(self.request.host_url),
-        
-        } 
-
-      template = jinja_environment.get_template('construction.html')
-      self.response.out.write(template.render(template_values))
-    
-    else:
-      self.redirect(self.request.host_url)
-
 class Trypeeps(webapp2.RequestHandler):
   """testing"""
   def get(self):
@@ -574,6 +596,9 @@ app = webapp2.WSGIApplication([('/', MainPage),
   ('/addR', AddR),
   ('/viewR',viewR),
   ('/search', Search),
+  ('/gem', SearchGem),
+  ('/ss', SearchSS),
+  ('/breadthandue', SearchBreadthandUE),
   ('/searchfaculty', SearchFaculty),
   ('/fass',SearchFacultyFass),
   ('/dentistry', SearchFacultyDentistry),
@@ -590,7 +615,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
   ('/medicine', SearchFacultyMedicine),
   ('/music', SearchFacultyMusic),
   ('/display', Display),
-  ('/trypeeps',Trypeeps),
-  ('/construction', Construction)],
+  ('/trypeeps',Trypeeps)],
   debug=True)
 #class Mainpage is mapped to the root URL (/) 
