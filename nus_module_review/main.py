@@ -572,10 +572,6 @@ class Display(webapp2.RequestHandler):
     #template = jinja_environment.get_template('display.html')
     #self.response.out.write(template.render(template_values))
 
-<<<<<<< HEAD
-=======
-
-
 
 class Construction(webapp2.RequestHandler):
   """ webpage under construction """
@@ -614,7 +610,7 @@ class Construction(webapp2.RequestHandler):
 #      self.redirect(self.request.host_url)
 
         
->>>>>>> 01a986f27fa3bb3ff372dc9b6a3256110ae21c0a
+
 class Trypeeps(webapp2.RequestHandler):
   """testing"""
   def get(self):
@@ -627,7 +623,7 @@ class Trypeeps(webapp2.RequestHandler):
         } 
       template = jinja_environment.get_template('trypeeps.html')
       self.response.out.write(template.render(template_values))
-      else:
+    else:
       self.redirect(self.request.host_url)
 
 app = webapp2.WSGIApplication([('/', MainPage),
@@ -656,12 +652,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
   ('/medicine', SearchFacultyMedicine),
   ('/music', SearchFacultyMusic),
   ('/display', Display),
-<<<<<<< HEAD
   ('/trypeeps',Trypeeps)],
-=======
-  #('/GEM', GEM),
-  ('/trypeeps',Trypeeps),
-  ('/construction', Construction)],
->>>>>>> 01a986f27fa3bb3ff372dc9b6a3256110ae21c0a
   debug=True)
 #class Mainpage is mapped to the root URL (/) 
