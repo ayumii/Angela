@@ -12,29 +12,77 @@
    
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
 
-  <script>
+    <script>
 
-    $(function() {
+        $(function() {
 
-   var people = [];
-   var tblRow;
+            var tblRow;
 
-   $.getJSON('/json/nusmod.json', function(data) {
+            $.getJSON('/json/nusmod.json', function(data) {
+                $.each(data.moduleInformation, function(i, f) {
+                    if(f.department == 'CENTRE FOR LANGUAGE STUDIES' || f.department == 'CHINESE STUDIES' || f.department == 'COMMUNICATIONS AND NEW MEDIA' || f.department == "DEAN'S OFFICE (ARTS & SOCIAL SC.)" || f.department == 'ECONOMICS' || f.department == 'ENGLISH LANGUAGE & LITERATURE' || f.department == 'GEOGRAPHY' || f.department == 'HISTORY' || f.department == 'JAPANESE STUDIES' ||f.department ==  'MALAY STUDIES' ||f.department ==  'PHILOSOPHY' ||f.department ==  'POLITICAL SCIENCE' ||f.department ==  'PSYCHOLOGY' || f.department == 'SOCIAL WORK' ||f.department ==  'SOCIOLOGY' ||f.department ==  'SOUTH ASIAN STUDIES PROGRAMME' ||f.department ==  'SOUTHEAST ASIAN STUDIES') {
 
-       $.each(data.moduleInformation, function(i, f) {
-          if(f.department == 'CENTRE FOR LANGUAGE STUDIES' || f.department == 'CHINESE STUDIES' || f.department == 'COMMUNICATIONS AND NEW MEDIA' || f.department == "DEAN'S OFFICE (ARTS & SOCIAL SC.)" || f.department == 'ECONOMICS' || f.department == 'ENGLISH LANGUAGE & LITERATURE' || f.department == 'GEOGRAPHY' || f.department == 'HISTORY' || f.department == 'JAPANESE STUDIES' ||f.department ==  'MALAY STUDIES' ||f.department ==  'PHILOSOPHY' ||f.department ==  'POLITICAL SCIENCE' ||f.department ==  'PSYCHOLOGY' || f.department == 'SOCIAL WORK' ||f.department ==  'SOCIOLOGY' ||f.department ==  'SOUTH ASIAN STUDIES PROGRAMME' ||f.department ==  'SOUTHEAST ASIAN STUDIES') {
-
-            tblRow = "<tr>" + "<td>" + f.label + "</td>" +
-           "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
-           $(tblRow).appendTo("#userdata tbody");
-
-          }
+                            tblRow = "<tr>" + "<td>" + f.label + "</td>" +
+                            "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
+                            $(tblRow).appendTo("#userdata tbody");
+                    }
+                }); 
+            }); 
         });
 
-      });
+    </script>
 
-    });
-        </script>
+    <script>
+    function getElements()
+    {
+        //var x=document.getElementById("modcode");
+       /** var tryvar = "MA1506";
+        var compareNum = 0;
+        if(x.value.length == tryvar.length){
+        
+            for(var i=0; x.value.length; i++){
+                for(var j=0; i<x.value.length; j++){
+                    if( xstring[i] == tryvar[j]){
+                        compareNum++;
+                    }
+                }
+            }
+        }
+        document.write(compareNum);
+**/
+          
+        //$.getJSON('/json/nusmod.json', function(data) {
+           // $.each(data.moduleInformation, function(i, f) {
+                var x= document.getElementById("modcode");
+                //var smallx = x.value.toLowerCase();
+                var transformed = x.parse(x.stringify(obj).toLowerCase())
+                document.write(transformed);
+                /**var compareNum = 0;
+                if(x.value.length == f.label.length){
+    
+
+                for(var i=0; i<x.value.length; i++){
+                    for(var j=0; j<x.value.length; j++){
+                        if(x.value[i] == f.label[j]){
+                            compareNum++;
+                        }
+                    }
+                }
+                }
+                document.write("compareNum");
+
+                if(compareNum == x.value.length){
+                    document.write("equal");
+                }
+                         
+
+            });
+        }); 
+    } **/
+</script>
+
+
+
 
   </head>
   <body>
@@ -82,12 +130,19 @@
 
 	  <h5 style ="color: red">For more information, pls visit <a href="http://www.nus.edu.sg/cors/"> NUS CORS </a></h5><br>
         
-        <form action="/viewR" method="post" id="custom-search-form" class="form-search form-horizontal pull-right">
+       <!-- <form action="/viewR" method="post"> -->
+
+        <form id="custom-search-form" class="form-search form-horizontal pull-right">
    <div class="input-append span12">
-        <input type="text" name="code" class="search-query" placeholder="Enter module code(eg CH1101E)">
-        <button type="submit" class="btn"><i class="icon-search"></i></button>
+        <input type="text" name="code" id="modcode" class="search-query" 
+            placeholder="Enter module code(eg CH1101E)">
+        <button type="submit" onclick="getElements()" class="btn"><i class="icon-search"></i></button>
+
     </div>
+
 </form> 
+
+
 
 
     
