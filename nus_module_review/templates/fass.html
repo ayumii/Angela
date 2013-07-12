@@ -73,10 +73,6 @@
                         break; //break from for loop.
                     }
 
-                    else{
-                        alert("invalid module code!");
-                    }
-
                     //second case where user input is a substring in Json Module Code
                     if(upperx.length < f.label.length){
                         var count=0;
@@ -113,45 +109,15 @@
                             break; //break from for loop.
                         }
 
-                        else{
-                            alert("invalid module code!");
-                        }
-
                     } 
 
                 //case 3 is where length of input > length of ModuleCode in JSON data -invalid    
 
                 } //end of for loop
 
-
-                
-
-                //alert(smallx);
-                //var compareNum = "abc";
-                //alert(smallx.length);
-                /**if(smallx.length != compareNum.length){
-                    alert(smallx.length);
-                } **/
-                //if(smallx != f.label.length())
-                    //alert(smallx);
-                //var compareNum = 0;
-
-                /**if(x.value.length == f.label.length){
-    
-
-                for(var i=0; i<x.value.length; i++){
-                    for(var j=0; j<x.value.length; j++){
-                        if(x.value[i] == f.label[j]){
-                            compareNum++;
-                        }
-                    }
-                }
-                }
-                
-                if(compareNum == x.value.length){
-                    document.write("x.value");
-                } **/
-                         
+                if(test == false){
+                    alert("invalid module code");
+                }        
 
             });
         }); 
