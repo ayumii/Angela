@@ -8,6 +8,91 @@
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"
+    type="text/javascript"></script>-->
+ 
+    
+    <script>
+    /*$(document).ready(function(){
+    //$(function() {
+      //$("#userdata").append('<option value="' + o + '">' + o + '</option>.');
+      var row = []
+    $.getJSON('/json/nusmod.json', function(data) {
+          $.each(data.moduleInformation, function(i, f) {
+            if (f.label){       
+                row = '<option value ="' + f.label + '">' + f.label + "</option>";
+              ("#userdata").append('<option value="' + o + '">' + o + '</option>.');
+                }
+              //$(row).appendTo("#userdata select");
+            });
+          });
+    });
+       // });    
+    
+  
+
+      // $.each(data.moduleInformation, function(i, f) {
+        ///  if(f.label) {
+          //  tblRow = '<option value ="' + f.label + '">' + f.label + "</option>";
+           //$(tblRow).appendTo("#userdata select");
+
+          //}
+        //});
+
+      //});
+
+    //});*/
+
+    function validateForm()
+    {
+    var x=document.forms["myform"]["review"].value;
+    if (x==null || x=="")
+     {
+      alert("Please type in a review");
+      //return false;
+     }
+
+    //else{
+      //jQuery.get('/main.py', function(data) {
+      //var review = document.forms["myform"]["review"].value;
+      //var diff =  document.forms["myform"]["diff"].value;
+      //var ratings = document.forms["myform"]["ratings"].value;
+      //var workload = document.forms["myform"]["workload"].value;
+       var code = 5;
+       var review = $('#review').val();
+       var diff = $('#diff').val();
+       var ratings = $('#ratings').val();
+       var workload = $('#workload').val();
+      $.ajax({
+      url: "/addR",
+      type: 'POST',
+      data: { review: review, diff: diff, ratings: ratings, workload: workload, code: code },
+      success: function(data,textStatus,jqxhr){
+        alert("Hello!");
+        //jQuery.get('/templates/display.html');
+        window.location = "/templates/display.html";
+        //$('#myform').load(/templates/display.html);
+        },
+      //error: function(jqXHR, textStatus, errorThrown) {
+         //console.log(textStatus, errorThrown);
+        //alert(xhr.status);
+        //alert(thrownError);
+        //}
+      error:function (xhr, ajaxOptions, thrownError){
+        alert(xhr.status);
+        alert(thrownError);
+        } 
+      //error:function(msg){
+        //    alert("Smth wrong!");
+              //window.location = "/templates/display.html";
+              //alert(msg.val());
+         //   }
+          });
+      //});
+      } 
+    </script>
+
 
   </head>
   <body>
@@ -50,22 +135,69 @@
 	  </ul>
 	</div> 
       </div>  
-  	
-    <form action="/addR" method="post">
+
+    <form name="myform" onsubmit="return validateForm()">
   <fieldset>
      <div class = "row-fluid">
     <h1 style="text-align:left;color:#333333">+ Review</h1>
-    <label>Module Code:</label> <input type="text" name="code" placeholder="Please type a relevant code">
+    <!--<label>Module Code:</label> <input type="text" name="code" placeholder="Please type a relevant code"><br>
     <label>Ratings:</label> <input type="text" name="ratings" placeholder="Please rate out of 5">
     <label>Workload:</label> <input type="text" name="workload" placeholder="Light/Moderate/Heavy">
-    <label>Level of Difficulty:</label> <input type="text" name="diff" placeholder="Please rate out of 5">
+    <label>Level of Difficulty:</label> <input type="text" name="diff" placeholder="Please rate out of 5">-->
+     <!--<div class="wrapper">
+        <div class="profile">
+            <table id= "userdata" border="2">
+                <thead>
+                    <th>Module Code</th>
+                    <th>Module Title</th>
+                    <th>Module Description</th>
+                    <th>Department</th>
+                </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        </div>
+    </div>-->
+    
+   
+   <!--<select id = "userdata">
+              <option value="abc" name="code" >Select a Module Code</option>                  
+   </select><br>-->
+
+     <select id = "ratings" name="ratings" >
+              <option value="" selected="">Select a Rating out of 5</option>                   
+              <option value="1">1</option>          
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select><br>
+
+     <select id = "workload" name="workload">
+              <option value="" selected="">Workload</option>                   
+              <option value="Light">Light</option>          
+              <option value="Moderate">Moderate</option>
+              <option value="Heavy">Heavy</option>
+            </select><br>
+
+     <select id = "diff" name="diff">
+              <option value="" selected="">Level of Difficulty out of 5</option>                   
+              <option value="1">1</option>          
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select><br>
+
+   
 
    	<label>Review:</label>
-   	<textarea rows="10" name="review"></textarea><br>
+   	<textarea id ="review" rows="10" name="review"></textarea><br>
     <button type="submit" class="btn btn-warning">Submit</button>
     </div>
   </fieldset>
-</form> 
-
-             </body>
+  </form> 
+    </body>
 </html>

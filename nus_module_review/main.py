@@ -100,14 +100,17 @@ class AddR(webapp2.RequestHandler):
     module.diff = self.request.get("diff")
     module.email = users.get_current_user().email()
     module.put()
-    
-    searchcode = self.request.get("code")
-    count = CountReviews(key_name=self.request.get("code"))
-    query = db.GqlQuery("SELECT * FROM ModuleReviews WHERE code =:1 ",searchcode)
-    count.code = searchcode
-    count.count = query.count() 
-    count.put()
     self.redirect('/display')
+    #searchcode = self.request.get("code")
+    #count = CountReviews(key_name=self.request.get("code"))
+    #query = db.GqlQuery("SELECT * FROM ModuleReviews WHERE code =:1 ",searchcode)
+    #count.code = searchcode
+    #count.count = query.count() 
+    #count.put()
+    #time.sleep(2)
+
+    #template = jinja_environment.get_template('display.html')
+    #self.response.out.write(template.render(template_values))
 
 
 class viewR(webapp2.RequestHandler):
