@@ -14,87 +14,79 @@
 
     <script>
 
-        $(function() {
+        $(function display() { 
 
             var tblRow;
 
-            $.getJSON('/json/nusmod.json', function(data) {
-                $.each(data.moduleInformation, function(i, f) {
+            $.getJSON('/json/nusmod.json', function(data) {   
+                $.each(data.moduleInformation, function(i, f) { 
                     if(f.department == 'CENTRE FOR LANGUAGE STUDIES' || f.department == 'CHINESE STUDIES' || f.department == 'COMMUNICATIONS AND NEW MEDIA' || f.department == "DEAN'S OFFICE (ARTS & SOCIAL SC.)" || f.department == 'ECONOMICS' || f.department == 'ENGLISH LANGUAGE & LITERATURE' || f.department == 'GEOGRAPHY' || f.department == 'HISTORY' || f.department == 'JAPANESE STUDIES' ||f.department ==  'MALAY STUDIES' ||f.department ==  'PHILOSOPHY' ||f.department ==  'POLITICAL SCIENCE' ||f.department ==  'PSYCHOLOGY' || f.department == 'SOCIAL WORK' ||f.department ==  'SOCIOLOGY' ||f.department ==  'SOUTH ASIAN STUDIES PROGRAMME' ||f.department ==  'SOUTHEAST ASIAN STUDIES') {
 
                             tblRow = "<tr>" + "<td>" + f.label + "</td>" +
                             "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
                             $(tblRow).appendTo("#userdata tbody");
                     }
-                }); 
-            }); 
+                });
+            });
         });
 
     </script>
 
+
     <script type="text/javascript">
-    function getElements()
-    {
         
-        $.getJSON('/json/nusmod.json', function(data) {
-            $.each(data.moduleInformation, function(i, f) {
+       /** function getElements(){       
+        //$.getJSON('/json/nusmod.json', function(data) {
+            //$.each(data.moduleInformation, function(i, f) {
                 //document.getElementById("custom-search-form").submit();
-                var x= document.getElementById("modcode");
-                var upperx = x.value.toUpperCase(); 
-                alert(upperx);
-                var test =false;
-                var num_label=0;
+            var x = document.getElementById("modcode");
+            var upperx = x.value.toUpperCase(); 
+            return upperx;
+            //alert(upperx);
+            //return upperx;
+        }
+**/
+        function compare() {
 
-                for(var dummy in f.label){
-                    num_label++;
+            $.getJSON('/json/nusmod.json', function(data) {
+
+                // var isValid = data.moduleInformation.indexOf(document.getElementById("modcode").toUpperCase());
+
+                if (data.moduleInformation[document.getElementById("modcode").value.toUpperCase()]) {
+                    alert("yay");
                 }
+                else
+                {
+                    alert("Invalid Module Code, Please try again!");
+                }
+            });
+        }
+                // var modLen = data.moduleInformation.length;
+/**
+                $.each(data.moduleInformation, function(i, f) {
 
-                for(var i=0; i<num_label ; i++){
-                   
-                    //case 1 where length of user input is the same as the length of module code
-                    while(upperx.length == f.label.length){
-                        var j=0, k=0;
-                        if(upperx[j]==f.label[k]){
-                            j++;
-                            k++;
 
-                            if(j==upperx.length){
-                                test=true;
-                                break;
-                            }
-                        }
-                        else{
-                            break;
-                        }
+                    var x = document.getElementById("modcode");
+                    var upperx = x.value.toUpperCase();
+                
+                    var test = false;
+                    // var num_label = 0;
+                    // console.log("==========" + f.label + "==========");
+                    // for(var dummy in f.label){
+                        // num_label++;
+                    // }
+                    var num_label = f.label.length;
 
-                    }
-
-                    if(test==true){
-                        break; //break from for loop.
-                    }
-
-                    //second case where user input is a substring in Json Module Code
-                    if(upperx.length < f.label.length){
-                        var count=0;
-
-                        for(var a=0; a<f.label.length; a++){
-                            if(upperx[0] != f.label[a]){
-                                count++;
-                            }
-                            else{
-                                break; //found the index where the first letter starts=count
-                            }
-                        }
-
-                        var short_str= f.label.substring(count, (count+upperx.length-1));
-
-                        while(upperx.length == short_str.length){
+                    for(var i=0; i<num_label ; i++){
+                       
+                        //case 1 where length of user input is the same as the length of module code
+                        while(upperx.length === f.label.length){
                             var j=0, k=0;
-                            if(upperx[j]==short_str[k]){
+                            if(upperx[j]===f.label[k]){
                                 j++;
                                 k++;
 
-                                if(j==upperx.length){
+                                if(j===upperx.length){
                                     test=true;
                                     break;
                                 }
@@ -105,30 +97,65 @@
 
                         }
 
-                        if(test==true){
+                        if(test== true){
                             break; //break from for loop.
                         }
 
+                        //second case where user input is a substring in Json Module Code
+                        if(upperx.length < f.label.length){
+                            var count=0;
+
+                            for(var a=0; a<f.label.length; a++){
+                                if(upperx[0] != f.label[a]){
+                                    count++;
+                                }
+                                else{
+                                    break; //found the index where the first letter starts=count
+                                }
+                            }
+
+                            var short_str= f.label.substring(count, (count+upperx.length-1));
+
+                            while(upperx.length == short_str.length){
+                                var j=0, k=0;
+                                if(upperx[j]==short_str[k]){
+                                    j++;
+                                    k++;
+
+                                    if(j==upperx.length){
+                                        test= true;
+                                        break;
+                                    }
+                                }
+                                else{
+                                    break;
+                                }
+
+                            }
+
+                            if(test==true){
+                                break; //break from for loop.
+                            }
+
+                        } 
+
+                    //case 3 is where length of input > length of ModuleCode in JSON data -invalid    
+
+                    } //end of for loop
+
+                    if(test == false){
+                        alert("invalid module code");
                     } 
+                
+                    
+                        //save the module code= upperx n store in database then redirect to viewr html 
+                        
 
-                //case 3 is where length of input > length of ModuleCode in JSON data -invalid    
-
-                } //end of for loop
-
-                if(test == false){
-                    alert("invalid module code");
-                } 
-
-                else{
-                    //display review with the module.
-                }       
-
-            });
+                });
         }); 
-    } 
-</script>
-
-
+    }
+   **/ 
+    </script>
 
 
   </head>
@@ -183,13 +210,11 @@
    <div class="input-append span12">
         <input type="text" name="code" id="modcode" class="search-query" 
             placeholder="Enter module code(eg CH1101E)">
-        <button type="submit" onclick="getElements()" class="btn"><i onclick="getElements()" class="icon-search"></i></button>
+        <button type="button" onclick="compare()" class="btn"><i class="icon-search"></i></button>
 
     </div>
 
-</form> 
-
-    
+</form>     
     <div class="wrapper">
         <div class="profile">
             <table id= "userdata" border="2">
