@@ -112,15 +112,17 @@ class AddR(webapp2.RequestHandler):
     #template = jinja_environment.get_template('display.html')
     #self.response.out.write(template.render(template_values))
 
-
 class viewR(webapp2.RequestHandler):
   """ View reviews of module that user search for """
-  def post(self):
+  def get(self):
+
+
     user = users.get_current_user()
     if user:  # signed in already
         
-
-       searchcode = self.request.get('code')
+       searchfass = SearchFacultyFass()
+       searchcode = searchfass.retrievecode
+       #searchcode = self.request.get('code')
        query = db.GqlQuery("SELECT * from ModuleReviews where code =:1", searchcode)
        alist = []
        blist = []
@@ -149,12 +151,14 @@ class viewR(webapp2.RequestHandler):
     template = jinja_environment.get_template('viewR.html')
     self.response.out.write(template.render(template_values))
 
+  
+
 
 class Profile(webapp2.RequestHandler):
   """ Form for getting and displaying wishlist items. """
   
-  def download():
-    return response.download(request, db)
+  #def download():
+    #return response.download(request, db)
   
   def get(self):
     user = users.get_current_user()
@@ -326,6 +330,15 @@ class SearchFacultyFass(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
     else:
       self.redirect(self.request.host_url)
+
+  def post(self):
+    code = self.request.get('code')
+    self.code = code
+    self.redirect('/viewR')
+
+  def retrievecode(self):
+    return self.code
+
 
 class SearchFacultyDentistry(webapp2.RequestHandler):
   """ Display search page """

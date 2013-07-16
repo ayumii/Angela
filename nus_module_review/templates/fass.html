@@ -53,7 +53,27 @@
                 // var isValid = data.moduleInformation.indexOf(document.getElementById("modcode").toUpperCase());
 
                 if (data.moduleInformation[document.getElementById("modcode").value.toUpperCase()]) {
-                    alert("yay");
+                    $.ajax({
+                        url: "/fass",
+                        type: 'POST',
+                        data: { code : modcode.value },
+                    
+                    
+                        success: function(data,textStatus,jqxhr){
+                        //alert(modcode.value);
+                        window.location = "/viewR";
+                        },
+
+
+                        //debugging
+                        error:function (xhr, ajaxOptions, thrownError){
+                        alert(xhr.status);
+                        alert(thrownError);
+                        }  
+
+                    });  
+                    
+                
                 }
                 else
                 {
