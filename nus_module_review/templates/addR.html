@@ -43,22 +43,23 @@
       //});
 
     //});*/
+    $('.alert').hide();
 
     function validateForm()
     {
-    var x=document.forms["myform"]["review"].value;
-    if (x==null || x=="")
-     {
-      alert("Please type in a review");
-      //return false;
-     }
 
-    //else{
-      //jQuery.get('/main.py', function(data) {
-      //var review = document.forms["myform"]["review"].value;
-      //var diff =  document.forms["myform"]["diff"].value;
-      //var ratings = document.forms["myform"]["ratings"].value;
-      //var workload = document.forms["myform"]["workload"].value;
+       var r = document.forms["myform"]["review"].value;
+       var d =  document.forms["myform"]["diff"].value;
+       var ra = document.forms["myform"]["ratings"].value;
+       var w = document.forms["myform"]["workload"].value;
+        if (r==null || r=="" || d==null || d=="" || ra==null || ra=='' || w==null || w=='' )
+        {
+
+        document.getElementById("error-review").removeAttribute("hidden");
+        return false;
+
+        }
+
        var code = 5;
        var review = $('#review').val();
        var diff = $('#diff').val();
@@ -70,26 +71,16 @@
       data: { review: review, diff: diff, ratings: ratings, workload: workload, code: code },
       success: function(data,textStatus,jqxhr){
         alert("Hello!");
-        //jQuery.get('/templates/display.html');
-        window.location = "/templates/display.html";
-        //$('#myform').load(/templates/display.html);
+        window.location = "/display";
+    
         },
-      //error: function(jqXHR, textStatus, errorThrown) {
-         //console.log(textStatus, errorThrown);
-        //alert(xhr.status);
-        //alert(thrownError);
-        //}
+ 
       error:function (xhr, ajaxOptions, thrownError){
         alert(xhr.status);
         alert(thrownError);
         } 
-      //error:function(msg){
-        //    alert("Smth wrong!");
-              //window.location = "/templates/display.html";
-              //alert(msg.val());
-         //   }
+ 
           });
-      //});
       } 
     </script>
 
@@ -101,18 +92,18 @@
 
       <!-- Top bar --> 
       <div class="row-fluid top-container">  
-	<div class="span5">
-	  <img class="logo" src="../images/nus.gif">
-	  <!--change logo here later-->
-	</div>
+  <div class="span5">
+    <img class="logo" src="../images/nus.gif">
+    <!--change logo here later-->
+  </div>
 
-	  <div class="span4 offset6 signin-align">
-		<span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
-	  </div>
+    <div class="span4 offset6 signin-align">
+    <span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
+    </div>
 
-	<div class="span4 offset8 signin-align">
-	  <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
-	</div>
+  <div class="span4 offset8 signin-align">
+    <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+  </div>
 
       </div>
       <!-- End of top bar -->
@@ -121,22 +112,22 @@
      
 
      <div class = "navbar">
-	<div class = "navbar-inner">
-	  <ul class = "nav">
-	    <li> <a href="/Login"><i class="icon-home icon-white"></i> Home</a></li>
-       	<li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
-       	<li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
-       	<li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
+  <div class = "navbar-inner">
+    <ul class = "nav">
+      <li> <a href="/Login"><i class="icon-home icon-white"></i> Home</a></li>
+        <li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
+        <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
+        <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
         <li> <a href="/display"><i class=" icon-play-circle icon-white"></i>My Review</a></li>
-	<!--    <li> <a href="/AddM">+ Mod</a> </li>
-	   	<li> <a href="/FAQ">FAQ</a> </li>	   
-	    <li> <a href="/AddM">Contact Us</a> </li>
-	  -->
-	  </ul>
-	</div> 
+  <!--    <li> <a href="/AddM">+ Mod</a> </li>
+      <li> <a href="/FAQ">FAQ</a> </li>    
+      <li> <a href="/AddM">Contact Us</a> </li>
+    -->
+    </ul>
+  </div> 
       </div>  
 
-    <form name="myform" onsubmit="return validateForm()">
+    <form name="myform">
   <fieldset>
      <div class = "row-fluid">
     <h1 style="text-align:left;color:#333333">+ Review</h1>
@@ -193,9 +184,13 @@
 
    
 
-   	<label>Review:</label>
-   	<textarea id ="review" rows="10" name="review"></textarea><br>
-    <button type="submit" class="btn btn-warning">Submit</button>
+    <label>Review:</label>
+    <textarea id ="review" rows="10" name="review"></textarea><br>
+    <div hidden class="alert alert-error" style="width:255px" id="error-review" style="display:none">
+      <a class="close" data-dismiss="alert" onclick="document.getElementById('error-review').setAttribute('hidden')">×</a>
+      <strong>Error!</strong> Please enter all fields pretty please? :)
+    </div>
+    <button type="button" class="btn btn-warning" onclick="validateForm()">Submit</button>
     </div>
   </fieldset>
   </form> 
