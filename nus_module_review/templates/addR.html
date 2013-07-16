@@ -47,41 +47,59 @@
 
     function validateForm()
     {
+      $.getJSON('/json/nusmod.json', function(data) {
 
-       var r = document.forms["myform"]["review"].value;
-       var d =  document.forms["myform"]["diff"].value;
-       var ra = document.forms["myform"]["ratings"].value;
-       var w = document.forms["myform"]["workload"].value;
-        if (r==null || r=="" || d==null || d=="" || ra==null || ra=='' || w==null || w=='' )
-        {
+      if (data.moduleInformation[document.getElementById("code").value.toUpperCase()]) {
+            //alert("yay")
 
-        document.getElementById("error-review").removeAttribute("hidden");
-        return false;
+            var c = document.forms["myform"]["code"].value;
+            var r = document.forms["myform"]["review"].value;
+            var d =  document.forms["myform"]["diff"].value;
+            var ra = document.forms["myform"]["ratings"].value;
+            var w = document.forms["myform"]["workload"].value;
+            if (r==null || r=="" || d==null || d=="" || ra==null || ra=='' || w==null || w=='' || c=="" || c==null)
+              {
+              document.getElementById("error-review").removeAttribute("hidden");
+              return false;
+              }
 
+            var code = $('#code').val();
+            var review = $('#review').val();
+            var diff = $('#diff').val();
+            var ratings = $('#ratings').val();
+            var workload = $('#workload').val();
+            $.ajax({
+            url: "/addR",
+            type: 'POST',
+            data: { code:code, review: review, diff: diff, ratings: ratings, workload: workload},
+            success: function(data,textStatus,jqxhr){
+            //alert("Hello!");
+            window.location = "/display";
+            },
+ 
+            error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+            } 
+            });
         }
 
-       var code = 5;
-       var review = $('#review').val();
-       var diff = $('#diff').val();
-       var ratings = $('#ratings').val();
-       var workload = $('#workload').val();
-      $.ajax({
-      url: "/addR",
-      type: 'POST',
-      data: { review: review, diff: diff, ratings: ratings, workload: workload, code: code },
-      success: function(data,textStatus,jqxhr){
-        alert("Hello!");
-        window.location = "/display";
-    
-        },
- 
-      error:function (xhr, ajaxOptions, thrownError){
-        alert(xhr.status);
-        alert(thrownError);
-        } 
- 
-          });
-      } 
+      else
+        {
+              if (r==null || r=="" || d==null || d=="" || ra==null || ra=='' || w==null || w=='' || c=="" || c==null)
+              {
+              document.getElementById("error-review").removeAttribute("hidden");
+              document.getElementById("error-code").removeAttribute("hidden");
+              return false;
+              }
+              else
+              {
+              document.getElementById("error-code").removeAttribute("hidden");
+              return false;
+              }//alert("Invalid Module Code, Please try again!");
+          }
+        });
+      }
     </script>
 
 
@@ -151,11 +169,15 @@
 
         </div>
     </div>-->
-    
+    <div class="controls">
+    <input name="code" type="text" id="code" placeholder="Module Code">
+    </div>   
    
-   <!--<select id = "userdata">
-              <option value="abc" name="code" >Select a Module Code</option>                  
-   </select><br>-->
+   
+      <div hidden class="alert alert-error" style="width:300px" id="error-code" style="display:none">
+      <a class="close" data-dismiss="alert" onclick="document.getElementById('error-code').setAttribute('hidden')">×</a>
+      <strong>Error!</strong> Invalid module code.
+    </div>
 
      <select id = "ratings" name="ratings" >
               <option value="" selected="">Select a Rating out of 5</option>                   
@@ -186,7 +208,7 @@
 
     <label>Review:</label>
     <textarea id ="review" rows="10" name="review"></textarea><br>
-    <div hidden class="alert alert-error" style="width:255px" id="error-review" style="display:none">
+    <div hidden class="alert alert-error" style="width:300px" id="error-review" style="display:none">
       <a class="close" data-dismiss="alert" onclick="document.getElementById('error-review').setAttribute('hidden')">×</a>
       <strong>Error!</strong> Please enter all fields pretty please? :)
     </div>
