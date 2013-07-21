@@ -114,15 +114,13 @@ class AddR(webapp2.RequestHandler):
 
 class viewR(webapp2.RequestHandler):
   """ View reviews of module that user search for """
+
   def get(self):
-
-
     user = users.get_current_user()
     if user:  # signed in already
         
-       searchfass = SearchFacultyFass()
-       searchcode = searchfass.retrievecode
-       #searchcode = self.request.get('code')
+       
+       searchcode = self.request.get('code')
        query = db.GqlQuery("SELECT * from ModuleReviews where code =:1", searchcode)
        alist = []
        blist = []
@@ -330,14 +328,6 @@ class SearchFacultyFass(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
     else:
       self.redirect(self.request.host_url)
-
-  def post(self):
-    code = self.request.get('code')
-    self.code = code
-    self.redirect('/viewR')
-
-  def retrievecode(self):
-    return self.code
 
 
 class SearchFacultyDentistry(webapp2.RequestHandler):

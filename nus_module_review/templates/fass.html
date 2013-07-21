@@ -50,18 +50,32 @@
 
             $.getJSON('/json/nusmod.json', function(data) {
 
+                var x = document.getElementById("modcode").value.toUpperCase();
+
                 // var isValid = data.moduleInformation.indexOf(document.getElementById("modcode").toUpperCase());
 
-                if (data.moduleInformation[document.getElementById("modcode").value.toUpperCase()]) {
+                if (data.moduleInformation[x]) {
                     $.ajax({
-                        url: "/fass",
-                        type: 'POST',
-                        data: { code : modcode.value },
-                    
-                    
+
+                        url: "/viewR",
+                        type: 'GET',
+                        data: { code : x },
+                        
+                     
                         success: function(data,textStatus,jqxhr){
-                        //alert(modcode.value);
-                        window.location = "/viewR";
+
+
+                        //window.location.href= " /viewR?code=x " ;
+                        //  if (data.redirect) {
+                        // data.redirect contains the string URL to redirect to
+                        //    window.location.href = data.redirect;
+                         //   }  
+                        //alert(x);
+                        //window.location = "/viewR?code=MA1506 ";
+                        
+                        //window.location= "/viewR";
+                        //window.location.href = "/viewR" ;
+  
                         },
 
 
@@ -70,7 +84,7 @@
                         alert(xhr.status);
                         alert(thrownError);
                         }  
-
+                        
                     });  
                     
                 
@@ -226,12 +240,13 @@
         
        <!-- <form action="/viewR" method="post"> -->
 
-        <form id="custom-search-form" class="form-search form-horizontal pull-right">
+        <form action="/viewR" method="get" id="custom-search-form" class="form-search form-horizontal pull-right">
    <div class="input-append span12">
         <input type="text" name="code" id="modcode" class="search-query" 
             placeholder="Enter module code(eg CH1101E)">
-        <button type="button" onclick="compare()" class="btn"><i class="icon-search"></i></button>
-
+        <button type="button" onclick="compare()" class="btn"><i class="icon-search">
+        </i></button>
+      
     </div>
 
 </form>     
