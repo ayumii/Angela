@@ -138,11 +138,11 @@ class viewR(webapp2.RequestHandler):
         blist.append( query2 )
         i+=1
  
-       #count = CountReviews(key_name=self.request.get("code"))
-       #count.code = searchcode
-       #count.count = query.count() 
-       #count.put()
-       #count = db.GqlQuery("SELECT * from CountReviews where code =:1", searchcode).get()
+       count = CountReviews(key_name=self.request.get("code"))
+       count.code = searchcode
+       count.count = query.count() 
+       count.put()
+       count = db.GqlQuery("SELECT * from CountReviews where code =:1", searchcode).get()
 
        #else: 
         #win32api.MessageBox(0,"Sorry pls key in a valid code", "invalid input")
@@ -154,7 +154,7 @@ class viewR(webapp2.RequestHandler):
         'query2' : blist,  
         'query' : alist,
         'code': searchcode,
-       # 'count': count,
+        'count': count,
         } 
     
     template = jinja_environment.get_template('viewR.html')
