@@ -6,14 +6,16 @@ import datetime
 import time
 import json
 import urllib2
-#import cgi
 
+
+#import cgi
 
 
 from google.appengine.ext import db
 from google.appengine.api import users
 from google.appengine.ext.db import polymodel
 #from google.appengine.api import images
+
 
 jinja_environment = jinja2.Environment(
   loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"))
@@ -116,26 +118,35 @@ class viewR(webapp2.RequestHandler):
   """ View reviews of module that user search for """
 
   def get(self):
+
     user = users.get_current_user()
-    if user:  # signed in already
-        
-       
+    if user:  # signed in already   
+       #searchcode = self.request.get('code')
        searchcode = self.request.get('code')
-       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1", searchcode)
+       
+       
+       query = db.GqlQuery("SELECT * from ModuleReviews where code =:1", searchcode).fetch(limit= None,  deadline=60, offset=0, keys_only=False, projection=None, start_cursor=None, end_cursor=None)
+      
        alist = []
+
        blist = []
        i = 0
+
        for module in query:
         alist.append( query[i] )
         query2 = db.GqlQuery("SELECT * from Persons where email =:1", alist[i].email).get()  
         blist.append( query2 )
         i+=1
  
-       count = CountReviews(key_name=self.request.get("code"))
-       count.code = searchcode
-       count.count = query.count() 
-       count.put()
-       count = db.GqlQuery("SELECT * from CountReviews where code =:1", searchcode).get()
+       #count = CountReviews(key_name=self.request.get("code"))
+       #count.code = searchcode
+       #count.count = query.count() 
+       #count.put()
+       #count = db.GqlQuery("SELECT * from CountReviews where code =:1", searchcode).get()
+
+       #else: 
+        #win32api.MessageBox(0,"Sorry pls key in a valid code", "invalid input")
+
 
     template_values = {
         'user_mail' : users.get_current_user().email(),
@@ -143,7 +154,7 @@ class viewR(webapp2.RequestHandler):
         'query2' : blist,  
         'query' : alist,
         'code': searchcode,
-        'count': count,
+       # 'count': count,
         } 
     
     template = jinja_environment.get_template('viewR.html')
