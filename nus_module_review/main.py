@@ -132,20 +132,34 @@ class viewR(webapp2.RequestHandler):
        blist = []
        i = 0
 
+       
+
+
        for module in query:
         alist.append( query[i] )
         query2 = db.GqlQuery("SELECT * from Persons where email =:1", alist[i].email).get()  
         blist.append( query2 )
+
+        count = db.GqlQuery("SELECT * from CountReviews where code =:1", searchcode).get()
+       
+        count.code = searchcode
+        count.count = query.count(searchcode)
+        count.put()
+
+        count.count += 1  
         i+=1
+
  
-       count = CountReviews(key_name=self.request.get("code"))
-       count.code = searchcode
-       count.count = query.count(searchcode) 
-       count.put()
+       #count = CountReviews(key_name=self.request.get("code"))
+       
+       #count = db.GqlQuery("SELECT * from CountReviews where code =:1", searchcode).fetch(limit= None,  deadline=60, offset=0, keys_only=False, projection=None, start_cursor=None, end_cursor=None)
+       
+       #count.code = searchcode
+       #count.count = query.count(searchcode)
+       #count.count += 1 
+       #count.put()
        #count = db.GqlQuery("SELECT * from CountReviews where code =:1", searchcode).get()
 
-       #else: 
-        #win32api.MessageBox(0,"Sorry pls key in a valid code", "invalid input")
 
 
     template_values = {
