@@ -42,6 +42,21 @@
       });
 
     });
+
+      function compare() {
+
+        $.getJSON('/json/nusmod.json', function(data) {
+
+          var x = document.getElementById("modcode").value.toUpperCase();
+          if (data.moduleInformation[x]) {
+            window.location.href="/viewR?code=" + x;
+          }
+          else
+          {
+          alert("Invalid Module Code, Please try again!");
+          }
+        });
+      }            
         </script>
 
   </head>
@@ -90,13 +105,14 @@
 
     <h5 style ="color: red">For more information, pls visit <a href="http://www.nus.edu.sg/cors/"> NUS CORS </a></h5><br>
         
-        <form action="/viewR" method="post" id="custom-search-form" class="form-search form-horizontal pull-right">
-   <div class="input-append span12">
-        <input type="text" name="code" class="search-query" placeholder="Enter module code(eg CH1101E)">
-        <button type="submit" class="btn"><i class="icon-search"></i></button>
-    </div>
-</form> 
-
+      <form id="custom-search-form" class="form-search form-horizontal pull-right">
+        <div class="input-append span12">
+          <input type="text" name="code" id="modcode" class="search-query" 
+            placeholder="Enter module code(eg CH1101E)">
+           <button type="button" onclick="compare()" class="btn"><i class="icon-search">
+           </i></button>
+        </div>
+      </form>     
 
     
     <div class="wrapper">
@@ -118,5 +134,7 @@
 
 
      </div>
+     <div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+Copyright 2013© nusmodulereview.appspot.com</div>
   </body>
 </html>

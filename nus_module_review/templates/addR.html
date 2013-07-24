@@ -63,7 +63,7 @@
               return false;
               }
 
-            var code = $('#code').val();
+            var code = $('#code').val().toUpperCase();
             var review = $('#review').val();
             var diff = $('#diff').val();
             var ratings = $('#ratings').val();
@@ -73,13 +73,12 @@
             type: 'POST',
             data: { code:code, review: review, diff: diff, ratings: ratings, workload: workload},
             success: function(data,textStatus,jqxhr){
-            //alert("Hello!");
-            window.location = "/display";
+             window.location = "/display";
             },
  
             error:function (xhr, ajaxOptions, thrownError){
-            alert(xhr.status);
-            alert(thrownError);
+             alert(xhr.status);
+             alert(thrownError);
             } 
             });
         }
@@ -145,6 +144,7 @@
   </div> 
       </div>  
 
+  <div id="content" style="background-color:#EEEEEE;height:600px;width:1450px; float:left;">
     <form name="myform">
   <fieldset>
      <div class = "row-fluid">
@@ -210,11 +210,14 @@
     <textarea id ="review" rows="10" name="review"></textarea><br>
     <div hidden class="alert alert-error" style="width:300px" id="error-review" style="display:none">
       <a class="close" data-dismiss="alert" onclick="document.getElementById('error-review').setAttribute('hidden')">×</a>
-      <strong>Error!</strong> Please enter all fields pretty please? :)
+      <strong>Error!</strong> Please enter all fields please? :)
     </div>
     <button type="button" class="btn btn-warning" onclick="validateForm()">Submit</button>
     </div>
   </fieldset>
   </form> 
+</div>
+<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+Copyright 2013© nusmodulereview.appspot.com</div>
     </body>
 </html>

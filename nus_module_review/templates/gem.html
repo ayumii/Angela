@@ -9,6 +9,53 @@
     <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
 
+   
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+  <script>
+
+    $(function() {
+
+   var people = [];
+   var tblRow;
+
+   $.getJSON('/json/nusmod.json', function(data) {
+
+       $.each(data.moduleInformation, function(i, f) {
+          if((f.types[0] == "Module" && f.types[1] =="GEM") || f.types=="GEM") {
+
+            tblRow = "<tr>" + "<td>" + f.label + "</td>" +
+           "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
+           $(tblRow).appendTo("#userdata tbody");
+
+          }
+        });
+
+      });
+
+    });
+       
+        function compare() {
+
+            $.getJSON('/json/nusmod.json', function(data) {
+
+                var x = document.getElementById("modcode").value.toUpperCase();
+                if (data.moduleInformation[x]) {
+                    
+                     window.location.href="/viewR?code=" + x;
+                }
+                else
+                {
+
+                    alert("Invalid Module Code, Please try again!");
+                }
+            });
+        }
+               
+    </script> 
+
+
+
   </head>
   <body>
 
@@ -16,18 +63,18 @@
 
       <!-- Top bar --> 
       <div class="row-fluid top-container">  
-	<div class="span5">
-	  <img class="logo" src="../images/nus.gif">
-	  <!--change logo here later-->
-	</div>
+  <div class="span5">
+    <img class="logo" src="../images/nus.gif">
+   
+  </div>
 
-	  <div class="span4 offset6 signin-align">
-		<span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
-	  </div>
+    <div class="span4 offset6 signin-align">
+    <span> <h4 style="color: #FF6600; font-size:25px;font-family: times, serif">Welcome</h4> </span>
+    </div>
 
-	<div class="span4 offset8 signin-align">
-	  <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
-	</div>
+  <div class="span4 offset8 signin-align">
+    <span> {{ user_mail }} <a href="{{ logout }}">logout</a></span>
+  </div>
 
       </div>
       <!-- End of top bar -->
@@ -36,42 +83,62 @@
      
 
      <div class = "navbar">
-	<div class = "navbar-inner">
-	  <ul class = "nav">
-	    <li> <a href="/Login"><i class="icon-home icon-white"></i> Home</a></li>
-	  	<li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
-	    <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
-	    <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
-	    <li> <a href="/display"><i class=" icon-play-circle icon-white"></i>My Review</a></li>
-	<!--    <li> <a href="/AddM">+ Mod</a> </li>
-	   	<li> <a href="/FAQ">FAQ</a> </li>	   
-	    <li> <a href="/AddM">Contact Us</a> </li>
-	  -->
-	  </ul>
-	</div> 
+  <div class = "navbar-inner">
+    <ul class = "nav">
+      <li> <a href="/Login"><i class="icon-home icon-white"></i> Home</a></li>
+      <li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
+      <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
+      <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
+        <li> <a href="/display"><i class=" icon-play-circle icon-white"></i>My Review</a></li>
+  <!--    <li> <a href="/AddM">+ Mod</a> </li>
+      <li> <a href="/FAQ">FAQ</a> </li>    
+      <li> <a href="/AddM">Contact Us</a> </li>
+    -->
+    </ul>
+  </div> 
       </div>  
- 		</form>  
+
+      
+      <h1>  General Education Modules </h1>
+
+    <h5 style ="color: red">For more information, pls visit <a href="http://www.nus.edu.sg/cors/"> NUS CORS </a></h5><br>
+        
+<form id="custom-search-form" class="form-search form-horizontal pull-right">
+   <div class="input-append span12">
+        <input type="text" name="code" id="modcode" class="search-query" 
+            placeholder="Enter module code(eg CH1101E)">
+        <button type="button" onclick="compare()" class="btn"><i class="icon-search">
+        </i></button>
+       
+    </div>
+
+</form>     
 
 
-      <table border="3px">
-            <thead>
-              <tr>
-                <th style= "font-size: 16px">Module Code </th>
-                <th style= "font-size: 16px">Module Title </th> 
-              </tr>  
-            </thead>
-           
+    
+    <div class="wrapper">
+        <div class="profile">
+            <table id= "userdata" border="2">
+                <thead>
+                    <th>Module Code</th>
+                    <th>Module Title</th>
+                    <th>Module Description</th>
+                    <th>Department</th>
+                </thead>
             <tbody>
-                <tr>
-                	
-                    <td> {{ js.keys()[0]["label"] }}</td>
-                    <td> {{ js.keys()[0]["title"] }}</td>                        
-                </tr>
- 					
-     		</tbody>
+
+            </tbody>
         </table>
 
+        </div>
+    </div>
 
-   </div>
+
+     </div>
+   
+
+
+<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+Copyright 2013© nusmodulereview.appspot.com</div>
   </body>
 </html>

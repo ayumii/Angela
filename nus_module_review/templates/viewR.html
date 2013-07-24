@@ -38,7 +38,7 @@
      <div class = "navbar">
 	<div class = "navbar-inner">
 	  <ul class = "nav">
-	    <li> <a href=" "><i class="icon-home icon-white"></i> Home</a></li>
+	    <li> <a href="/Login"><i class="icon-home icon-white"></i> Home</a></li>
        	<li> <a href="/profile"><i class="icon-user icon-white"></i>Profile</a> </li>
        	<li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
        	<li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
@@ -50,8 +50,8 @@
 	  </ul>
 	</div> 
       </div>  
-
-         <h4 style="color: #FF6600; font-size:25px;"> {{ count.count }} Reviews for {{ code }}</h4> 
+        <div id="content" style="background-color:#FFFFFF;height:1000px;width:1450px; float:left;">
+         <h4 style="color: #FF6600; font-size:25px;"> {{ i }} Reviews for {{ code }}</h4> 
          <table class="table table-bordered table-striped" >
   <thead>
     {% for person in query2 %}
@@ -63,10 +63,10 @@
    <tbody>
     <tr>
       <td>
-        {{ person.email }}<br>
-        {{ person.faculty }}<br> 
-        Year {{ person.year }}<br>
-        {{ person.gender }}<br>
+        Username: {{ person.username }}<br>
+        Faculty: {{ person.faculty }}<br> 
+        Year: {{ person.year }}<br>
+        Gender: {{ person.gender }}<br>
       </td>
      <!-- <td>{#module.text#}</td>-->
      <!-- <td>{#module.email#} </td>
@@ -74,7 +74,7 @@
       <td>{#module.text#}  </td>
       <td>{#module.date.strftime('%Y-%m-%d %H:%M:%S')#} </td>-->
       <td>
-        {{query[loop.index0].date.strftime('%Y-%m-%d %H:%M:%S')}}<br>
+        {{query[loop.index0].date.strftime("%Y-%m-%d %H:%M:%S")}}<br>
         Ratings: {{query[loop.index0].ratings}}<br>
         Workload: {{query[loop.index0].workload}}<br>
         Level of Difficulty: {{query[loop.index0].diff}}<br>
@@ -90,8 +90,9 @@
   </tbody>
     
      </table>
-   
-    
+  </div>
+    <div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+Copyright 2013© nusmodulereview.appspot.com</div>
   </body>
 </html>
         
