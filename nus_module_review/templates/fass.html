@@ -55,7 +55,10 @@
                 // var isValid = data.moduleInformation.indexOf(document.getElementById("modcode").toUpperCase());
 
                 if (data.moduleInformation[x]) {
-                    $.ajax({
+                    
+                     window.location.href="/viewR?code=" + x;
+
+                    /**$.ajax({
 
                         url: "/viewR",
                         type: 'GET',
@@ -64,16 +67,19 @@
                      
                         success: function(data,textStatus,jqxhr){
 
+                           
+                        window.location.href="/viewR?code=" + x;
+
 
                         //window.location.href= " /viewR?code=x " ;
-                        //  if (data.redirect) {
-                        // data.redirect contains the string URL to redirect to
-                        //    window.location.href = data.redirect;
-                         //   }  
+                          //if (data.redirect) {
+                         //data.redirect contains the string URL to redirect to
+                            //window.location.href = data.redirect;
+                            //}  
                         //alert(x);
                         //window.location = "/viewR?code=MA1506 ";
                         
-                        //window.location= "/viewR";
+                       // window.location= "/viewR";
                         //window.location.href = "/viewR" ;
   
                         },
@@ -81,11 +87,12 @@
 
                         //debugging
                         error:function (xhr, ajaxOptions, thrownError){
-                        alert(xhr.status);
-                        alert(thrownError);
+                            alert(xhr.status);
+                            alert(thrownError);
                         }  
                         
-                    });  
+                    });
+                    **/  
                     
                 
                 }
@@ -184,12 +191,13 @@
                     
                         //save the module code= upperx n store in database then redirect to viewr html 
                         
-
+                        onclick="compare()"
+                        <button type="button"
                 });
         }); 
     }
    **/ 
-    </script>
+    </script> 
 
 
   </head>
@@ -240,13 +248,13 @@
         
        <!-- <form action="/viewR" method="post"> -->
 
-        <form action="/viewR" method="get" id="custom-search-form" class="form-search form-horizontal pull-right">
+        <form id="custom-search-form" class="form-search form-horizontal pull-right">
    <div class="input-append span12">
         <input type="text" name="code" id="modcode" class="search-query" 
             placeholder="Enter module code(eg CH1101E)">
         <button type="button" onclick="compare()" class="btn"><i class="icon-search">
         </i></button>
-      
+       
     </div>
 
 </form>     
