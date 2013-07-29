@@ -74,7 +74,8 @@
             data: { code:code, review: review, diff: diff, ratings: ratings, workload: workload},
             success: function(data,textStatus,jqxhr){
             //alert("Hello!");
-            window.location = "/display";
+            window.location = "/errorR";
+            window.location.reload() ="/errorR";
             },
  
             error:function (xhr, ajaxOptions, thrownError){

@@ -30,7 +30,8 @@
             type: 'POST', //not the post/get in py its smth else ->http://www.cs.tut.fi/~jkorpela/forms/methods.html 
             data: { person_name: n, person_fac: f, person_year: y, person_sex: g}, //{name in html form: name defined in function}
             success: function(data,textStatus,jqxhr){
-            window.location = "/profile"; //redirect to profile html
+            window.location = "/profile";
+             /
             },
  
             error:function (xhr, ajaxOptions, thrownError){

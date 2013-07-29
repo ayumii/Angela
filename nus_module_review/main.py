@@ -59,7 +59,7 @@ class ModuleReviews(db.Model):
   text = db.TextProperty() #allows text of more than 500 characters
   email = db.StringProperty()#identify user that wrote review
   date = db.DateTimeProperty(auto_now_add=True)
-
+  checkr= db.IntegerProperty()
 #to count the number of reviews for future use  
 class CountReviews(db.Model):
   """Models the number of reviews written for each module"""
@@ -92,15 +92,27 @@ class AddR(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
 
   def post(self):
-    module = ModuleReviews(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
-    module.text =  self.request.get("review")
-    module.code = self.request.get("code")
-    module.ratings = self.request.get("ratings")
-    module.workload = self.request.get("workload")
-    module.diff = self.request.get("diff")
-    module.email = users.get_current_user().email()
-    module.put()
-    self.redirect('/display')
+    modcode = self.request.get("code")
+    email = users.get_current_user().email()
+    query = db.GqlQuery("SELECT * from ModuleReviews where code =:1 and email =:2", modcode, email)
+    #module = query.get()
+    if query.count() != None:
+      #module = query.get()
+      #module.checkr=1
+      #module.put()
+      self.redirect('/errorR')
+    
+    else:
+     #query.count() == None:
+      module = ModuleReviews(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
+      module.text =  self.request.get("review")
+      module.code = self.request.get("code")
+      module.ratings = self.request.get("ratings")
+      module.workload = self.request.get("workload")
+      module.diff = self.request.get("diff")
+      module.email = users.get_current_user().email()
+      module.put()
+      self.redirect('/display')
     #searchcode = self.request.get("code")
     #count = CountReviews(key_name=self.request.get("code"))
     #query = db.GqlQuery("SELECT * FROM ModuleReviews WHERE code =:1 ",searchcode)
@@ -578,6 +590,28 @@ class Display(webapp2.RequestHandler):
     #template = jinja_environment.get_template('display.html')
     #self.response.out.write(template.render(template_values))
 
+class errorR(webapp2.RequestHandler):
+  """ Displays reviews user has written """
+  def get(self):
+
+    email = users.get_current_user().email() 
+    count = 1
+    query = db.GqlQuery("SELECT * from ModuleReviews where email = :1 and checkr =:2", email, count)
+    #module = query.get()
+
+    if query.count() == 1:
+      template_values = {
+        'user_mail': users.get_current_user().email(),
+        #'target_mail': target,
+        'logout': users.create_logout_url(self.request.host_url),
+       #'query': query,
+      }
+
+      template = jinja_environment.get_template('errorR.html')
+      self.response.out.write(template.render(template_values))
+
+    else:
+      self.redirect('/display')
 
 class Construction(webapp2.RequestHandler):
   """ webpage under construction """
@@ -658,6 +692,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
   ('/medicine', SearchFacultyMedicine),
   ('/music', SearchFacultyMusic),
   ('/display', Display),
+  ('/errorR', errorR),
   ('/trypeeps',Trypeeps)],
   debug=True)
 #class Mainpage is mapped to the root URL (/) 
