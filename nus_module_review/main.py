@@ -99,9 +99,11 @@ class AddR(webapp2.RequestHandler):
   def post(self):
     modcode = self.request.get("code")
     email = users.get_current_user().email()
-    query = db.GqlQuery("SELECT * from ModuleReviews where code =:1 and email =:2", modcode, email)
+    query = db.GqlQuery("SELECT * from ModuleReviews where code =:1 and email =:2", modcode, email).get()
+    #self.response.out.write(query.code)
     #module = query.get()
-    if query.count() != None:
+    if query != None:
+      #self.response.out.write(query.code)
       #module = query.get()
       #module.checkr=1
       #module.put()
@@ -109,6 +111,7 @@ class AddR(webapp2.RequestHandler):
     
     else:
      #query.count() == None:
+      #self.response.out.write(query.code)
       module = ModuleReviews(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
       module.text =  self.request.get("review")
       module.code = self.request.get("code")
@@ -638,24 +641,24 @@ class errorR(webapp2.RequestHandler):
   """ Displays reviews user has written """
   def get(self):
 
-    email = users.get_current_user().email() 
-    count = 1
-    query = db.GqlQuery("SELECT * from ModuleReviews where email = :1 and checkr =:2", email, count)
+    #email = users.get_current_user().email() 
+    #count = 1
+    #query = db.GqlQuery("SELECT * from ModuleReviews where email = :1 and checkr =:2", email, count)
     #module = query.get()
 
-    if query.count() == 1:
-      template_values = {
-        'user_mail': users.get_current_user().email(),
-        #'target_mail': target,
-        'logout': users.create_logout_url(self.request.host_url),
-       #'query': query,
-      }
+    #if query.count() == 1:
+    template_values = {
+      'user_mail': users.get_current_user().email(),
+      #'target_mail': target,
+      'logout': users.create_logout_url(self.request.host_url),
+      #'query': query,
+    }
 
-      template = jinja_environment.get_template('errorR.html')
-      self.response.out.write(template.render(template_values))
+    template = jinja_environment.get_template('errorR.html')
+    self.response.out.write(template.render(template_values))
 
-    else:
-      self.redirect('/display')
+    #else:
+    #  self.redirect('/display')
 
 class Construction(webapp2.RequestHandler):
   """ webpage under construction """
