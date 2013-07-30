@@ -1,4 +1,3 @@
-<!-- Wish list -->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -9,7 +8,7 @@
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="../bootstrap/css/self.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../stylesheets/main.css">
-<script language="JavaScript" type="text/javascript">
+   <!--<script language="JavaScript" type="text/javascript">
     //  Published at: scripts.tropicalpcsolutions.com
     var reloaded = false;
     var loc=""+document.location;
@@ -21,9 +20,10 @@
     if (!reloaded) 
         window.location.replace(window.location+"?reloaded=true");
     }
-    </script>
+    </script>-->
 </head>
-<body onload="reloadOnceOnly()">
+<!--<body onload="reloadOnceOnly()">-->
+<body>
 
     <div class="container-fluid"> 
 
@@ -31,6 +31,7 @@
       <div class="row-fluid top-container">  
        <div class="span5">
          <img class="logo" src="../images/nus.gif">
+        
      </div>
 
      <div class="span4 offset6 signin-align">
@@ -56,55 +57,24 @@
        <li> <a href="/search"><i class="icon-search icon-white"></i>Search Mod</a> </li>
        <li> <a href="/addR"><i class="icon-plus-sign icon-white"></i>Add Review</a> </li>
        <li> <a href="/display"><i class=" icon-play-circle icon-white"></i>My Review</a></li>
-	<!--    <li> <a href="/AddM">+ Mod</a> </li>
+	<!--    <li> <a href="/AddM">+ Mod</a> </li>icon-white
 	   	<li> <a href="/FAQ">FAQ</a> </li>	   
 	    <li> <a href="/AddM">Contact Us</a> </li>
  -->
 </ul>
 </div> 
 </div>  
-    <div id="content" style="background-color:#FFFFFF;height:1000px;width:1450px; float:left;">
-      <h4> Reviews of {{ person.username }} / {{ user_mail }} </h4>
 
-      <table class="table table-bordered table-striped" >
-  <thead>
-<<<<<<< HEAD
-    <tr><th width="10%">Module Code</th><th width='10%'>Ratings (Out of 5)</th><th width='10%'>Workload</th><th width='10%'>Level of Difficulty</th><th width='25%'>Review</th><th width='20%'>Date&amp;Time</th><th width="5%"> </th> </tr>
-=======
-    <tr><th width="20%">Module Code</th><th>Ratings (Out of 5)</th><th>Workload</th><th>Level of Difficulty</th><th>Review</th><th>Check</th><th>Date&amp;Time</th><th width="5%"> </th></tr>
->>>>>>> 5a29535cca32434a97f367bca271df7fc77835c6
-  </thead>
+<div class="row-fluid">
+	<div class="span5">
+		<h1 style="text-align:center;color:#333333">OH NO!<br><br><br><br>
 
-	 <tbody>
-	  {% for module in query %}
-	  <tr>
-      <td>{{ module.code }} </td>
-      <td>{{ module.ratings }} </td>
-      <td>{{ module.workload }} </td>
-      <td>{{ module.diff }} </td>
-      <td>{{ module.text }}  </td>
-<<<<<<< HEAD
-      <td>{{ module.date.replace(hour=((module.date.hour+8)%24) , microsecond=0 ) }} </td>
+          Looks like you have already submitted a review for this module! 
+          Sorry! You can only submit one review for each module! </h1>
 
-
-=======
-      <td>{{ module.checkr }}  </td>
-	    <td>{{ module.date.strftime('%Y-%m-%d %H:%M:%S') }} </td>
->>>>>>> 5a29535cca32434a97f367bca271df7fc77835c6
-
-      <td><form action="/display" method="post">
-        <input type="hidden" name= "button" value= "{{ loop.index0 }}"> 
-        <button type="submit" class="btn btn-warning">Delete</button> </form></td>
-	  
-    </tr>
-	  {% endfor %}
-	</tbody>
-
-      </table>
-    </div>
+      </div>
   </div>
+
   
-    <div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
-Copyright 2013© nusmodulereview.appspot.com</div>
-  </body>
+</body>
 </html>
