@@ -56,7 +56,7 @@
 
       <table class="table table-bordered table-striped" >
   <thead>
-    <tr><th width="20%">Module Code</th><th>Ratings (Out of 5)</th><th>Workload</th><th>Level of Difficulty</th><th>Review</th><th>Date&amp;Time</th><th width="5%"> </th></tr>
+    <tr><th width="10%">Module Code</th><th width='10%'>Ratings (Out of 5)</th><th width='10%'>Workload</th><th width='10%'>Level of Difficulty</th><th width='25%'>Review</th><th width='20%'>Date&amp;Time</th><th width="5%"> </th> </tr>
   </thead>
 
 	 <tbody>
@@ -67,7 +67,9 @@
       <td>{{ module.workload }} </td>
       <td>{{ module.diff }} </td>
       <td>{{ module.text }}  </td>
-	    <td>{{ module.date.strftime('%Y-%m-%d %H:%M:%S') }} </td>
+      <td>{{ module.date.replace(hour=((module.date.hour+8)%24) , microsecond=0 ) }} </td>
+
+
 
       <td><form action="/display" method="post">
         <input type="hidden" name= "button" value= "{{ loop.index0 }}"> 

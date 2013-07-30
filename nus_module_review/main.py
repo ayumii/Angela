@@ -7,6 +7,8 @@ import time
 import json
 import urllib2
 
+from datetime import datetime
+
 
 #import cgi
 
@@ -63,7 +65,8 @@ class ModuleReviews(db.Model):
   date = db.DateTimeProperty(auto_now_add=True)
 
 #to count the number of reviews for future use  
-class CountReviews(db.Model):
+class CountReviews(db.
+  Model):
   """Models the number of reviews written for each module"""
   code = db.StringProperty()
   count = db.IntegerProperty()
@@ -575,15 +578,26 @@ class Display(webapp2.RequestHandler):
   def get(self):
 
     useremail = users.get_current_user().email() 
-    query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
+    query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail)
+    #query.date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    #query.date = query.date.replace(hour=(query.date.hour+8)%24)
     person = db.GqlQuery("SELECT * from Persons where email =:1", useremail ).get()
+
+    #now=datetime.now()
+    #dateandtime = str(now.day) + "/" + str(now.month) + "/" + str(now.year) + " " + str ((now.hour)+8) + ":" + str(now.minute) + ":" + str(now.second)
+
+
+
 
     template_values = {
       'user_mail': users.get_current_user().email(),
       #'target_mail': target,
       'logout': users.create_logout_url(self.request.host_url),
       'query': query,
+      #'date' : query.date,
       'person' : person,
+      #'dateandtime' : dateandtime,
+      
     }
     
 
