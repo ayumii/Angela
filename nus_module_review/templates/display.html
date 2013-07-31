@@ -63,6 +63,16 @@
 </ul>
 </div> 
 </div>  
+	{% for module in query %}
+	{% if module.checkr == 1 %}
+	    <div class="alert alert-error" style="width:500px" id="error-review" style="display:none">
+      	<!--<a class="close" onclick="$('.alert').hide()">×</a>-->  
+      	<!--<a class="close" data-dismiss="alert" onclick="document.getElementById('error-review').setAttribute('hidden')">×</a>-->
+      	<strong>OH NO!</strong> Looks like you have submitted the review for <strong>{{module.code}}</strong> before! Sorry, only 1 submission is allowed for each module.
+    	</div>
+    {% endif %}
+    {% endfor %}
+
     <div id="content" style="background-color:#FFFFFF;height:1000px;width:1450px; float:left;">
       <h4> Reviews of {{ person.username }} / {{ user_mail }} </h4>
 
