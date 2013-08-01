@@ -68,18 +68,15 @@
             var diff = $('#diff').val();
             var ratings = $('#ratings').val();
             var workload = $('#workload').val();
+
             $.ajax({
             url: "/addR",
             type: 'POST',
             data: { code:code, review: review, diff: diff, ratings: ratings, workload: workload},
             success: function(data,textStatus,jqxhr){
-<<<<<<< HEAD
-             window.location = "/display";
-=======
             //alert("Hello!");
-            window.location = "/errorR";
-            window.location.reload() ="/errorR";
->>>>>>> 5a29535cca32434a97f367bca271df7fc77835c6
+             window.location = "/display";
+              
             },
  
             error:function (xhr, ajaxOptions, thrownError){
