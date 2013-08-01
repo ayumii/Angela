@@ -6,6 +6,7 @@ import datetime
 import time
 import json
 import urllib2
+#import win32api
 
 from datetime import datetime
 
@@ -97,8 +98,9 @@ class AddR(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
 
   def post(self):
-    modcode = self.request.get("code")
+    modcode = self.request.get('code')
     email = users.get_current_user().email()
+<<<<<<< HEAD
     query = db.GqlQuery("SELECT * from ModuleReviews where code =:1 and email =:2", modcode, email).get()
     #self.response.out.write(query.code)
     #module = query.get()
@@ -108,19 +110,40 @@ class AddR(webapp2.RequestHandler):
       #module.checkr=1
       #module.put()
       self.redirect('/errorR')
+=======
+    query = db.GqlQuery("SELECT * from ModuleReviews where code =:1 and email =:2", modcode, email)
+    #self.response.out.write(query.code)
+    #module = query.get()
+    if query.count() == 1:
+      #self.response.out.write(query.code)
+      module = query.get()
+      module.checkr = 1
+      module.put()
+      #self.redirect('/errorR')
+      #win32api.MessageBox(0, 'hello', 'title')
+>>>>>>> 7d64faf3d1f3279bd4735cec0b6f3cd5f81a7e7a
     
     else:
      #query.count() == None:
       #self.response.out.write(query.code)
+<<<<<<< HEAD
       module = ModuleReviews(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
       module.text =  self.request.get("review")
       module.code = self.request.get("code")
       module.ratings = self.request.get("ratings")
       module.workload = self.request.get("workload")
       module.diff = self.request.get("diff")
+=======
+      module = ModuleReviews(code=self.request.get('code'),text=self.request.get('review')) #stores module in database
+      module.text =  self.request.get('review')
+      module.code = self.request.get('code')
+      module.ratings = self.request.get('ratings')
+      module.workload = self.request.get('workload')
+      module.diff = self.request.get('diff')
+>>>>>>> 7d64faf3d1f3279bd4735cec0b6f3cd5f81a7e7a
       module.email = users.get_current_user().email()
       module.put()
-      self.redirect('/display')
+      #self.redirect('/display')
     #searchcode = self.request.get("code")
     #count = CountReviews(key_name=self.request.get("code"))
     #query = db.GqlQuery("SELECT * FROM ModuleReviews WHERE code =:1 ",searchcode)
@@ -619,7 +642,17 @@ class Display(webapp2.RequestHandler):
     template = jinja_environment.get_template('display.html')
     self.response.out.write(template.render(template_values))
 
+    count = 1
+    email = users.get_current_user().email()
+    query = db.GqlQuery("SELECT * from ModuleReviews where checkr =:1 and email =:2", count, email)
+
+    if query.count() == 1:
+      module = query.get()
+      module.checkr = None
+      module.put()
+
   def post(self):
+
     useremail = users.get_current_user().email() 
     index = int(self.request.get("button") )
     query = db.GqlQuery("SELECT * from ModuleReviews where email = :1", useremail )
