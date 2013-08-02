@@ -14,6 +14,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a149b', end
 
 }
 
+.floatright
+{
+float: right;
+width: 400px;
+height: 100px;
+}
+
+
+
+
+
 
 
 

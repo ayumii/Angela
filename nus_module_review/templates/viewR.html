@@ -63,10 +63,10 @@
    <tbody>
     <tr>
       <td>
-        Username: {{ person.username }}<br>
-        Faculty: {{ person.faculty }}<br> 
-        Year: {{ person.year }}<br>
-        Gender: {{ person.gender }}<br>
+        <strong> Username </strong> : {{ person.username }}<br><br>
+        <strong> Faculty </strong> : {{ person.faculty }}<br><br>
+        <strong> Year </strong> : {{ person.year }}<br><br>
+        <strong> Gender </strong> : {{ person.gender }}<br><br>
       </td>
      <!-- <td>{#module.text#}</td>-->
      <!-- <td>{#module.email#} </td>
@@ -74,12 +74,14 @@
       <td>{#module.text#}  </td>
       <td>{#module.date.strftime('%Y-%m-%d %H:%M:%S')#} </td>-->
       <td>
-        {{query[loop.index0].date.strftime("%Y-%m-%d %H:%M:%S")}}<br>
+        <strong>{{ query[loop.index0].sem }}</strong><br>
+        {{query[loop.index0].date.strftime("%Y-%m-%d %H:%M:%S")}}<br><br>
+
         Ratings: {{query[loop.index0].ratings}}<br>
         Workload: {{query[loop.index0].workload}}<br>
-        Level of Difficulty: {{query[loop.index0].diff}}<br>
-        Comments:<br> 
-        {{query[loop.index0].text }} <br>
+        Level of Difficulty: {{query[loop.index0].diff}}<br><br>
+        
+        Comments:{{query[loop.index0].text }} <br><br>
      </td>
 
      <!--<td>{#module.date.strftime('%Y-%m-%d %H:%M:%S')#} </td>-->
