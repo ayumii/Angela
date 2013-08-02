@@ -100,7 +100,6 @@ class AddR(webapp2.RequestHandler):
   def post(self):
     modcode = self.request.get('code')
     email = users.get_current_user().email()
-
     query = db.GqlQuery("SELECT * from ModuleReviews where code =:1 and email =:2", modcode, email)
     #self.response.out.write(query.code)
     #module = query.get()
@@ -111,22 +110,18 @@ class AddR(webapp2.RequestHandler):
       module.put()
       #self.redirect('/errorR')
       #win32api.MessageBox(0, 'hello', 'title')
-
     
     else:
      #query.count() == None:
       #self.response.out.write(query.code)
-
-      module = ModuleReviews(code=self.request.get("code"),text=self.request.get("review")) #stores module in database
-      module.text =  self.request.get("review")
-      module.code = self.request.get("code")
-      module.ratings = self.request.get("ratings")
-      module.workload = self.request.get("workload")
-      module.diff = self.request.get("diff")
-
+      module = ModuleReviews(code=self.request.get('code'),text=self.request.get('review')) #stores module in database
+      module.text =  self.request.get('review')
+      module.code = self.request.get('code')
+      module.ratings = self.request.get('ratings')
+      module.workload = self.request.get('workload')
+      module.diff = self.request.get('diff')
       module.email = users.get_current_user().email()
       module.put()
-
       #self.redirect('/display')
     #searchcode = self.request.get("code")
     #count = CountReviews(key_name=self.request.get("code"))

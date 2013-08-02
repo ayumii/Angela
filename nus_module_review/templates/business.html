@@ -19,14 +19,15 @@
    
    var tblRow;
 
-   $.getJSON('/json/nusmod.json', function(data) {
+   $.getJSON('/json/nus_mod.json', function(data) {
 
-       $.each(data.moduleInformation, function(i, f) {
-          if(f.department ==  "ACCOUNTING" || f.department ==  "CENTRE FOR E-BUSINESS" || f.department== "DEAN'S OFFICE (BIZ)" || f.department== "DECISION SCIENCES" || f.department=="FINANCE" || f.department=="HUMAN RESOURCE MANAGEMENT UNIT" ||    f.department=="MANAGEMENT AND ORGANISATION" || f.department== "MARKETING" || f.department=="STRATEGY AND POLICY" ) {
+       $.each(data.cors, function(i, f) {
+          if(f.department ==  "HUMAN RESOURCE MANAGEMENT UNIT" || f.department ==  "ACCOUNTING" || f.department== "STRATEGY AND POLICY" || f.department== "DECISION SCIENCES" || f.department=="FINANCE" || f.department== "DEAN'S OFFICE (BIZ)" ||    f.department=="MANAGEMENT AND ORGANISATION" || f.department== "MARKETING" ) {
 
             tblRow = "<tr>" + "<td>" + f.label + "</td>" +
            "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
            $(tblRow).appendTo("#userdata tbody");
+
 
           }
         });
@@ -37,10 +38,10 @@
 
       function compare() {
 
-        $.getJSON('/json/nusmod.json', function(data) {
+        $.getJSON('/json/nus_mod.json', function(data) {
 
           var x = document.getElementById("modcode").value.toUpperCase();
-          if (data.moduleInformation[x]) {
+          if (data.cors[x]) {
             window.location.href="/viewR?code=" + x;
           }
           else

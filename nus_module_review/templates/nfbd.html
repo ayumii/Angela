@@ -18,10 +18,10 @@
         
         var tblRow;
 
-        $.getJSON('/json/nusmod.json', function(data) {
+        $.getJSON('/json/nus_mod.json', function(data) {
 
-          $.each(data.moduleInformation, function(i, f) {
-            if(f.department == 'CTR FOR ENGLISH LANGUAGE COMMUNICATION' ) {
+          $.each(data.cors, function(i, f) {
+            if(f.department == "CTR FOR ENGLISH LANGUAGE COMMUNICATION" || f.department == "TEMASEK DEFENCE SYSTEMS INSTITUTE" || f.department == "COLLEGE OF ALICE & PETER TAN" || f.department == "TEMBUSU COLLEGE" || f.department == "INSTITUTE OF SYSTEMS SCIENCE" || f.department == "SINGAPORE-MIT ALLIANCE" ) {
 
               tblRow = "<tr>" + "<td>" + f.label + "</td>" +
               "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
@@ -34,12 +34,14 @@
 
       });
 
+
+
       function compare() {
 
-        $.getJSON('/json/nusmod.json', function(data) {
+        $.getJSON('/json/nus_mod.json', function(data) {
 
           var x = document.getElementById("modcode").value.toUpperCase();
-          if (data.moduleInformation[x]) {
+          if (data.cors[x]) {
             window.location.href="/viewR?code=" + x;
           }
           else

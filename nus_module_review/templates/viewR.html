@@ -74,12 +74,12 @@
       <td>{#module.text#}  </td>
       <td>{#module.date.strftime('%Y-%m-%d %H:%M:%S')#} </td>-->
       <td>
-        {{ query[loop.index0].date.replace(hour=((query[loop.index0].date.hour+8)%24) , microsecond=0 ) }}<br>
-        Ratings: {{ query[loop.index0].ratings }}<br>
-        Workload: {{ query[loop.index0].workload }}<br>
-        Level of Difficulty: {{ query[loop.index0].diff }}<br>
+        {{query[loop.index0].date.strftime("%Y-%m-%d %H:%M:%S")}}<br>
+        Ratings: {{query[loop.index0].ratings}}<br>
+        Workload: {{query[loop.index0].workload}}<br>
+        Level of Difficulty: {{query[loop.index0].diff}}<br>
         Comments:<br> 
-        {{ query[loop.index0].text }} <br>
+        {{query[loop.index0].text }} <br>
      </td>
 
      <!--<td>{#module.date.strftime('%Y-%m-%d %H:%M:%S')#} </td>-->

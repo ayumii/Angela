@@ -19,22 +19,20 @@
    var people = [];
    var tblRow;
 
-   $.getJSON('/json/nusmod.json', function(data) {
+   $.getJSON('/json/nus_mod.json', function(data) {
 
-       $.each(data.moduleInformation, function(i, f) {
-          if(f.department == "ANAESTHESIA" || f.department== "ANATOMY" || f.department== "BIOCHEMISTRY" || 
-            f.department=="CENTRE FOR MOLECULAR EPIDEMIOLOGY" || f.department=="DEAN'S OFFICE (MEDICINE)" || 
-            f.department=="DIAGNOSTIC RADIOLOGY" || f.department=="DIVISION OF GRADUATE MEDICAL STUDIES" || 
-            f.department=="ELECTRON MICROSCOPE UNIT" || f.department== "MEDICINE" || f.department== "MICROBIOLOGY" || 
-            f.department=="NATIONAL UNIVERSITY MEDICAL INSTITUTES" || f.department=="NURSING/ALICE LEE CTR FOR NURSING STUD"||
-            f.department=="OBSTETRICS & GYNAECOLOGY" || f.department=="OPHTHALMOLOGY" || f.department== "ORTHOPAEDIC SURGERY" || 
-            f.department=="OTOLARYNGOLOGY" || f.department=="PAEDIATRICS" || f.department=="PATHOLOGY" || 
-            f.department== "PHARMACOLOGY" || f.department=="PHYSIOLOGY" || f.department=="PSYCHOLOGICAL MEDICINE" ||
-            f.department=="SURGERY" || f.department=="WHO IMMUNOLOGY RESEARCH & TRAINING CTR" ) {
+       $.each(data.cors, function(i, f) {
+          if(f.department == "ANATOMY" || f.department== "DEAN'S OFFICE (MEDICINE)"|| 
+            f.department== "BIOCHEMISTRY" || 
+            f.department=="PHYSIOLOGY" || f.department== "MICROBIOLOGY" || 
+            f.department== "PATHOLOGY" || f.department=="MEDICINE" || 
+            f.department=="PAEDIATRICS" || f.department== "SURGERY" || f.department== "PHARMACOLOGY" || 
+            f.department=="NURSING/ALICE LEE CTR FOR NURSING STUD" || f.department=="DIVISION OF GRADUATE MEDICAL STUDIES") {
 
             tblRow = "<tr>" + "<td>" + f.label + "</td>" +
            "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
            $(tblRow).appendTo("#userdata tbody");
+
 
           }
         });
@@ -45,10 +43,10 @@
 
       function compare() {
 
-        $.getJSON('/json/nusmod.json', function(data) {
+        $.getJSON('/json/nus_mod.json', function(data) {
 
           var x = document.getElementById("modcode").value.toUpperCase();
-          if (data.moduleInformation[x]) {
+          if (data.cors[x]) {
             window.location.href="/viewR?code=" + x;
           }
           else

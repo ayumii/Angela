@@ -19,17 +19,18 @@
    var people = [];
    var tblRow;
 
-   $.getJSON('/json/nusmod.json', function(data) {
+   $.getJSON('/json/nus_mod.json', function(data) {
 
-       $.each(data.moduleInformation, function(i, f) {
-          if(f.department == "BIOLOGICAL SCIENCES" ||f.department=="CENTRE FOR COMPUTATIONAL SCIENCE & ENGRG" ||
-            f.department=="CHEMISTRY" ||f.department== "DEAN'S OFFICE (SCIENCE)" ||f.department=="MATHEMATICS" ||
-            f.department=="PHARMACY" ||f.department=="PHYSICS" ||f.department=="STATISTICS & APPLIED PROBABILITY" ||
-            f.department== "ZOOLOGICAL REFERENCE COLLECTIONS") {
+       $.each(data.cors, function(i, f) {
+          if(f.department == "BIOLOGICAL SCIENCES" ||f.department=="STATISTICS & APPLIED PROBABILITY" ||
+            f.department=="CHEMISTRY" ||f.department== "PHARMACY" ||f.department== "DEAN'S OFFICE (SCIENCE)" ||
+            f.department== "MATHEMATICS" ||f.department=="PHYSICS") {
 
             tblRow = "<tr>" + "<td>" + f.label + "</td>" +
            "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
            $(tblRow).appendTo("#userdata tbody");
+
+
 
           }
         });
@@ -40,10 +41,10 @@
 
      function compare() {
 
-        $.getJSON('/json/nusmod.json', function(data) {
+        $.getJSON('/json/nus_mod.json', function(data) {
 
           var x = document.getElementById("modcode").value.toUpperCase();
-          if (data.moduleInformation[x]) {
+          if (data.cors[x]) {
             window.location.href="/viewR?code=" + x;
           }
           else

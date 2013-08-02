@@ -18,17 +18,38 @@
 
             var tblRow;
             
+            $.getJSON('/json/nus_mod.json', function(data) {   
+                $.each(data.cors, function(i, f) { 
+                    if(f.department == "ECONOMICS" || f.department == "SOCIOLOGY" || f.department == "HISTORY" || f.department == "DEAN'S OFFICE (ARTS & SOCIAL SC.)" || f.department == "CHINESE STUDIES" || f.department == "ENGLISH LANGUAGE & LITERATURE" || f.department == "POLITICAL SCIENCE" || f.department == "PHILOSOPHY" || f.department ==  "JAPANESE STUDIES" ||f.department ==  "GEOGRAPHY" ||f.department ==  "SOCIAL WORK" ||f.department ==  "SOUTHEAST ASIAN STUDIES" ||f.department ==  "SOUTH ASIAN STUDIES PROGRAMME" || f.department ==  "COMMUNICATIONS AND NEW MEDIA"||f.department ==  "CENTRE FOR LANGUAGE STUDIES" ||f.department ==  "MALAY STUDIES" ||f.department == "PSYCHOLOGY") {
 
-            $.getJSON('/json/nusmod.json', function(data) {   
+                            tblRow = "<tr>" + "<td>" + f.label + "</td>" +
+                            "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
+                            $(tblRow).appendTo("#userdata tbody");
+
+
+
+
+                    }
+                });
+            });
+
+         /**   $.getJSON('/json/nusmod.json', function(data) {   
                 $.each(data.moduleInformation, function(i, f) { 
                     if(f.department == 'CENTRE FOR LANGUAGE STUDIES' || f.department == 'CHINESE STUDIES' || f.department == 'COMMUNICATIONS AND NEW MEDIA' || f.department == "DEAN'S OFFICE (ARTS & SOCIAL SC.)" || f.department == 'ECONOMICS' || f.department == 'ENGLISH LANGUAGE & LITERATURE' || f.department == 'GEOGRAPHY' || f.department == 'HISTORY' || f.department == 'JAPANESE STUDIES' ||f.department ==  'MALAY STUDIES' ||f.department ==  'PHILOSOPHY' ||f.department ==  'POLITICAL SCIENCE' ||f.department ==  'PSYCHOLOGY' || f.department == 'SOCIAL WORK' ||f.department ==  'SOCIOLOGY' ||f.department ==  'SOUTH ASIAN STUDIES PROGRAMME' ||f.department ==  'SOUTHEAST ASIAN STUDIES') {
 
                             tblRow = "<tr>" + "<td>" + f.label + "</td>" +
                             "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
                             $(tblRow).appendTo("#userdata tbody");
+
+
+
                     }
                 });
-            });
+            }); **/
+
+
+
+
         });
 
     </script>
@@ -39,13 +60,13 @@
        
         function compare() {
 
-            $.getJSON('/json/nusmod.json', function(data) {
+            $.getJSON('/json/nus_mod.json', function(data) {
 
                 var x = document.getElementById("modcode").value.toUpperCase();
 
                 // var isValid = data.moduleInformation.indexOf(document.getElementById("modcode").toUpperCase());
 
-                if (data.moduleInformation[x]) {
+                if (data.cors[x]) {
                     
                      window.location.href="/viewR?code=" + x;
 

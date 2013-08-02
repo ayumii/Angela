@@ -47,9 +47,9 @@
 
     function validateForm()
     {
-      $.getJSON('/json/nusmod.json', function(data) {
+      $.getJSON('/json/nus_mod.json', function(data) {
 
-      if (data.moduleInformation[document.getElementById("code").value.toUpperCase()]) {
+      if (data.cors[document.getElementById("code").value.toUpperCase()]) {
             //alert("yay")
 
             var c = document.forms["myform"]["code"].value;
@@ -68,19 +68,15 @@
             var diff = $('#diff').val();
             var ratings = $('#ratings').val();
             var workload = $('#workload').val();
-
             $.ajax({
             url: "/addR",
             type: 'POST',
             data: { code:code, review: review, diff: diff, ratings: ratings, workload: workload},
             success: function(data,textStatus,jqxhr){
             //alert("Hello!");
-
-             window.location = "/display";
-              
-
             window.location = "/display";
             
+
             },
  
             error:function (xhr, ajaxOptions, thrownError){

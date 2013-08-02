@@ -19,9 +19,9 @@
    var people = [];
    var tblRow;
 
-   $.getJSON('/json/nusmod.json', function(data) {
+   $.getJSON('/json/nus_mod.json', function(data) {
 
-       $.each(data.moduleInformation, function(i, f) {
+       $.each(data.cors, function(i, f) {
           if(f.department == "UNIVERSITY SCHOLARS PROGRAMME" ) {
 
             tblRow = "<tr>" + "<td>" + f.label + "</td>" +
@@ -37,10 +37,10 @@
 
       function compare() {
 
-        $.getJSON('/json/nusmod.json', function(data) {
+        $.getJSON('/json/nus_mod.json', function(data) {
 
           var x = document.getElementById("modcode").value.toUpperCase();
-          if (data.moduleInformation[x]) {
+          if (data.cors[x]) {
             window.location.href="/viewR?code=" + x;
           }
           else
