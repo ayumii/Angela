@@ -65,6 +65,7 @@ class ModuleReviews(db.Model):
   email = db.StringProperty()#identify user that wrote review
   date = db.DateTimeProperty(auto_now_add=True)
   checkr= db.IntegerProperty()
+  sem = db.StringProperty()
 #to count the number of reviews for future use  
 class CountReviews(db.
   Model):
@@ -121,6 +122,7 @@ class AddR(webapp2.RequestHandler):
       module.workload = self.request.get('workload')
       module.diff = self.request.get('diff')
       module.email = users.get_current_user().email()
+      module.sem = "AY 2013/2014 Semester 1"
       module.put()
       #self.redirect('/display')
     #searchcode = self.request.get("code")

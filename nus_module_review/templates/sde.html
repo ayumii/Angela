@@ -19,16 +19,18 @@
    var people = [];
    var tblRow;
 
-   $.getJSON('/json/nusmod.json', function(data) {
+   $.getJSON('/json/nus_mod.json', function(data) {
 
-       $.each(data.moduleInformation, function(i, f) {
-          if(f.department == "ARCHITECTURE" || f.department =="BUILDING" || 
-            f.department =="DEAN'S OFFICE (SCHOOL OF DESIGN & ENV)" || f.department =="DIVISION OF INDUSTRIAL DESIGN" ||
-            f.department =="REAL ESTATE") {
+       $.each(data.cors, function(i, f) {
+          if(f.department == "ARCHITECTURE" || f.department =="DEAN'S OFFICE (SCHOOL OF DESIGN & ENV)" || 
+            f.department =="BUILDING" || f.department =="REAL ESTATE" ||
+            f.department =="DIVISION OF INDUSTRIAL DESIGN") {
 
             tblRow = "<tr>" + "<td>" + f.label + "</td>" +
            "<td>" + f.title + "</td>" + "<td>" + f.description + "</td>" + "<td>" + f.department + "</td>" + "</tr>"
            $(tblRow).appendTo("#userdata tbody");
+
+
 
           }
         });
@@ -39,10 +41,10 @@
 
      function compare() {
 
-        $.getJSON('/json/nusmod.json', function(data) {
+        $.getJSON('/json/nus_mod.json', function(data) {
 
           var x = document.getElementById("modcode").value.toUpperCase();
-          if (data.moduleInformation[x]) {
+          if (data.cors[x]) {
             window.location.href="/viewR?code=" + x;
           }
           else
